@@ -10,7 +10,7 @@
          url('../mkdir-shelter/fonts/georgia.woff2') format('woff2'),
          url('../mkdir-shelter/fonts/georgia.woff') format('woff'),
          url('../mkdir-shelter/fonts/georgia.ttf') format('truetype'),
-         url('../mkdir-shelter/fonts/georgia.svg') format('svg');
+         url('../mkdir-shelter/fonts/georgia.svg#georgia') format('svg');
          font-weight: 400;
 }
 /*-------------------------------------------*/
