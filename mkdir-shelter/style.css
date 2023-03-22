@@ -1,0 +1,44 @@
+/*------------------------------------------*/
+/*------------------------------------------*/
+/*------------------------------------------*/
+@import url("../mkdir-shelter/reset.css");
+/*-------------------------------------------*/
+@font-face {
+    font-family: 'georgia';
+    src: url('../mkdir-shelter/fonts/georgia.eot');
+    src: url('../mkdir-shelter/fonts/georgia.eot') format('embedded-opentype'),
+         url('../mkdir-shelter/fonts/georgia.woff2') format('woff2'),
+         url('../mkdir-shelter/fonts/georgia.woff') format('woff'),
+         url('../mkdir-shelter/fonts/georgia.ttf') format('truetype'),
+         url('../mkdir-shelter/fonts/georgia.svg') format('svg');
+         font-weight: 400;
+}
+/*-------------------------------------------*/
+@font-face {
+    font-family: 'arial';
+    src: url('../mkdir-shelter/fonts/arial.eot');
+    src: url('../mkdir-shelter/fonts/arial.eot') format('embedded-opentype'),
+         url('../mkdir-shelter/fonts/arial.woff2') format('woff2'),
+         url('../mkdir-shelter/fonts/arial.woff') format('woff'),
+         url('../mkdir-shelter/fonts/arial.ttf') format('truetype'),
+         url('../mkdir-shelter/fonts/arial.svg#arial') format('svg');
+         font-weight: 400;
+}
+/*-------------------------------------------*/
+body {
+    font-family: 'Poppins';
+    font-weight: 300;
+    color: #9C9C9C;
+    background-color: #ffff;
+}
+
+.arial-font {
+    font-family: 'arial';
+    font-size: 50px;
+    font-weight: 400;
+}
+.georgia_font {
+    font-family: 'georgia';
+    font-size: 50px;
+    font-weight: 400;
+}
