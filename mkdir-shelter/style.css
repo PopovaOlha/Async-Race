@@ -479,3 +479,24 @@ body {
     padding-bottom: 5px;
     border-bottom: 3px solid #F1CDB3;
 }
+/*------------------------------------------*/
+/*main our-pets*/
+/*------------------------------------------*/
+.our-pets {
+    padding: 80px 0 100px;
+    background-color: #F6F6F6;
+}
+.pets_column {
+    display:flex;
+    justify-content: center;
+    column-gap: 40px;
+}
+.pets_column:not(:last-child) {
+    margin-bottom: 30px;
+}
+.pet_title {
+    text-align: center;
+}
+.pet_title:not(:last-child) {
+    margin-bottom: 45px;
+}
