@@ -3,6 +3,7 @@
 /*------------------------------------------*/
 @import url("../mkdir-shelter/reset.css");
 /*-------------------------------------------*/
+
 @font-face {
     font-family: 'georgia';
     src: url('../mkdir-shelter/fonts/georgia.eot');
@@ -125,6 +126,7 @@ body {
 .first-link:link {
     color: #FAFAFA;
     border-bottom: 3px solid #F1CDB3;
+    padding-bottom: 5px;
 }
 .second-link:visited {
     color: #FAFAFA;
@@ -451,4 +453,29 @@ body {
     line-height: 1.15; /* 23/20 */
     letter-spacing: 0.06em;
     color: #F1CDB3;
+}
+/*--------------------------------------*/
+/*our pets page*/
+/*---------------------------------------*/
+/*---------------------------------------*/
+/*Header*/
+/*---------------------------------------*/
+.header-pets {
+ padding:30px 0;
+ height: 120px;
+}
+
+.header-link {
+    color: #545454;
+}
+.header-subtitle {
+    color: #292929;
+}
+.pets_link {
+    color: #545454;
+}
+.second_link {
+    color: #545454;
+    padding-bottom: 5px;
+    border-bottom: 3px solid #F1CDB3;
 }
