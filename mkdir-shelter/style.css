@@ -169,12 +169,14 @@ body {
     margin-bottom: 44px;
 }
 
-.not-only_text {
+.not-only_text p {
     font-family: "arial";
     font-weight: 400;
     font-size: 15px;
     line-height: 1.6; /* 24/15 */
     color: #CDCDCD;
+    -webkit-text-stroke: 0.3px #000000;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .not-only_text:not(:last-child) {
@@ -417,7 +419,7 @@ body {
 /*Footer*/
 /*--------------------------------------------*/
 .footer {
-    background-color: #211F20;
+    background: url(noise_lines_transparent@2X.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 10%, #262425 100%);  
     padding-top: 40px;
 }
 
