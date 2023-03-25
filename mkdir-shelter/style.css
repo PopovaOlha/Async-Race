@@ -187,3 +187,42 @@ body {
 
 .not-only_image {
 }
+/*-----------------------------------------*/
+/*section about*/
+/*-----------------------------------------*/
+.about_page {
+    padding: 80px 175px 100px;
+    background-color: #FFFFFF;
+}
+.about__conteiner {
+    display:flex;
+    justify-content: center;
+    column-gap: 120px;
+}
+
+.about_content {
+    align-self: center;
+    max-width:430px;
+}
+
+.about_title:not(:last-child) {
+    margin-bottom: 25px;
+}
+
+.about_subtitle { 
+    font-family: 'arial';
+    font-size: 15px;
+    line-height: 1.6; /* 24/15 */
+    color: #4C4C4C;
+}
+
+.about_subtitle:not(:last-child) {
+    margin-bottom: 25px;
+}
+
+.about_text {
+    font-family: 'arial';
+    font-size: 15px;
+    line-height: 1.6; /* 24/15 */
+    color: #4C4C4C;
+}
