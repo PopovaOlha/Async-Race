@@ -141,4 +141,49 @@ body {
 /*------------------------------------------*/
 /*section not-only
 /*------------------------------------------*/
+.not-only_page {
+   
+}
 
+.main {
+    padding-top: 180px;
+}
+
+.not-only__conteiner {
+    display:flex;
+   column-gap: 42px;
+}
+
+.not-only_content {
+    padding-top:163px;
+}
+
+.not-only_title {
+    font-size: 44px;
+    font-weight: 400;
+    line-height: 1.31; /* 57/44 */
+    color: #FFFFFF;
+}
+
+.not-only_title:not(:last-child) {
+    margin-bottom: 44px;
+}
+
+.not-only_text {
+    font-family: "arial";
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.6; /* 24/15 */
+    color: #CDCDCD;
+}
+
+.not-only_text:not(:last-child) {
+    margin-bottom: 43px;
+}
+
+.not-only_button {
+    padding:15px 45px;
+}
+
+.not-only_image {
+}
