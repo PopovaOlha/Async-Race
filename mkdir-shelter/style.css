@@ -326,3 +326,90 @@ body {
 .friends_button {
     padding:15px 45px;
 }
+/*----------------------------------------*/
+/*section help*/
+/*----------------------------------------*/
+.help_page {
+    padding: 80px 0 100px;
+    background-color: #FFFFFF;
+}
+
+.help_title {
+    text-align: center;
+}
+
+.help_title:not(:last-child) {
+    margin-bottom: 60px;
+}
+
+.help_column {
+    display:flex;
+    justify-content: center;
+    column-gap: 120px;
+}
+
+.help_body {
+    align-items: center;
+}
+
+.help_column:not(:last-child) {
+    margin-bottom: 55px;
+}
+
+.help_item {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+    cursor: pointer;
+}
+
+.help_name a {
+    font-size: 20px;
+    line-height: 1.15; /* 23/20 */
+    letter-spacing: 0.06em;
+    color: #545454;
+}
+/*--------------------------------------*/
+/*section in-addition*/
+/*--------------------------------------*/
+.in-addition_page {
+    padding: 80px 0 100px;
+    background-color: #F6F6F6;
+}
+.in-addition__conteiner {
+    display:flex;
+    justify-content: center;
+    column-gap: 30px;
+}
+
+.in-addition_content {
+    align-self: center;
+    max-width: 380px;
+}
+.in-addition_title:not(:last-child),
+ .in-addition_name:not(:last-child),
+ .in-addition_number:not(:last-child) {
+    margin-bottom: 20px;
+}
+
+.in-addition_name {
+    font-size: 15px;
+    line-height: 1.13; /* 17/15 */
+    letter-spacing: 0.06em;
+    color: #545454;
+}
+.in-addition_number {
+    display:inline-block;
+    padding: 10px 15px;
+    text-align: center;
+    background-color: #F1CDB3;
+    border-radius: 9px;
+}
+.in-addition_text {
+    font-family: 'arial';
+    font-style: italic;
+    font-size: 12px;
+    line-height: 1.5; /* 18/12 */
+    color: #B2B2B2;
+}
