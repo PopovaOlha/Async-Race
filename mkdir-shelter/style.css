@@ -192,9 +192,9 @@ body {
     }
     .header__conteiner { 
         min-height: 60px;
-  }
-   
+  }  
 }
+
 @media (max-width: 767.98px) {
     .menu_list{
         column-gap:15px;
@@ -308,7 +308,7 @@ body {
 }
 
 .not-only_text p {
-    width: 105%;
+    width: 100%;
     font-family: "arial";
     font-weight: 400;
     font-size: 15px;
@@ -319,7 +319,7 @@ body {
 }
 @media (max-width: 780px) {
     .not-only_content {
-        max-width: 63%;
+        max-width: 65%;
     }
 }
 .not-only_text:not(:last-child) {
@@ -347,7 +347,7 @@ body {
    .not-only_image, .puppy_img {
     text-align: end;
     align-self: self-end;
-    max-width: 89.6%;
+    max-width: 89.7%;
    }
 }
 /*-----------------------------------------*/
@@ -360,12 +360,14 @@ body {
 .about__conteiner {
     display:flex;
     justify-content: center;
-    column-gap: 120px;
+    column-gap: 15%;
 }
-
+.about_image {
+   
+}
 .about_content {
     align-self: center;
-    max-width:430px;
+    flex: 1 1 100%;
 }
 
 .about_title:not(:last-child) {
@@ -388,6 +390,21 @@ body {
     font-size: 15px;
     line-height: 1.6; /* 24/15 */
     color: #4C4C4C;
+}
+@media (max-width: 991.98px) {
+    .about_page {
+        padding: 80px 18.1% 100px;
+    }
+    .about__conteiner {
+        display:flex;
+        flex-direction: column-reverse;
+    }
+    .about_content {
+        margin-bottom: 18.7%;
+    }
+    .about_image {
+        text-align: center;
+    }
 }
 /*-----------------------------------------*/
 /*section our friends*/
