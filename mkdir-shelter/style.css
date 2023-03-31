@@ -391,6 +391,7 @@ body {
     line-height: 1.6; /* 24/15 */
     color: #4C4C4C;
 }
+
 @media (max-width: 991.98px) {
     .about_page {
         padding: 80px 18.1% 100px;
@@ -402,9 +403,11 @@ body {
     .about_content {
         margin-bottom: 18.7%;
     }
-    .about_image {
+    .about_image, .pets_img {
+        max-width:100%;
         text-align: center;
     }
+    
 }
 /*-----------------------------------------*/
 /*section our friends*/
@@ -440,19 +443,22 @@ body {
     height: 52px;
     border: 2px solid #F1CDB3;
     border-radius: 100px;
+    margin-bottom: 52px;
+
 }
 .our-friends_arrow:hover {
     background-color: #FDDCC4;
     transition: all 0.5s;
 }
 .our-friends_button {
- position:absolute;
- top:43%;
- left:35%;
+    position:absolute;
+    top:43%;
+    left:35%;
 }
 
 .our-friends_body {
     display:flex;
+    flex-wrap: wrap;
     column-gap: 90px;
     padding:0 49px;
 }
@@ -503,6 +509,18 @@ body {
 .friends_button {
     padding:15px 45px;
 }
+@media (max-width: 991.98px) {
+    .third-image {
+        display:none;
+    }
+    .our-friends_body {
+        column-gap: 3em;
+        padding:0 1em;
+    }
+    .our-friends_arrow {
+       
+    }
+}
 /*----------------------------------------*/
 /*section help*/
 /*----------------------------------------*/
@@ -522,6 +540,7 @@ body {
 
 .help_column {
     display:flex;
+    flex-wrap: wrap;
     justify-content: center;
     column-gap: 120px;
 }
@@ -547,6 +566,17 @@ body {
     line-height: 1.15; /* 23/20 */
     letter-spacing: 0.06em;
     color: #545454;
+}
+@media (max-width: 991.98px) {
+    .help_item {
+        flex: 1 1 25%;
+        text-align: center;
+        align-self: center;
+    }
+    .help_column {
+        column-gap: 3em;
+        row-gap: 3.9em;
+    }
 }
 /*--------------------------------------*/
 /*section in-addition*/
