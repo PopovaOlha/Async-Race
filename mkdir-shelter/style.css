@@ -1192,13 +1192,14 @@ body {
     border-radius: 100px;
     border: 2px solid #CDCDCD;
 }
-.button_paginator:hover {
-    background-color: #F1CDB3;
-    transition: all 0.5s;
+
+.button_paginator:hover{
+   background-color: #F1CDB3;
+   transition: all 0.5s;
 }
 
 .our-pets_navigation .button_paginator:nth-child(3) {
-    background-color: #F1CDB3;;
+    background-color: #F1CDB3;
 }
 
 .pets_button {
@@ -1216,6 +1217,9 @@ body {
 .fifth {
     top: 25%;
     left: 23%;
+}
+.paginator-1 {
+    background: #F1CDB3;
 }
 
 .third {
