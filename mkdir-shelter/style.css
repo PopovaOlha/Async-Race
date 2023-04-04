@@ -804,6 +804,7 @@ body {
     }
 
     .in-addition_body {
+        text-align: center;
         padding: 0;
     }
 
@@ -937,9 +938,13 @@ body {
         justify-content: center;
         
     }
-
+    .footer .footer__conteiner .footer_body .footer_contacts {
+        justify-content: center;
+        align-items: center;
+    }
     .footer_body {
         flex-direction: column;
+        margin: auto;
     }
 
     .footer_body:not(:last-child) {
@@ -949,14 +954,20 @@ body {
     .first-box {
         align-items: center;
     }
-
+    .footer_contacts {
+        margin: auto;
+    }
     .second-box {
-        align-items: start;
+        align-self:flex-start;
     }
 
     .footer-puppy_img, .puppy-image {
         max-width: 93.2%;
         text-align: center;
+    }
+
+    .footer_content {
+        flex: 1 1 auto;
     }
 
     .footer-contacts_box {
