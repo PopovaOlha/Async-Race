@@ -622,14 +622,25 @@ body {
         order:3;      
     }
     .seсond-arrow {
-        
         order: 2;
     }
     .second-image {
         display: none;
     }
 }
- 
+ @media (max-width: 770px) and (min-width: 340px) {
+    .our-friends_body {
+        order: 2;
+    }
+    .first-arrow {
+        margin-right: 0;
+        order:3;      
+    }
+    .seсond-arrow {
+        order: 1;
+    }
+    
+ }
 /*----------------------------------------*/
 /*section help*/
 /*----------------------------------------*/
