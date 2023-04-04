@@ -500,6 +500,7 @@ body {
 
 .our-friends_column {
     display:flex;
+    flex-wrap: wrap;
     justify-content: center;
 }
 
