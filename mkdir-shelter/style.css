@@ -453,9 +453,11 @@ body {
         line-height: 1.28; /* 32/25 */
         text-align: center;
     } 
-
-    .about_title, .about_subtitle {
-        text-align: justify;
+    .about_title {
+        text-align: center;
+    }
+     .about_subtitle, .about_text {
+      text-align: justify;
     }
 
     .about_subtitle:not(:last-child) {
