@@ -580,31 +580,14 @@ body {
 }
 
 @media (max-width: 991.98px) {
-    .our-friends_column {
-        flex-direction: row-reverse;
-    } 
-   
-    .our-friends_arrow {
-        margin: 0;
-    }
-
-    .first-arrow {
-        margin: 0;
-        order: 1;     
-    }
-    .seсond-arrow {
-        order:3;
-    }
 
     .third-image {
-       display: none;
-    }
-
-    .our-friends_body {
-        column-gap: 3em;
-        padding:0 1em;
-        order:2;
-    }
+        display: none;
+     }
+     .our-friends_body {
+         column-gap: 3em;
+         padding:0 1em;
+     }
     
 }
 
@@ -612,66 +595,41 @@ body {
     .our-friends_page {
         padding: 42px 0;
     }
-
     .our-friends_column {
         flex-direction: row-reverse;
         flex-wrap: wrap;
     }
-
     .our-friends_column>* {
         flex: 0 1 auto;
     }
-    
-    .our-friends_arrow {
-        margin-bottom: 42px;
-    }
-
-    .first-arrow {
-        margin-right: 80px;
-        order: 1;      
-    }
-
-    .seсond-arrow {
-        order: 3;
-    }
-
-    .our-friends_body {
-        order: 2;
-    }
-
-    .our-friends_title:not(:last-child) {
-        margin-bottom: 42px;
-    }
-
-    .second-image {
-       display: none;
-    }
-
     .our-friends_body:not(:last-child) {
         margin-bottom: 20px;
     }
-}
-
-@media(min-width: 350px) and (max-width: 1200px) {
-    
     .our-friends_body {
-        order: 2;
+        padding:0;
     }
-
-    .our-friends_arrow {
-        margin: 0;
+    .our-friends_title:not(:last-child) {
+        margin-bottom: 42px;
     }
-
-    .first-arrow {
-        margin: 0;
-        order:3;      
-    }
-
-    .seсond-arrow {
+    .first-friends {
         order: 1;
     }
+    .our-friends_arrow {
+        margin-bottom: 42px;
+    }
+    .first-arrow {
+        margin-right: 80px;
+        order:3;      
+    }
+    .seсond-arrow {
+        
+        order: 2;
+    }
+    .second-image {
+        display: none;
+    }
 }
-  
+ 
 /*----------------------------------------*/
 /*section help*/
 /*----------------------------------------*/
