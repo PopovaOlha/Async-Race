@@ -1125,6 +1125,7 @@ body {
 
 .pets_column {
     display:flex;
+    flex-wrap: wrap;
     justify-content: center;
     column-gap: 40px;
 }
