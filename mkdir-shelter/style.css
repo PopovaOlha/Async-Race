@@ -695,21 +695,8 @@ body {
     }
 
     .help_column {
-        row-gap: 2.15em;
-    }
-    
-    .help_title:not(:last-child) {
-        flex: 0 0 50%;
-        margin-bottom: 42px;
-    }
-
-    .help_item:last-child {
-        margin-right: 170px;
-    }
-
-    .help_item {
-        row-gap: 20px;
-        flex: 1 1 30%;
+        display: grid;
+        grid-template-columns: repeat(2 ,minmax(130px, 1fr));
     }
 
     .help_name .help_link {
