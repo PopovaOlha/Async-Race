@@ -710,15 +710,20 @@ body {
     .help_column {
         display: grid;
         grid-template-columns: repeat(2 ,minmax(130px, 1fr));
+        row-gap: 30px;
     }
-
+    .help_title:not(:last-child) {
+        margin-bottom: 42px;
+    }
     .help_name .help_link {
         display: block;
         font-size: 15px;
         line-height: 1.13; /* 17/15 */
         letter-spacing: 0.06em;
     }
-
+    .help_item {
+        row-gap: 20px;
+    }
     .help_image img {
         max-width: 83.35%;
     }
@@ -857,8 +862,7 @@ body {
 .footer {
     background: url(./pictures/footer-gradient-background.png), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20 no-repeat center center fixed;
     background-size: cover;
-    padding-top: 56px;
-    height: 350px;
+    padding-top: 40px;
 }
 
 .footer__conteiner {
