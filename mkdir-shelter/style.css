@@ -500,7 +500,6 @@ body {
 
 .our-friends_column {
     display:flex;
-    flex-wrap: wrap;
     justify-content: center;
 }
 
@@ -631,7 +630,7 @@ body {
         display: none;
     }
 }
- @media (max-width: 770px) and (min-width: 340px) {
+ @media (max-width: 760px) and (min-width: 340px) {
     .our-friends_body {
         order: 2;
     }
@@ -859,6 +858,7 @@ body {
     background: url(./pictures/footer-gradient-background.png), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20 no-repeat center center fixed;
     background-size: cover;
     padding-top: 56px;
+    height: 350px;
 }
 
 .footer__conteiner {
