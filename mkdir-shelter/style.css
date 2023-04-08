@@ -203,22 +203,23 @@ body {
         width: 320px;
         height: 100%;
         background-color:#292929;
-        left:-100%;
+        right:-100%;
         top:0;
         padding: 100px 15px 30px 15px;
         overflow: auto;
-        transition: left 0.3s ease 0s;
+        transition: right 1s ease 0.5s;
+        z-index: 2;
     }
     .menu_body::before {
         content: "";
         width: 320px;
         position: fixed;
         top:0;
-        left:-100%;
+        right:-100%;
         height: 70px;
         background-color: #292929;
         z-index: 2;
-        transition: left 0.3s ease 0s;
+        transition: right 1s ease 0.5s;
     }
     .menu_body .menu_list{
         margin-top: 158px;
@@ -286,8 +287,11 @@ body {
 
     .menu-open .menu_body,
     .menu-open .menu_body::before {
-        left: 0;
+        right: 0;
     }  
+    .menu_body::before {
+        max-width: 250px;
+    }
 }
 /*------------------------------------------*/
 /*section not-only
@@ -1100,26 +1104,26 @@ body {
     }
     .menu_body {
         position: fixed;
-        width: 100%;
+        width: 320px;
         height: 100%;
         background-color: #292929;
         top: 0;
-        left:-100%;
+        right:-100%;
         padding: 90px 15px 30px 15px;
         overflow: auto;
-        transition: left 0.3s ease 0s;
+        transition: right 0.3s ease 0s;
     }
 
     .menu_body::before {
         content: "";
-        width: 100%;
+        width: 320px;
         position: fixed;
         top:0;
-        left:-100%;
+        right:-100%;
         height: 70px;
         background-color: #292929;
         z-index: 2;
-        transition: left 0.3s ease 0s;
+        transition: right 0.3s ease 0s;
     }
 
      .pets_link {
@@ -1132,7 +1136,7 @@ body {
 
     .menu-open .menu_body,
     .menu-open .menu_body::before {
-        left: 0;
+        right: 0;
     }
 }
 /*------------------------------------------*/
