@@ -538,13 +538,25 @@ body {
     top:43%;
     left:35%;
 }
-
-.our-friends_body {
+.carousel_wrapper {
     display:flex;
+}
+.our-friends_body {
+    width:1080px;
+    height:440px;
+    overflow: hidden;
+    display:flex;
+    justify-content: center;
     column-gap: 90px;
     padding:0 49px;
 }
-
+.item {
+    column-gap: 90px;  
+}
+.item, .our-friends_cart, .carousel_wrapper {
+    display: flex;
+    justify-content: center;
+}
 .our-friends_body:not(:last-child) {
     margin-bottom: 60px;
 }
