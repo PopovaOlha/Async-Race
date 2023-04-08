@@ -5,8 +5,11 @@ console.log("Страница(main):\nВерстка страницы валид
 document.addEventListener("click", showList);
 
 document.addEventListener('click', changeWidth);
-
+const ICON_MENU = document.querySelector('.icon-menu');
+ICON_MENU.classList.toggle('active');
 const BODY_MENU =  document.querySelector('.menu_body');
+const LEFT_ARROW = document.querySelector('.first-arrow');
+const RIGHT_ARROW = document.querySelector('.second-arrow');
 
 function showList(e){
     const targetItem = e.target;
@@ -18,14 +21,16 @@ function showList(e){
 
 function changeWidth(e){
     const el = e.target;
-    console.log(el);
     
-    if (el.closest('.menu_body') && window.innerWidth === 320) { 
-        BODY_MENU.style.width = '250px';
-       
+    if (el.closest('.menu_body') && window.innerWidth <= 768 && ICON_MENU.classList.toggle('active')) { 
+        BODY_MENU.style.width = '80%';
+        document.querySelector('body').style.overflowY = 'hidden';
     } else {
         BODY_MENU.style.width = '100%';
+        document.querySelector('body').style.overflowY = 'auto';
     }
  }
+
+ 
 
 
