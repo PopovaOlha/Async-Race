@@ -21,11 +21,13 @@ function changeWidth(e){
     console.log(el);
     
     if (el.closest('.menu_body') && window.innerWidth <= 768 && ICON_MENU.classList.toggle('active')) { 
+        ICON_MENU.classList.toggle('change_icon');
+        BODY_MENU.style.transition = '1s';
         BODY_MENU.style.width = '80%';
         document.querySelector('body').style.overflowY = 'hidden';
-       
     } else {
         BODY_MENU.style.width = '100%';
         document.querySelector('body').style.overflowY = 'auto';
+        ICON_MENU.classList.toggle('change_icon');
     }
  }

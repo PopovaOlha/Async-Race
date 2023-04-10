@@ -207,7 +207,7 @@ body {
         top:0;
         padding: 100px 15px 30px 15px;
         overflow: auto;
-        transition: right 1s ease 0.5s;
+        transition: right 0.5s ease 0s;
         z-index: 2;
     }
     .menu_body::before {
@@ -219,7 +219,7 @@ body {
         height: 70px;
         background-color: #292929;
         z-index: 2;
-        transition: right 1s ease 0.5s;
+        transition: right 0.5s ease 0s;
     }
     .menu_body .menu_list{
         margin-top: 158px;
@@ -245,7 +245,12 @@ body {
         width: 100%;
         height: 2px;
         background-color: #F1CDB3;
-        transition: all 0.3s ease 0s;
+        transition: all 0.5s ease 0s;
+    }
+    
+    .change_icon {
+        transform: rotate(180deg); 
+        transition: all 0.5s;
     }
     .icon-menu::before {
         top:0;
@@ -271,7 +276,6 @@ body {
     }
     .menu-open span {
         transform: rotate(90deg);
-
     }
 
     .menu-open .icon-menu {
@@ -539,8 +543,8 @@ body {
     left:35%;
 }
 .carousel_wrapper {
+    display: flex;
     width:1080px;
-    height:440px;
     overflow: hidden;
 }
 #our-friends_body {
@@ -553,11 +557,9 @@ body {
 .item {
     column-gap: 90px;  
 }
+
 .item, .our-friends_cart, .carousel_wrapper {
     display: flex;
-}
-#our-friends_body:not(:last-child) {
-    margin-bottom: 60px;
 }
 
   .our-friends_cart:hover .primary_button { 
@@ -621,17 +623,37 @@ body {
 }
 @media (max-width: 991.98px) {
     .carousel_wrapper { 
-        width: 680px;
+        width: 708px;
         overflow: hidden;
     }
     .item {
         column-gap: 40px;
     }
      #our-friends_body {
-         left: -1550px;
+         left: -620px;
          column-gap: 3em;
          padding:0 1em;
      }
+     .our-friends_cart {
+        width: 270px;
+        height:435px;
+     }
+     @keyframes move-right {
+        from {left: -620px;}
+        to {left: 0px;}
+    }
+    .transition-right {
+        animation-name: move-right;
+        animation-duration: 5s;
+    }
+    @keyframes move-left {
+        from {left: -620px;}
+        to {left: -1240px;}
+    }
+    .transition-left {
+        animation-name: move-left;
+        animation-duration: 5s;
+    }
     }
     
 @media (max-width: 767.98px) {
@@ -645,10 +667,11 @@ body {
     .our-friends_column>* {
         flex: 0 1 auto;
     }
-    .our-friends_body:not(:last-child) {
+    #our-friends_body:not(:last-child) {
         margin-bottom: 20px;
     }
-    .our-friends_body {
+    #our-friends_body {
+        left: -295px;
         padding:0;
     }
     .our-friends_title:not(:last-child) {
@@ -669,6 +692,22 @@ body {
     }
     .second-image {
         display: none;
+    }
+    @keyframes move-right {
+        from {left: -295px;}
+        to {left: 0px;}
+    }
+    .transition-right {
+        animation-name: move-right;
+        animation-duration: 5s;
+    }
+    @keyframes move-left {
+        from {left: -295px;}
+        to {left: -590px;}
+    }
+    .transition-left {
+        animation-name: move-left;
+        animation-duration: 5s;
     }
 }
  @media (max-width: 760px) and (min-width: 340px) {
@@ -1094,7 +1133,7 @@ body {
         width: 100%;
         height: 2px;
         background-color: black;
-        transition: all 0.3s ease 0s;
+        transition: all 0.5s ease 0s;
     }
 
     .pets-menu::before {
@@ -1139,7 +1178,7 @@ body {
         right:-100%;
         padding: 90px 15px 30px 15px;
         overflow: auto;
-        transition: right 0.3s ease 0s;
+        transition: right 1s ease 0s;
     }
 
     .menu_body::before {
@@ -1151,7 +1190,7 @@ body {
         height: 70px;
         background-color: #292929;
         z-index: 2;
-        transition: right 0.3s ease 0s;
+        transition: right 1s ease 0s;
     }
 
      .pets_link {
