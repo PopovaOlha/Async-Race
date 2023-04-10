@@ -539,14 +539,14 @@ body {
     left:35%;
 }
 .carousel_wrapper {
-    display:flex;
-}
-.our-friends_body {
     width:1080px;
     height:440px;
     overflow: hidden;
+}
+#our-friends_body {
+    left:-1080px;
+    position:relative;
     display:flex;
-    justify-content: center;
     column-gap: 90px;
     padding:0 49px;
 }
@@ -555,9 +555,8 @@ body {
 }
 .item, .our-friends_cart, .carousel_wrapper {
     display: flex;
-    justify-content: center;
 }
-.our-friends_body:not(:last-child) {
+#our-friends_body:not(:last-child) {
     margin-bottom: 60px;
 }
 
@@ -566,7 +565,6 @@ body {
     transition: all 0.5s;
     transform:scale(1.1);
     cursor:pointer;
-
 }
 
 .our-friends_cart {
@@ -605,19 +603,37 @@ body {
 .friends_button {
     padding:15px 45px;
 }
-
+@keyframes move-right {
+    from {left: -1080px;}
+    to {left: 0px;}
+}
+.transition-right {
+    animation-name: move-right;
+    animation-duration: 5s;
+}
+@keyframes move-left {
+    from {left: -1080px;}
+    to {left: -2160px;}
+}
+.transition-left {
+    animation-name: move-left;
+    animation-duration: 5s;
+}
 @media (max-width: 991.98px) {
-
-    .third-image {
-        display: none;
-     }
-     .our-friends_body {
+    .carousel_wrapper { 
+        width: 680px;
+        overflow: hidden;
+    }
+    .item {
+        column-gap: 40px;
+    }
+     #our-friends_body {
+         left: -1550px;
          column-gap: 3em;
          padding:0 1em;
      }
+    }
     
-}
-
 @media (max-width: 767.98px) {
     .our-friends_page {
         padding: 42px 0;
