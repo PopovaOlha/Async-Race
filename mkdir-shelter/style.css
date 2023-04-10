@@ -671,7 +671,7 @@ body {
         margin-bottom: 20px;
     }
     #our-friends_body {
-        left: -295px;
+        left: -1230px;
         padding:0;
     }
     .our-friends_title:not(:last-child) {
@@ -694,7 +694,7 @@ body {
         display: none;
     }
     @keyframes move-right {
-        from {left: -295px;}
+        from {left: -350px;}
         to {left: 0px;}
     }
     .transition-right {
@@ -703,7 +703,7 @@ body {
     }
     @keyframes move-left {
         from {left: -295px;}
-        to {left: -590px;}
+        to {left: -600px;}
     }
     .transition-left {
         animation-name: move-left;
