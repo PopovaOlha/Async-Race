@@ -22,8 +22,8 @@ function buttonToTheLeft() {
 }     
 
 function buttonToTheRight() {
-           mixTextCard();
-           mixImageCard();
+    mixTextCard();
+    mixImageCard();
 }
 function mixImageCard() {
     const mixRand=(a,b)=>Math.random()-0.5;
