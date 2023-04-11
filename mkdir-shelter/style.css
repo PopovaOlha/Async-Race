@@ -515,9 +515,6 @@ body {
     margin-bottom: 60px;
 }
 
-.wrapper_pets {
-
-}
 .modal_body {
     visibility:hidden;
     position: fixed;
@@ -527,10 +524,10 @@ body {
     height: fit-content;
     max-width: 900px;
     max-height: 500px;
-    top:25%;
+    top:7%;
     left:17%;
-    right: 14%;
-    bottom: 25%;
+    right: 20%;
+    bottom: 40%;
     align-items: center;
     z-index: 5;  
 }
@@ -582,9 +579,15 @@ body {
     flex: 0 0 50%;
     padding: 50px 50px 88px;
 }
-.modal_img {
-    flex: 0 0 50%;
+.popup_picture {
+    flex:0 0 50%;
     border-radius:10px;
+    margin: auto;
+   
+}
+.modal_img {
+    width:80%;
+   
 }
 .modal_name {
     font-family: 'Georgia';

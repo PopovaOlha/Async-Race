@@ -48,9 +48,14 @@ CAROUSEL.addEventListener('animationend', showCarousel);
 
 const learnMoreButtons = Array.from(document.querySelectorAll('.learn-more_action'));
 learnMoreButtons.forEach(button => {
-   button.addEventListener('click', (function(e) {
-    console.log(e)
+   button.addEventListener('click', (function() {
+    const w = document.querySelector('html');
    const popUp = document.querySelector('.modal_popup');
+   const closeButton = document.querySelector('.modal_button');
+   closeButton.addEventListener('click', () => {
+    popUp.style.visibility = "hidden";
+   });
+   w.style.background = "grey";
    popUp.style.visibility = "visible";
    
    }));
