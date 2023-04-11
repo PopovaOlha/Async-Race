@@ -1,4 +1,4 @@
-
+import pets from './info.js';
 const ICON_MENU = document.querySelector('.icon-menu');
 ICON_MENU.classList.toggle('active');
 const BODY_MENU =  document.querySelector('.menu_body');
@@ -7,15 +7,13 @@ const RIGHT_ARROW = document.querySelector('.second-arrow');
 const CAROUSEL = document.querySelector('#our-friends_body');
 const ITEM_LEFT = document.querySelector('#item-left');
 const ITEM_RIGHT = document.querySelector('#item-right');
-
+const CARD = Array.from(document.querySelectorAll('.our-friends_cart'));  
 
 document.addEventListener("click", showList);
 document.addEventListener('click', changeWidth);
 LEFT_ARROW.addEventListener('click', moveLeft);
 RIGHT_ARROW.addEventListener('click', moveRight);
 
-const CARD = Array.from(document.querySelectorAll('.our-friends_cart'));  
-  
 function moveLeft() {
     CAROUSEL.classList.add("transition-left");
     LEFT_ARROW.removeEventListener('click', moveLeft);
@@ -32,30 +30,37 @@ function moveRight() {
 CAROUSEL.addEventListener('animationend', showCarousel);
 
   function showCarousel(animationEvent) { 
-   
+    let changeItem;
     if (animationEvent.animationName === "move-left") {
         CAROUSEL.classList.remove('transition-left');
-        const mixRand=(a,b)=>Math.random() * 8;
-let arrImg = Array.from(document.getElementsByClassName('pets_img')), arrImgSrcMix=arrImg.map(e=>e.src).sort(mixRand);
-        arrImg.map((e,i)=>e.src=arrImgSrcMix[i]);
-    } else {
-        CAROUSEL.classList.remove('transition-right')
-        const mixRand=(a,b)=>Math.random() * 8;
-let arrImg = Array.from(document.getElementsByClassName('pets_img')), arrImgSrcMix=arrImg.map(e=>e.src).sort(mixRand);
-        arrImg.map((e,i)=>e.src=arrImgSrcMix[i]);
+        const mixRand=(a,b)=>Math.random()-0.5;
+        let arrImg = Array.from(document.getElementsByClassName('pets_img')), arrImgSrcMix=arrImg.map(e=>e.src).sort(mixRand);
+                arrImg.map((e,i)=>e.src=arrImgSrcMix[i]);
+        } else {
+            const mixRand=(a,b)=>Math.random()-0.5;
+            let arrImg = Array.from(document.getElementsByClassName('pets_img')), arrImgSrcMix=arrImg.map(e=>e.src).sort(mixRand);
+                    arrImg.map((e,i)=>e.src=arrImgSrcMix[i]);
+        CAROUSEL.classList.remove('transition-right');
     }
-   
     LEFT_ARROW.addEventListener('click', moveLeft);
     RIGHT_ARROW.addEventListener('click', moveRight);
 };
+
+const learnMoreButtons = Array.from(document.querySelectorAll('.learn-more_action'));
+learnMoreButtons.forEach(button => {
+   button.addEventListener('click', (function(e) {
+    console.log(e)
+   const popUp = document.querySelector('.modal_popup');
+   popUp.style.visibility = "visible";
    
+   }));
+});
 
 function showList(e){
     const targetItem = e.target;
 
     if (targetItem.closest('.icon-menu')) {
-        document.documentElement.classList.toggle('menu-open'); 
-        
+        document.documentElement.classList.toggle('menu-open');      
 }
 };
 
