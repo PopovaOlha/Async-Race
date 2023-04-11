@@ -771,31 +771,7 @@ body {
         animation-duration: 5s;
     }
     }
-    .modal_content {
-        width: 630px;
-        height: 350px;
-    }
-    .modal_body {
-        left:9%;
-    }
-    .modal_button {
-        right: -6%;
-    }
-    .modal_name {
-        margin-bottom: 10px;
-    }
-    .modal_breed {
-        margin-bottom: 20px;
-    }
-    .modal_info {
-        padding: 15px;
-    }
-    .modal_description {
-        margin-bottom: 20px;
-    }
-    .description_list {
-        row-gap: 5px;
-    }
+    
 @media (max-width: 767.98px) {
     .our-friends_page {
         padding: 42px 0;
