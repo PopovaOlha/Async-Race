@@ -514,7 +514,16 @@ body {
 .our-friends_title:not(:last-child) {
     margin-bottom: 60px;
 }
-
+.wrapper_pets {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,.4);
+    display: none;
+    z-index: 10;
+}
 .modal_body {
     visibility:hidden;
     position: fixed;
@@ -529,11 +538,13 @@ body {
     right: 20%;
     bottom: 40%;
     align-items: center;
-    z-index: 5;  
+    z-index: 1000;  
 }
 
 .modal_popap {
+    position: relative;
     border-radius: 10px;
+    padding-top: 52px;
 }
 .modal_button {
     position: absolute;
@@ -760,7 +771,31 @@ body {
         animation-duration: 5s;
     }
     }
-    
+    .modal_content {
+        width: 630px;
+        height: 350px;
+    }
+    .modal_body {
+        left:9%;
+    }
+    .modal_button {
+        right: -6%;
+    }
+    .modal_name {
+        margin-bottom: 10px;
+    }
+    .modal_breed {
+        margin-bottom: 20px;
+    }
+    .modal_info {
+        padding: 15px;
+    }
+    .modal_description {
+        margin-bottom: 20px;
+    }
+    .description_list {
+        row-gap: 5px;
+    }
 @media (max-width: 767.98px) {
     .our-friends_page {
         padding: 42px 0;
