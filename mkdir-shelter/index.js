@@ -62,7 +62,6 @@ learnMoreButtons.forEach(button => {
    }));
 });
 
-
 function showList(e){
     const targetItem = e.target;
 
