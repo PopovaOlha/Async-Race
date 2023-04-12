@@ -49,14 +49,13 @@ CAROUSEL.addEventListener('animationend', showCarousel);
 const learnMoreButtons = Array.from(document.querySelectorAll('.learn-more_action'));
 learnMoreButtons.forEach(button => {
    button.addEventListener('click', (function() {
-    const w = document.querySelector('.wrapper_pets');
-   w.style.display = "block";
-   const popUp = document.querySelector('.modal_popup');
-   popUp.style.visibility = "visible";
+  
+   const popUp = document.querySelector('body');
+   popUp.classList.add('show_modal');
+
    const closeButton = document.querySelector('.modal_button');
    closeButton.addEventListener('click', () => {
-    popUp.style.visibility = "hidden";
-    w.style.display = "none";
+    popUp.classList.remove('show_modal');
    });
 
    }));
