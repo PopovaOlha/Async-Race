@@ -1,4 +1,5 @@
 import pets from './info.js';
+
 const ICON_MENU = document.querySelector('.icon-menu');
 ICON_MENU.classList.toggle('active');
 const BODY_MENU =  document.querySelector('.menu_body');
@@ -9,10 +10,12 @@ const ITEM_LEFT = document.querySelector('#item-left');
 const ITEM_RIGHT = document.querySelector('#item-right');
 const CARD = Array.from(document.querySelectorAll('.our-friends_cart'));  
 
+
 document.addEventListener("click", showList);
 document.addEventListener('click', changeWidth);
 LEFT_ARROW.addEventListener('click', moveLeft);
 RIGHT_ARROW.addEventListener('click', moveRight);
+CAROUSEL.addEventListener('animationend', showCarousel);
 
 function moveLeft() {
     CAROUSEL.classList.add("transition-left");
@@ -27,39 +30,26 @@ function moveRight() {
     
 };
 
-CAROUSEL.addEventListener('animationend', showCarousel);
-
   function showCarousel(animationEvent) { 
     let changeItem;
     if (animationEvent.animationName === "move-left") {
         CAROUSEL.classList.remove('transition-left');
-        const mixRand=(a,b)=>Math.random()-0.5;
-        let arrImg = Array.from(document.getElementsByClassName('pets_img')), arrImgSrcMix=arrImg.map(e=>e.src).sort(mixRand);
-                arrImg.map((e,i)=>e.src=arrImgSrcMix[i]);
+        const mixRand=(a,b)=>Math.random() * 9;
+        let arrImg = Array.from(document.getElementsByClassName('our-friends_cart')), arrImgSrcMix=arrImg.map(e=>e).sort(mixRand);
+                arrImg.map((e,i)=>e=arrImgSrcMix[i]);
         } else {
-            const mixRand=(a,b)=>Math.random()-0.5;
-            let arrImg = Array.from(document.getElementsByClassName('pets_img')), arrImgSrcMix=arrImg.map(e=>e.src).sort(mixRand);
-                    arrImg.map((e,i)=>e.src=arrImgSrcMix[i]);
+            const mixRand=(a,b)=>Math.random() * 9;
+            let arrImg = Array.from(document.getElementsByClassName('our-friends_cart')), arrImgSrcMix=arrImg.map(e=>e).sort(mixRand);
+                    arrImg.map((e,i)=>e=arrImgSrcMix[i]);
         CAROUSEL.classList.remove('transition-right');
     }
     LEFT_ARROW.addEventListener('click', moveLeft);
     RIGHT_ARROW.addEventListener('click', moveRight);
 };
 
-const learnMoreButtons = Array.from(document.querySelectorAll('.learn-more_action'));
-learnMoreButtons.forEach(button => {
-   button.addEventListener('click', (function() {
-  
-   const popUp = document.querySelector('body');
-   popUp.classList.add('show_modal');
-
-   const closeButton = document.querySelector('.modal_button');
-   closeButton.addEventListener('click', () => {
-    popUp.classList.remove('show_modal');
-   });
-
-   }));
-});
+    /*const myModal = $.modal();
+    console.log(myModal.close());*/
+ console.log($.modal());
 
 function showList(e){
     const targetItem = e.target;
@@ -71,19 +61,15 @@ function showList(e){
 
 function changeWidth(e){
     const el = e.target;
+    ICON_MENU.classList.toggle('change_icon');
     document.addEventListener('click', changeWidth);
-    if (el.closest('.menu_body') && window.innerWidth <= 768 && ICON_MENU.classList.toggle('active')) { 
-        ICON_MENU.classList.toggle('change_icon');
+    if (el.closest('.menu_body') && window.innerWidth <= 768 && ICON_MENU.classList.contains('change_icon')) { 
         BODY_MENU.style.width = '80%';
         BODY_MENU.style.transition = '1s';
         document.querySelector('body').style.overflowY = 'hidden';
     } else {
         BODY_MENU.style.width = '100%';
         document.querySelector('body').style.overflowY = 'auto';
-        ICON_MENU.classList.toggle('change_icon');
     }
  };
-
-
-
 
