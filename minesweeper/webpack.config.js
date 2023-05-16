@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
+
 module.exports = {
     entry: './src/index.js',
     output: {
@@ -18,7 +19,11 @@ module.exports = {
             {
               test: /\.js$/,
               exclude: /node_modules/,
-              use: ['babel-loader']
+              use: ['babel-loader'],
+            },
+            {
+              test: /\.png$/,
+              type: 'asset/resource',
             }
         ],
     },
@@ -27,9 +32,8 @@ module.exports = {
         new MiniCssExtractPlugin({ filename: 'styles.css'}),
         new CleanWebpackPlugin()
     ],
-
     devServer: {
         port: 1111,
-        open: 'true',
+        open: 'true'
     }
 }
