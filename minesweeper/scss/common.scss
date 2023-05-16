@@ -1,3 +1,5 @@
+$colorOfGrid: rgb(173, 168, 168);
+
 @mixin styleOfPictures {
     height: auto;
     max-width: 15%;
@@ -5,4 +7,15 @@
 
 .images {
     @include styleOfPictures();
+}
+.grid {
+    height: 400px;
+    width: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: $colorOfGrid;
+    .cell {
+        height: 40px;
+        width: 40px;
+    }
 }
