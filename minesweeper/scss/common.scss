@@ -10,15 +10,15 @@ $colorOfBombs: rgb(209, 145, 27);
 }
 
 .grid {
-    height: 60%;
-    width: 60%;
+    height: 100%;
+    width: 50%;
     display: flex;
     margin: 50px auto;
     flex-wrap: wrap;
     background-color: $colorOfGrid;
     div {
-        height: 40px;
-        width: 40px;
+        height: 50px;
+        width: 50px;
     }
     .bomb {
         background-color: $colorOfBombs;
