@@ -8,6 +8,7 @@ const WIDTH = 10;
 const HEIGHT = 10;
 const BOMB_AMOUNT = 10;
 const SQUERES = [];
+const isGameOver = false;
 
 document.addEventListener('DOMContentLoaded', () => {
  const grid = document.querySelector('.grid');
@@ -51,8 +52,18 @@ const createBoard = function() {
 createBoard()
 
 function click(square) {
+    if (isGameOver) return
+    if (square.classList.contains('checked') || square.classList.contains('flag')) return
     if (square.classList.contains('bomb')) {
         alert('game over');
+    } else {
+        let total = square.getAttribute('data');
+        if (total != 0) {
+            square.classList.add('checked');
+            square.innerHTML = total;
+            return
+        }
+        square.classList.add('checked')
     }
 }
 

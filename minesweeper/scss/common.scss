@@ -10,17 +10,20 @@ $colorOfBombs: rgb(209, 145, 27);
 }
 
 .grid {
-    height: 100%;
-    width: 50%;
+    height: 600px;
+    width: 600px;
     display: flex;
     margin: 50px auto;
     flex-wrap: wrap;
     background-color: $colorOfGrid;
     div {
-        height: 50px;
-        width: 50px;
+        height: 60px;
+        width: 60px;
     }
     .bomb {
         background-color: $colorOfBombs;
+    }
+    .checked {
+        background-color: red;
     }
 }
