@@ -1,6 +1,5 @@
 $colorOfGrid: rgb(173, 168, 168);
 $colorOfBombs: rgb(209, 145, 27);
-
 @mixin styleOfPictures {
     height: auto;
     max-width: 15%;
@@ -9,10 +8,12 @@ $colorOfBombs: rgb(209, 145, 27);
 .images {
     @include styleOfPictures();
 }
+
 .grid {
-    height: 400px;
-    width: 400px;
+    height: 60%;
+    width: 60%;
     display: flex;
+    margin: 50px auto;
     flex-wrap: wrap;
     background-color: $colorOfGrid;
     div {

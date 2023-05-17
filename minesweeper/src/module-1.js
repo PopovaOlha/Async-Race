@@ -12,16 +12,34 @@ document.addEventListener('DOMContentLoaded', () => {
  
  function createBoard() {
     const bombsArray = Array(BOMB_AMOUNT).fill('bomb');
-    const emptyArray = Array(WIDTH*WIDTH - BOMB_AMOUNT).fill('valid');
+    const emptyArray = Array(WIDTH*HEIGHT - BOMB_AMOUNT).fill('valid');
     const gameAray = emptyArray.concat(bombsArray);
     const shuffledArray = gameAray.sort(() => Math.random() -0.5)
 
-    for (let i = 0; i < WIDTH*WIDTH; i++) {
+    for (let i = 0; i < WIDTH*HEIGHT; i++) {
         const square = document.createElement('div');
         square.setAttribute('id', i);
         square.classList.add(shuffledArray[i]);
         grid.appendChild(square);
         SQUERES.push(square);
+    }
+    for (let i = 0; i , SQUERES.length; i++) {
+        let total = 0;
+        const leftEdge = (i % WIDTH === 0);
+        const rightEdge = (i % WIDTH === WIDTH -1);
+
+        if (SQUERES[i].classList.contains('valid')) {
+            if (i > 0 && !leftEdge && SQUERES[i - 1].classList.contains('bomb')) total ++
+            if (i > 9 && !rightEdge && SQUERES[i + 1 -WIDTH].classList.contains('bomb')) total ++
+            if (i > 10 && SQUERES[i - WIDTH].classList.contains('bomb')) total ++
+            if (i > 11 && !leftEdge && SQUERES[i - 1 -WIDTH].classList.contains('bomb')) total ++
+            if (i < 98 && !rightEdge && SQUERES[i + 1].classList.contains('bomb')) total ++
+            if (i < 90 && !leftEdge && SQUERES[i - 1 +WIDTH].classList.contains('bomb')) total ++
+            if (i < 88 && !rightEdge && SQUERES[i + 1 +WIDTH].classList.contains('bomb')) total ++
+            if (i < 89 && SQUERES[i + WIDTH].classList.contains('bomb')) total ++
+            SQUERES[i].setAttribute('data', total);
+            console.log(SQUERES[i])
+        }
     }
  }
 createBoard();
