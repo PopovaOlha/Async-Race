@@ -17,8 +17,9 @@ $colorOfBombs: rgb(209, 145, 27);
     flex-wrap: wrap;
     background-color: $colorOfGrid;
     div {
-        height: 60px;
-        width: 60px;
+        height: 58px;
+        width: 58px;
+        border: 1px solid red;
     }
     .bomb {
         background-color: $colorOfBombs;

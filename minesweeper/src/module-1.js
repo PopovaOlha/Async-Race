@@ -65,10 +65,12 @@ function addFlag(square) {
             square.classList.add('flag');
             square.innerHTML = 'flag'
             flags ++;
+            checkForWin();
         } else {
             square.classList.remove('flag');
             square.innerHTML = '';
             flags --;
+            IS_GAME_OVER = true;
         }
     }
 
@@ -148,11 +150,21 @@ function gameOver(square) {
     SQUARES.forEach(square => {
         if (square.classList.contains('bomb')) {
             square.innerHTML = "bomb"
-        }
+        } 
     })
 }
 
-
+function checkForWin() {
+    let matches = 0;
+    for (let i = 0; i < SQUARES.length; i++) {
+        if (SQUARES[i].classList.contains('flag') && SQUARES[i].classList.contains('bomb')) {
+            matches ++;
+        }
+        if (matches === BOMB_AMOUNT) {
+            alert('you win');
+        }
+    }
+}
 
 
 
