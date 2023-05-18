@@ -6,12 +6,14 @@ const bomb = document.createElement('img');
 bomb.src = bombUrl;
 const WIDTH = 10;
 const HEIGHT = 10;
-const BOMB_AMOUNT = 10;
+let BOMB_AMOUNT = 10;
+let flags = 0;
 const SQUARES = [];
-const IS_GAME_OVER = false;
+let IS_GAME_OVER = false;
 
 document.addEventListener('DOMContentLoaded', () => {
  const grid = document.querySelector('.grid');
+
  
 const createBoard = function() {
     const bombsArray = Array(BOMB_AMOUNT).fill('bomb');
@@ -29,6 +31,11 @@ const createBoard = function() {
         square.addEventListener('click', (e) => {
             click(square);
         })
+
+        square.oncontextmenu = function(e) {
+            e.preventDefault()
+            addFlag(square);
+         }
     }
     for (let i = 0; i , SQUARES.length; i++) {
         let total = 0;
@@ -50,6 +57,22 @@ const createBoard = function() {
     }
  }
 createBoard()
+
+function addFlag(square) {
+    if (IS_GAME_OVER) return
+    if (!square.classList.contains('checked') && (flags < BOMB_AMOUNT)) {
+        if (!square.classList.contains('flag')) {
+            square.classList.add('flag');
+            square.innerHTML = 'flag'
+            flags ++;
+        } else {
+            square.classList.remove('flag');
+            square.innerHTML = '';
+            flags --;
+        }
+    }
+
+}
 
 function click(square) {
     let currentId = square.id;
@@ -118,7 +141,16 @@ function checkSquare(square, currentId) {
     },10)
 }
 
+function gameOver(square) {
+    console.log('BOOM, game over!');
+    IS_GAME_OVER = true;
 
+    SQUARES.forEach(square => {
+        if (square.classList.contains('bomb')) {
+            square.innerHTML = "bomb"
+        }
+    })
+}
 
 
 
