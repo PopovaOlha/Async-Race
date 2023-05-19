@@ -3,7 +3,9 @@ import stopwatchUrl from "./images/stopwatch.png";
 import flagUrl from './images/flag_ok.png';
 import bombUrl from './images/Bomb-PNG-Free-Download.png';
 const bomb = document.createElement('img');
+bomb.classList.add('images');
 bomb.src = bombUrl;
+
 const WIDTH = 10;
 const HEIGHT = 10;
 let BOMB_AMOUNT = 10;
@@ -11,22 +13,30 @@ let flags = 0;
 const SQUARES = [];
 let IS_GAME_OVER = false;
 
-document.addEventListener('DOMContentLoaded', () => {
- const grid = document.querySelector('.grid');
-
+document.addEventListener('DOMContentLoaded', () => { 
+const header = document.createElement('h1');
+header.classList.add('header');
+header.innerHTML = 'Welcome to minesweeper game'
+const grid = document.createElement('div');
+ grid.classList.add('grid');
+ document.body.appendChild(grid);
  
-const createBoard = function() {
+ const createBoard = function() {
+   
     const bombsArray = Array(BOMB_AMOUNT).fill('bomb');
     const emptyArray = Array(WIDTH*HEIGHT - BOMB_AMOUNT).fill('valid');
     const gameAray = emptyArray.concat(bombsArray);
-    const shuffledArray = gameAray.sort(() => Math.random() -0.5)
+    const shuffledArray = gameAray.sort(() => Math.random() -0.5);
 
+    
     for (let i = 0; i < WIDTH*HEIGHT; i++) {
+       
         const square = document.createElement('div');
         square.setAttribute('id', i);
         square.classList.add(shuffledArray[i]);
-        grid.appendChild(square);
+        grid.append(square);
         SQUARES.push(square);
+       
 
         square.addEventListener('click', (e) => {
             click(square);
@@ -52,10 +62,10 @@ const createBoard = function() {
             if (i < 88 && !rightEdge && SQUARES[i + 1 +WIDTH].classList.contains('bomb')) total ++
             if (i < 89 && SQUARES[i + WIDTH].classList.contains('bomb')) total ++
             SQUARES[i].setAttribute('data', total);
-            console.log(SQUARES[i])
         }
     }
  }
+
 createBoard()
 
 function addFlag(square) {
@@ -63,9 +73,10 @@ function addFlag(square) {
     if (!square.classList.contains('checked') && (flags < BOMB_AMOUNT)) {
         if (!square.classList.contains('flag')) {
             square.classList.add('flag');
-            square.innerHTML = 'flag'
+            square.innerHTML = '🚩'
             flags ++;
             checkForWin();
+            console.log(flags)
         } else {
             square.classList.remove('flag');
             square.innerHTML = '';
@@ -146,12 +157,11 @@ function checkSquare(square, currentId) {
 function gameOver(square) {
     console.log('BOOM, game over!');
     IS_GAME_OVER = true;
-
-    SQUARES.forEach(square => {
-        if (square.classList.contains('bomb')) {
-            square.innerHTML = "bomb"
-        } 
-    })
+ for (let i = 0; i < SQUARES.length; i ++) {
+    if ( SQUARES[i].classList.contains('bomb')) {
+        SQUARES[i].innerHTML = '💣';
+    }
+ }
 }
 
 function checkForWin() {

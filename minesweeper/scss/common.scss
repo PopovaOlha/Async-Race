@@ -1,12 +1,15 @@
-$colorOfGrid: rgb(173, 168, 168);
-$colorOfBombs: rgb(209, 145, 27);
+$colorOfGrid: rgb(167, 167, 248);
+
 @mixin styleOfPictures {
     height: auto;
-    max-width: 15%;
+    max-width: 2%;
 }
 
 .images {
     @include styleOfPictures();
+}
+body {
+    background-color: rgb(224, 207, 241);
 }
 
 .grid {
@@ -17,14 +20,16 @@ $colorOfBombs: rgb(209, 145, 27);
     flex-wrap: wrap;
     background-color: $colorOfGrid;
     div {
-        height: 58px;
-        width: 58px;
-        border: 1px solid red;
-    }
-    .bomb {
-        background-color: $colorOfBombs;
+        text-align: center;
+        align-content: center;
+        align-self: center;
+        height:50px;
+        width: 50px;
+        border: 5px solid beige;
     }
     .checked {
-        background-color: red;
+        background-color: beige;
+        border: 5px solid grey;
+
     }
 }
