@@ -2,7 +2,7 @@ $colorOfGrid: rgb(167, 167, 248);
 
 @mixin styleOfPictures {
     height: auto;
-    max-width: 2%;
+    max-width: 6%;
 }
 
 .images {
@@ -11,14 +11,46 @@ $colorOfGrid: rgb(167, 167, 248);
 body {
     background-color: rgb(224, 207, 241);
 }
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 50px auto;
+}
+.container {
+    height: 590px;
+    width: 300px;
+    margin-left: 120px;
+    display: flex;
+    flex-direction: column;
+    background-color: $colorOfGrid;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    border: 5px solid beige;
+    .watch {
+        width: 50%;
+        margin: 0 auto;
+    }
+    .paragraph {
+        text-align: center;
+        font-size: 30px;
+        color: rgb(71, 71, 71);
+    }
+}
 
+.header { 
+  font-family: monospace;
+  color: grey;
+  text-align: center;
+  font-size: 50px;
+}
 .grid {
     height: 600px;
     width: 600px;
     display: flex;
-    margin: 50px auto;
     flex-wrap: wrap;
+    margin-right: 120px;
     background-color: $colorOfGrid;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
     div {
         text-align: center;
         align-content: center;
@@ -33,3 +65,4 @@ body {
 
     }
 }
+
