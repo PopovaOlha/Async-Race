@@ -20,6 +20,7 @@ let SECONDS = 0;
 let MINUTES = 0;
 let HOURS = 0;
 let CLICK = 0;
+let PAUSED = false;
 let INTERVALID = null;
 
 const CssClasses = {
@@ -34,7 +35,7 @@ const CssClasses = {
 }
 
 document.addEventListener('DOMContentLoaded', () => { 
-    startTimer()
+   
 const section = createElements('section', CssClasses.WRAPPER);
 const container = createElements('div', CssClasses.CONTAINER);
 const bomb = createElements('img', CssClasses.IMAGES);
@@ -43,11 +44,9 @@ const watch = createElements('img', CssClasses.WATCH);
 watch.src = stopwatchUrl;
 const header = createElements('h1', CssClasses.HEADER);
 const grid = createElements('div', CssClasses.GRID);
+grid.style.visibility = 'visible'
 const p = createElements('p', CssClasses.PARAGRAPH);
 const pause = createElements('button', CssClasses.PAUSE_BUTTON);
-
-
-
 
  header.appendChild(bomb)
  section.append(container, grid);
@@ -71,38 +70,27 @@ const pause = createElements('button', CssClasses.PAUSE_BUTTON);
     const emptyArray = Array(WIDTH*HEIGHT - BOMB_AMOUNT).fill('valid');
     const gameAray = emptyArray.concat(bombsArray);
     const shuffledArray = gameAray.sort(() => Math.random() -0.5);
+    startTimer()
     
     for (let i = 0; i < WIDTH*HEIGHT; i++) {
-        
+
         const square = document.createElement('div');
         square.setAttribute('id', i);
         square.classList.add(shuffledArray[i]);
         grid.append(square);
         SQUARES.push(square);
        
-
         square.addEventListener('click', (e) => {
             click(square);
              CLICK++;
         })
-        pause.addEventListener('click', () => {
-            clickOnPause()
-        })
-         
-        function clickOnPause() {
-            pause.classList.add('active');
-            if (pause.classList.contains('active')) {
-                stopTimer();
-                pause.classList.remove('active')
-        }
-    }
-    pause.removeEventListener('click', clickOnPause());
-        
+
         square.oncontextmenu = function(e) {
             e.preventDefault()
             addFlag(square);
          }
     }
+    
     for (let i = 0; i , SQUARES.length; i++) {
         let total = 0;
         const leftEdge = (i % WIDTH === 0);
@@ -122,16 +110,30 @@ const pause = createElements('button', CssClasses.PAUSE_BUTTON);
     }
  }
 
+ pause.addEventListener('click', () => {
+    clickOnPause()
+})
+
+ function clickOnPause() {
+    PAUSED = !PAUSED
+    console.log(PAUSED)
+    if (PAUSED) {
+      pause.innerHTML = 'Continue';
+      grid.style.visibility = 'hidden'
+    }  else {
+      pause.innerHTML = 'Pause'
+      grid.style.visibility = 'visible'
+    } 
+  } 
 
 createBoard();
-
-
 
 function startTimer() {
   
     INTERVALID = setInterval(() => {  
+        if (!PAUSED) { 
       SECONDS++
-      
+        }  
   if (SECONDS <= 9) {
     second.innerHTML = `:0${SECONDS}`;
   }
@@ -193,7 +195,6 @@ function addFlag(square) {
             IS_GAME_OVER = true;
         }
     }
-
 }
 
 function click(square) {
@@ -207,10 +208,18 @@ function click(square) {
         if (total != 0) {
             square.classList.add('checked');
             square.innerHTML = total;
+            square.style.fontSize = 25 + 'px';
+            if (total === "1") {
+                square.style.color = 'red';
+            } else if (total === "2") {
+                square.style.color = 'blue';
+            } else if (total === "3") {
+                square.style.color = "green";
+            }
             return
         }
+       
         checkSquare(square, currentId);
-        
     }
     square.classList.add('checked')
 }
