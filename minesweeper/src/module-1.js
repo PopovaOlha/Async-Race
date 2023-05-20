@@ -17,29 +17,45 @@ let FLAGS = 0;
 const SQUARES = [];
 let IS_GAME_OVER = false;
 let SECONDS = 0;
+let MINUTES = 0;
+let HOURS = 0;
+let CLICK = 0;
 let INTERVALID = null;
 
+const CssClasses = {
+    WRAPPER: 'wrapper',
+    CONTAINER: 'container',
+    IMAGES: 'images',
+    WATCH: 'watch',
+    HEADER: 'header',
+    GRID: 'grid',
+    PARAGRAPH: 'paragraph',
+    PAUSE_BUTTON: 'pause-button'
+}
 
 document.addEventListener('DOMContentLoaded', () => { 
     startTimer()
-const section = createElements('section', 'wrapper');
-const container = createElements('div', 'container');
-const bomb = createElements('img','images');
+const section = createElements('section', CssClasses.WRAPPER);
+const container = createElements('div', CssClasses.CONTAINER);
+const bomb = createElements('img', CssClasses.IMAGES);
 bomb.src = bombUrl;
-const watch = createElements('img', 'watch');
+const watch = createElements('img', CssClasses.WATCH);
 watch.src = stopwatchUrl;
-const header = createElements('h1','header');
-const grid = createElements('div', 'grid');
-const p = createElements('p', 'paragraph');
+const header = createElements('h1', CssClasses.HEADER);
+const grid = createElements('div', CssClasses.GRID);
+const p = createElements('p', CssClasses.PARAGRAPH);
+const pause = createElements('button', CssClasses.PAUSE_BUTTON);
+
 
 
 
  header.appendChild(bomb)
  section.append(container, grid);
- container.append(watch, p);
+ container.append(watch, p, pause);
  p.append(hour,minute,second);
  document.body.append(header, section);
  header.innerHTML = 'Welcome to minesweeper game 💥';
+ pause.innerHTML = 'Pause';
  hour.innerHTML = '00:';
  minute.innerHTML = '00:';
  second.innerHTML = '00';
@@ -55,7 +71,6 @@ const p = createElements('p', 'paragraph');
     const emptyArray = Array(WIDTH*HEIGHT - BOMB_AMOUNT).fill('valid');
     const gameAray = emptyArray.concat(bombsArray);
     const shuffledArray = gameAray.sort(() => Math.random() -0.5);
-
     
     for (let i = 0; i < WIDTH*HEIGHT; i++) {
         
@@ -68,9 +83,21 @@ const p = createElements('p', 'paragraph');
 
         square.addEventListener('click', (e) => {
             click(square);
-              
+             CLICK++;
         })
-
+        pause.addEventListener('click', () => {
+            clickOnPause()
+        })
+         
+        function clickOnPause() {
+            pause.classList.add('active');
+            if (pause.classList.contains('active')) {
+                stopTimer();
+                pause.classList.remove('active')
+        }
+    }
+    pause.removeEventListener('click', clickOnPause());
+        
         square.oncontextmenu = function(e) {
             e.preventDefault()
             addFlag(square);
@@ -99,20 +126,58 @@ const p = createElements('p', 'paragraph');
 createBoard();
 
 
+
 function startTimer() {
+  
     INTERVALID = setInterval(() => {  
-      SECONDS++;
-      second.innerHTML = `${SECONDS}`;
+      SECONDS++
+      
+  if (SECONDS <= 9) {
+    second.innerHTML = `:0${SECONDS}`;
+  }
+  if (SECONDS > 9 && SECONDS < 60) {
+    second.innerHTML = `:${SECONDS}`;
+  }
+  if (SECONDS > 59) {
+    SECONDS = 0
+    second.innerHTML = `:${SECONDS}`;
+    MINUTES++
+  }
+
+  if (MINUTES <= 9) {
+    minute.innerHTML = `:0${MINUTES}`;
+  }
+  if (MINUTES > 9 && MINUTES < 60) {
+    minute.innerHTML = `:${MINUTES}`;
+  }
+  if (MINUTES > 59) {
+    MINUTES = 0
+    minute.innerHTML = `:${MINUTES}`;
+    MINUTES++
+  }
+
+  if (HOURS <= 9) {
+    hour.innerHTML = `0${HOURS}`;
+  }
+  if (HOURS > 9 && HOURS < 60) {
+    hour.innerHTML = HOURS;
+  }
+  if (HOURS > 59) {
+    HOURS = 0
+    hour.innerHTML = HOURS;
+    HOURS++
+  }
+ 
     }, 1000);
   }
   
   function stopTimer() {
     clearInterval(INTERVALID);
     SECONDS = SECONDS;
-    second.innerHTML = `${SECONDS}`;
+    second.innerHTML = `:${SECONDS}`;
+    
   }
-
-
+ 
 function addFlag(square) {
     if (IS_GAME_OVER) return
     if (!square.classList.contains('checked') && (FLAGS < BOMB_AMOUNT)) {
@@ -121,7 +186,6 @@ function addFlag(square) {
             square.innerHTML = '🚩'
             FLAGS ++;
             checkForWin();
-            console.log(FLAGS)
         } else {
             square.classList.remove('flag');
             square.innerHTML = '';
@@ -210,7 +274,6 @@ function gameOver(square) {
     stopTimer();
 }
 
-
 function checkForWin() {
     let matches = 0;
     for (let i = 0; i < SQUARES.length; i++) {
@@ -218,14 +281,12 @@ function checkForWin() {
             matches ++;
         }
         if (matches === BOMB_AMOUNT) {
-            header.innerHTML = 'You Win! 😄';
-           
+            header.innerHTML = `Hooray! You found all mines in ${SECONDS} seconds and ${CLICK+FLAGS} moves!😄`;
+            stopTimer()
         }
     }
-    stopTimer()
+   
 }
-
-
 
 })
 
