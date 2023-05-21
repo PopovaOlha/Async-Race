@@ -9,6 +9,7 @@ $colorOfGrid: rgb(167, 167, 248);
     @include styleOfPictures();
 }
 body {
+    font-family: monospace;
     min-height: 100vh;
     background-color: rgb(224, 207, 241);
 }
@@ -36,21 +37,50 @@ body {
         font-size: 30px;
         color: rgb(71, 71, 71);
     }
+
+    #click {
+        text-align: center;
+        font-size: 30px;
+        font-weight:600;
+        color: rgb(71, 71, 71);
+    }
+
     .pause-button {
         display: block;
         width: 80%;
-        margin:10px auto;
+        margin:20px auto;
         padding:10px 0;
         font-size: 25px;
         font-weight: 800;
         color: rgb(110, 110, 110);
-
-
+        background-color: rgb(250, 188, 72);
+        border-radius: 10px;
+        border: 2px solid rgb(88, 88, 128);
+        &:hover {
+            background-color: beige;
+            transition: all ease-in-out 0.5s;
+        }
+    }
+    .start-game_button {
+        display: block;
+        width: 80%;
+        margin: 0 auto;
+        padding:10px 0;
+        font-size: 25px;
+        font-weight: 800;
+        color: rgb(110, 110, 110);
+        background-color: beige;
+        border-radius: 10px;
+        border: 2px solid rgb(88, 88, 128);
+        &:hover {
+            background-color: rgb(250, 188, 72);
+            transition: all ease-in-out 0.5s;
+        }
     }
 }
 
 .header { 
-  font-family: monospace;
+ 
   color: grey;
   text-align: center;
   font-size: 50px;

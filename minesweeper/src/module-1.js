@@ -9,6 +9,8 @@ const minute = document.createElement('span');
 minute.setAttribute('id','minutes');
 const second = document.createElement('span');
 second.setAttribute('id', 'seconds');
+const clicked = document.createElement('span');
+clicked.setAttribute('id', 'click');
 
 const WIDTH = 10;
 const HEIGHT = 10;
@@ -31,7 +33,8 @@ const CssClasses = {
     HEADER: 'header',
     GRID: 'grid',
     PARAGRAPH: 'paragraph',
-    PAUSE_BUTTON: 'pause-button'
+    PAUSE_BUTTON: 'pause-button',
+    START_GAME_BUTTON: 'start-game_button'
 }
 
 document.addEventListener('DOMContentLoaded', () => { 
@@ -47,17 +50,22 @@ const grid = createElements('div', CssClasses.GRID);
 grid.style.visibility = 'visible'
 const p = createElements('p', CssClasses.PARAGRAPH);
 const pause = createElements('button', CssClasses.PAUSE_BUTTON);
+const newGame = createElements('button', CssClasses.START_GAME_BUTTON);
 
- header.appendChild(bomb)
+
+ header.appendChild(bomb);
  section.append(container, grid);
- container.append(watch, p, pause);
- p.append(hour,minute,second);
+ container.append(watch, p, clicked, pause, newGame);
+ p.append(hour, minute, second);
  document.body.append(header, section);
  header.innerHTML = 'Welcome to minesweeper game 💥';
  pause.innerHTML = 'Pause';
+ newGame.innerHTML = 'New Game';
  hour.innerHTML = '00:';
  minute.innerHTML = '00:';
  second.innerHTML = '00';
+ clicked.innerHTML = `Clicks:`
+ 
 
  function createElements( tagName, className) {
    const element =  document.createElement(tagName);
@@ -70,10 +78,8 @@ const pause = createElements('button', CssClasses.PAUSE_BUTTON);
     const emptyArray = Array(WIDTH*HEIGHT - BOMB_AMOUNT).fill('valid');
     const gameAray = emptyArray.concat(bombsArray);
     const shuffledArray = gameAray.sort(() => Math.random() -0.5);
-    startTimer()
     
     for (let i = 0; i < WIDTH*HEIGHT; i++) {
-
         const square = document.createElement('div');
         square.setAttribute('id', i);
         square.classList.add(shuffledArray[i]);
@@ -82,7 +88,8 @@ const pause = createElements('button', CssClasses.PAUSE_BUTTON);
        
         square.addEventListener('click', (e) => {
             click(square);
-             CLICK++;
+             CLICK++; 
+             clicked.innerHTML = `✔:${CLICK + FLAGS}`;  
         })
 
         square.oncontextmenu = function(e) {
@@ -112,7 +119,11 @@ const pause = createElements('button', CssClasses.PAUSE_BUTTON);
 
  pause.addEventListener('click', () => {
     clickOnPause()
-})
+});
+
+newGame.addEventListener('click', () => {
+  location. reload()
+});
 
  function clickOnPause() {
     PAUSED = !PAUSED
@@ -187,6 +198,7 @@ function addFlag(square) {
             square.classList.add('flag');
             square.innerHTML = '🚩'
             FLAGS ++;
+            clicked.innerHTML = `✔:${CLICK + FLAGS}`; 
             checkForWin();
         } else {
             square.classList.remove('flag');
@@ -272,6 +284,7 @@ function checkSquare(square, currentId) {
 }
 
 function gameOver(square) {
+  
     console.log('BOOM, game over!');
     IS_GAME_OVER = true;
  for (let i = 0; i < SQUARES.length; i ++) {
@@ -279,9 +292,9 @@ function gameOver(square) {
         SQUARES[i].innerHTML = '💣';
         }
     }
-    header.innerHTML = "Game Over 😞";
+    header.innerHTML = "Game over. Try again 😞";
     stopTimer();
-}
+  }
 
 function checkForWin() {
     let matches = 0;
@@ -293,8 +306,7 @@ function checkForWin() {
             header.innerHTML = `Hooray! You found all mines in ${SECONDS} seconds and ${CLICK+FLAGS} moves!😄`;
             stopTimer()
         }
-    }
-   
+    }  
 }
 
 })
