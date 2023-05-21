@@ -11,6 +11,13 @@ const second = document.createElement('span');
 second.setAttribute('id', 'seconds');
 const clicked = document.createElement('span');
 clicked.setAttribute('id', 'click');
+const smallOption = document.createElement('option');
+smallOption.setAttribute('value', 'small');
+const mediumOption = document.createElement('option');
+mediumOption.setAttribute('value', 'medium');
+const largeOption = document.createElement('option');
+largeOption.setAttribute('value', 'large');
+
 
 const WIDTH = 10;
 const HEIGHT = 10;
@@ -24,6 +31,7 @@ let HOURS = 0;
 let CLICK = 0;
 let PAUSED = false;
 let INTERVALID = null;
+let FIRST_CLICK = true;
 
 const CssClasses = {
     WRAPPER: 'wrapper',
@@ -34,7 +42,8 @@ const CssClasses = {
     GRID: 'grid',
     PARAGRAPH: 'paragraph',
     PAUSE_BUTTON: 'pause-button',
-    START_GAME_BUTTON: 'start-game_button'
+    START_GAME_BUTTON: 'start-game_button',
+    SIZE_GRID: 'size-grid'
 }
 
 document.addEventListener('DOMContentLoaded', () => { 
@@ -51,16 +60,20 @@ grid.style.visibility = 'visible'
 const p = createElements('p', CssClasses.PARAGRAPH);
 const pause = createElements('button', CssClasses.PAUSE_BUTTON);
 const newGame = createElements('button', CssClasses.START_GAME_BUTTON);
-
+const sizeGrid = createElements('select', CssClasses.SIZE_GRID);
 
  header.appendChild(bomb);
  section.append(container, grid);
- container.append(watch, p, clicked, pause, newGame);
+ container.append(watch, p, clicked, pause, newGame, sizeGrid);
  p.append(hour, minute, second);
+ sizeGrid.append(smallOption, mediumOption, largeOption);
  document.body.append(header, section);
  header.innerHTML = 'Welcome to minesweeper game 💥';
  pause.innerHTML = 'Pause';
  newGame.innerHTML = 'New Game';
+ smallOption.innerHTML = 'Small';
+ mediumOption.innerHTML = 'Medium';
+ largeOption.innerHTML = 'Large';
  hour.innerHTML = '00:';
  minute.innerHTML = '00:';
  second.innerHTML = '00';
@@ -72,7 +85,26 @@ const newGame = createElements('button', CssClasses.START_GAME_BUTTON);
    element.classList.add(className);
    return element;
  }
- 
+ const changeGame = () => {
+  const size = document.querySelector('size-grid');
+  switch (size.value) {
+    case 'small':
+      WIDTH = 10
+      HEIGHT = 10
+      break;
+    case 'medium':
+      WIDTH = 16
+      HEIGHT = 16
+      break;
+    case 'large':
+      WIDTH = 20
+      HEIGHT = 20
+      break;
+
+    default:
+      break;
+  }
+}
  const createBoard = function() {
     const bombsArray = Array(BOMB_AMOUNT).fill('bomb');
     const emptyArray = Array(WIDTH*HEIGHT - BOMB_AMOUNT).fill('valid');
@@ -87,9 +119,13 @@ const newGame = createElements('button', CssClasses.START_GAME_BUTTON);
         SQUARES.push(square);
        
         square.addEventListener('click', (e) => {
+          if (FIRST_CLICK) {
+            FIRST_CLICK = false
+            startTimer()
+          }
             click(square);
              CLICK++; 
-             clicked.innerHTML = `✔:${CLICK + FLAGS}`;  
+             clicked.innerHTML = `✔:${CLICK + FLAGS}`; 
         })
 
         square.oncontextmenu = function(e) {
@@ -308,6 +344,8 @@ function checkForWin() {
         }
     }  
 }
+
+
 
 })
 

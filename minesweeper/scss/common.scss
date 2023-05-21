@@ -56,10 +56,10 @@ body {
         background-color: rgb(250, 188, 72);
         border-radius: 10px;
         border: 2px solid rgb(88, 88, 128);
+        transition: all ease-in-out 0.5s;
         &:hover {
             background-color: beige;
-            transition: all ease-in-out 0.5s;
-        }
+        }       
     }
     .start-game_button {
         display: block;
@@ -72,12 +72,28 @@ body {
         background-color: beige;
         border-radius: 10px;
         border: 2px solid rgb(88, 88, 128);
+        transition: all ease-in-out 0.5s;
         &:hover {
             background-color: rgb(250, 188, 72);
-            transition: all ease-in-out 0.5s;
+           
         }
     }
+    .size-grid {
+        text-align: center;
+        margin: 20px auto;
+        display: block;
+        width: 80%;
+        padding: 5px 0;
+        font-size: 20px;
+        font-weight: 800;
+        color: rgb(110, 110, 110);
+        background-color: beige;
+        border-radius: 10px;
+        border: 2px solid rgb(88, 88, 128);
+        transition: all ease-in-out 0.5s;
+    }
 }
+
 
 .header { 
  
