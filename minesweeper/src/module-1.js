@@ -19,8 +19,8 @@ const largeOption = document.createElement('option');
 largeOption.setAttribute('value', 'large');
 
 
-const WIDTH = 10;
-const HEIGHT = 10;
+let WIDTH = 10;
+let HEIGHT = 10;
 let BOMB_AMOUNT = 10;
 let FLAGS = 0;
 const SQUARES = [];
@@ -43,7 +43,8 @@ const CssClasses = {
     PARAGRAPH: 'paragraph',
     PAUSE_BUTTON: 'pause-button',
     START_GAME_BUTTON: 'start-game_button',
-    SIZE_GRID: 'size-grid'
+    SIZE_GRID: 'size-grid',
+    CHANGE_COLOR: 'change-color-btn'
 }
 
 document.addEventListener('DOMContentLoaded', () => { 
@@ -61,10 +62,11 @@ const p = createElements('p', CssClasses.PARAGRAPH);
 const pause = createElements('button', CssClasses.PAUSE_BUTTON);
 const newGame = createElements('button', CssClasses.START_GAME_BUTTON);
 const sizeGrid = createElements('select', CssClasses.SIZE_GRID);
+const changeColor = createElements('button', CssClasses.CHANGE_COLOR);
 
  header.appendChild(bomb);
  section.append(container, grid);
- container.append(watch, p, clicked, pause, newGame, sizeGrid);
+ container.append(watch, p, clicked, pause, newGame, sizeGrid, changeColor);
  p.append(hour, minute, second);
  sizeGrid.append(smallOption, mediumOption, largeOption);
  document.body.append(header, section);
@@ -74,6 +76,7 @@ const sizeGrid = createElements('select', CssClasses.SIZE_GRID);
  smallOption.innerHTML = 'Small';
  mediumOption.innerHTML = 'Medium';
  largeOption.innerHTML = 'Large';
+ changeColor.innerHTML = '🤹';
  hour.innerHTML = '00:';
  minute.innerHTML = '00:';
  second.innerHTML = '00';
@@ -85,26 +88,7 @@ const sizeGrid = createElements('select', CssClasses.SIZE_GRID);
    element.classList.add(className);
    return element;
  }
- const changeGame = () => {
-  const size = document.querySelector('size-grid');
-  switch (size.value) {
-    case 'small':
-      WIDTH = 10
-      HEIGHT = 10
-      break;
-    case 'medium':
-      WIDTH = 16
-      HEIGHT = 16
-      break;
-    case 'large':
-      WIDTH = 20
-      HEIGHT = 20
-      break;
 
-    default:
-      break;
-  }
-}
  const createBoard = function() {
     const bombsArray = Array(BOMB_AMOUNT).fill('bomb');
     const emptyArray = Array(WIDTH*HEIGHT - BOMB_AMOUNT).fill('valid');
@@ -133,7 +117,6 @@ const sizeGrid = createElements('select', CssClasses.SIZE_GRID);
             addFlag(square);
          }
     }
-    
     for (let i = 0; i , SQUARES.length; i++) {
         let total = 0;
         const leftEdge = (i % WIDTH === 0);
@@ -158,7 +141,14 @@ const sizeGrid = createElements('select', CssClasses.SIZE_GRID);
 });
 
 newGame.addEventListener('click', () => {
-  location. reload()
+  location.reload()
+});
+
+changeColor.addEventListener('click', () => {
+  const body = document.querySelector('body');
+  const randomColor = Math.floor(Math.random()*16777215).toString(16);
+  body.style.backgroundColor = "#" + randomColor;
+  changeColor.style.backgroundColor = "#" + randomColor;
 });
 
  function clickOnPause() {
@@ -272,6 +262,28 @@ function click(square) {
     square.classList.add('checked')
 }
 
+function changeGame(){
+  const size = document.querySelector('.size-grid');
+  switch (size.value) {
+    case 'small':
+      WIDTH = 10
+      HEIGHT = 10
+      break;
+    case 'medium':
+      WIDTH = 16
+      HEIGHT = 16
+      break;
+    case 'large':
+      WIDTH = 20
+      HEIGHT = 20
+      break;
+
+    default:
+      break;
+  }
+  createBoard()
+}
+
 function checkSquare(square, currentId) {
     const isLeftEdge = (currentId % WIDTH === 0);
     const isRightEdge = (currentId % WIDTH === WIDTH -1);
@@ -344,8 +356,6 @@ function checkForWin() {
         }
     }  
 }
-
-
 
 })
 
