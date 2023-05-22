@@ -1,7 +1,6 @@
 # Self-introduction
 
-[link]
-(https://youtu.be/n9cCmKAYOjs)
+[link](https://youtu.be/n9cCmKAYOjs)
 
 # Transcript
 
