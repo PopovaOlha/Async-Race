@@ -18,7 +18,6 @@ mediumOption.setAttribute('value', 'medium');
 const largeOption = document.createElement('option');
 largeOption.setAttribute('value', 'large');
 
-
 let WIDTH = 10;
 let HEIGHT = 10;
 let BOMB_AMOUNT = 10;
@@ -90,11 +89,12 @@ const changeColor = createElements('button', CssClasses.CHANGE_COLOR);
  }
 
  const createBoard = function() {
-    const bombsArray = Array(BOMB_AMOUNT).fill('bomb');
-    const emptyArray = Array(WIDTH*HEIGHT - BOMB_AMOUNT).fill('valid');
-    const gameAray = emptyArray.concat(bombsArray);
-    const shuffledArray = gameAray.sort(() => Math.random() -0.5);
-    
+       
+        const bombsArray = Array(BOMB_AMOUNT).fill('bomb');
+        const emptyArray = Array(WIDTH*HEIGHT - BOMB_AMOUNT).fill('valid');
+        const gameAray = emptyArray.concat(bombsArray);
+        const shuffledArray = gameAray.sort(() => Math.random() -0.5);
+   
     for (let i = 0; i < WIDTH*HEIGHT; i++) {
         const square = document.createElement('div');
         square.setAttribute('id', i);
@@ -117,31 +117,56 @@ const changeColor = createElements('button', CssClasses.CHANGE_COLOR);
             addFlag(square);
          }
     }
-    for (let i = 0; i , SQUARES.length; i++) {
+
+    for (let i = 0; i < SQUARES.length; i++) {
         let total = 0;
         const leftEdge = (i % WIDTH === 0);
-        const rightEdge = (i % WIDTH === WIDTH -1);
+        const rightEdge = (i % WIDTH === WIDTH - 1);
 
         if (SQUARES[i].classList.contains('valid')) {
             if (i > 0 && !leftEdge && SQUARES[i - 1].classList.contains('bomb')) total ++
-            if (i > 9 && !rightEdge && SQUARES[i + 1 -WIDTH].classList.contains('bomb')) total ++
+            if (i > 9 && !rightEdge && SQUARES[(i + 1) - WIDTH].classList.contains('bomb')) total ++
             if (i > 10 && SQUARES[i - WIDTH].classList.contains('bomb')) total ++
-            if (i > 11 && !leftEdge && SQUARES[i - 1 -WIDTH].classList.contains('bomb')) total ++
+            if (i > 11 && !leftEdge && SQUARES[i - 1 - WIDTH].classList.contains('bomb')) total ++
             if (i < 98 && !rightEdge && SQUARES[i + 1].classList.contains('bomb')) total ++
-            if (i < 90 && !leftEdge && SQUARES[i - 1 +WIDTH].classList.contains('bomb')) total ++
-            if (i < 88 && !rightEdge && SQUARES[i + 1 +WIDTH].classList.contains('bomb')) total ++
+            if (i < 90 && !leftEdge && SQUARES[i - 1 + WIDTH].classList.contains('bomb')) total ++
+            if (i < 88 && !rightEdge && SQUARES[i + 1 + WIDTH].classList.contains('bomb')) total ++
             if (i < 89 && SQUARES[i + WIDTH].classList.contains('bomb')) total ++
             SQUARES[i].setAttribute('data', total);
         }
     }
  }
 
- pause.addEventListener('click', () => {
-    clickOnPause()
-});
+ pause.addEventListener('click',clickOnPause)
+
 
 newGame.addEventListener('click', () => {
   location.reload()
+});
+smallOption.addEventListener('click', () => {
+    if (FIRST_CLICK) {
+      FIRST_CLICK = false;
+    } else {
+      location.reload()
+    }
+});
+mediumOption.addEventListener('click', () => { 
+  if (FIRST_CLICK) {
+    startTimer()
+    changeGame()
+    FIRST_CLICK = false;
+  } else {
+    location.reload()
+  }
+});
+largeOption.addEventListener('click', () => {
+  if (FIRST_CLICK) {
+    startTimer()
+    changeGame()
+    FIRST_CLICK = false;
+  } else {
+    location.reload()
+  }
 });
 
 changeColor.addEventListener('click', () => {
@@ -163,7 +188,7 @@ changeColor.addEventListener('click', () => {
     } 
   } 
 
-createBoard();
+  createBoard();
 
 function startTimer() {
   
@@ -266,19 +291,25 @@ function changeGame(){
   const size = document.querySelector('.size-grid');
   switch (size.value) {
     case 'small':
-      WIDTH = 10
-      HEIGHT = 10
+        grid.style.height = 600 + 'px'
+        FIRST_CLICK = false
       break;
     case 'medium':
-      WIDTH = 16
-      HEIGHT = 16
+        WIDTH = 10
+        HEIGHT = 1
+        BOMB_AMOUNT = 5
+        container.style.height = 650 + 'px'
+        grid.style.height = 660 + 'px'
       break;
     case 'large':
-      WIDTH = 20
-      HEIGHT = 20
-      break;
+        WIDTH = 10
+        HEIGHT = 2
+        BOMB_AMOUNT = 5
+        container.style.height = 710 + 'px'
+        grid.style.height = 720 + 'px'
+        break;
 
-    default:
+    default: 
       break;
   }
   createBoard()
