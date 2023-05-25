@@ -141,7 +141,7 @@ const changeColor = createElements('button', CssClasses.CHANGE_COLOR);
 
 
 newGame.addEventListener('click', () => {
-  location.reload()
+   location.reload()
 });
 smallOption.addEventListener('click', () => {
     if (FIRST_CLICK) {
