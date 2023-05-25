@@ -255,7 +255,6 @@ function addFlag(square) {
             square.classList.remove('flag');
             square.innerHTML = '';
             FLAGS --;
-            IS_GAME_OVER = true;
         }
     }
 }
