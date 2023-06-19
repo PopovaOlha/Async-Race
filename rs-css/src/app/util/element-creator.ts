@@ -1,24 +1,34 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { ElementsParams } from '../../../index';
-
-export class createElement {
+export interface ElementsParams {
+    tag: string;
+    classNames: Array<string>;
+    textContent: string;
+    callback: unknown;
+}
+export default class ElementCreater {
     element!: HTMLElement;
-    constructor({ params }: { params: ElementsParams }) {
-        this.createElement({ params });
+    constructor(param: {
+        param: ElementsParams | { tag: string; classNames: string[]; textContent: string; callback: null };
+    }) {
+        this.createsElement(param);
     }
-
-    public createElement({ params }: { params: ElementsParams }): void {
-        this.element = document.createElement(params.tag);
-        this.addCssClasses(params.className);
-        this.addText(params.textContent);
+    public createsElement({ param }: { param: ElementsParams }): void {
+        this.element = document.createElement(param.tag);
+        this.setCssStyles(param.classNames);
+        this.setTextContent(param.textContent);
+        this.setCallback({ callback: param.callback });
     }
-    public getElement(): HTMLElement {
+    public getElement() {
         return this.element;
     }
-    public addCssClasses(cssClasses: Array<string>) {
-        cssClasses.forEach((className) => this.element.classList.add(className));
+    public setCssStyles(cssStyles: string[]) {
+        cssStyles.map((className) => this.element.classList.add(className));
     }
-    public addText(text: string) {
+    public setTextContent(text: string) {
         this.element.textContent = text;
+    }
+    public setCallback({ callback }: { callback: unknown }) {
+        if (typeof callback === 'function') {
+            this.element.addEventListener('click', (event) => callback(event));
+        }
     }
 }
