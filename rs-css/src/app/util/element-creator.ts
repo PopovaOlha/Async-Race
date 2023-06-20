@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 export interface ElementsParams {
     tag: string;
     classNames: Array<string>;
@@ -7,7 +8,14 @@ export interface ElementsParams {
 export default class ElementCreater {
     element!: HTMLElement;
     constructor(param: {
-        param: ElementsParams | { tag: string; classNames: string[]; textContent: string; callback: null };
+        param:
+            | ElementsParams
+            | {
+                  tag: string;
+                  classNames: string[];
+                  textContent: string;
+                  callback: null;
+              };
     }) {
         this.createsElement(param);
     }
@@ -19,6 +27,13 @@ export default class ElementCreater {
     }
     public getElement() {
         return this.element;
+    }
+    public addInnerElement({ element }: { element: HTMLElement | ElementCreater }): void {
+        if (element instanceof ElementCreater) {
+            this.element.append(element.getElement());
+        } else {
+            this.element.append(element);
+        }
     }
     public setCssStyles(cssStyles: string[]) {
         cssStyles.map((className) => this.element.classList.add(className));
