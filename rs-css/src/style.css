@@ -1,71 +1,8 @@
 @import url("reset.css");
+@import url('./app/view/header/header.css');
 
 body {
     font-family: "Exo 2", "Lato", "Helvetica Neue", sans-serif;
-    background-image: -moz-radial-gradient(20% 40%,contain circle, #3e392f, #221e17);
-    background-repeat: no-repeat;
+    background-color: #1a2639;
     position: relative;
-}
-.wrapper {
-    min-height: 100%;
-    display:flex;
-    overflow: clip;
-}
-
-.page {
-    flex: 1 1 auto;
-}
-
-.left-column {
-    width: calc(100% - 30%);
-    text-align: center;
-    overflow-x: visible;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 2;
-}
-.scroll_box {
-    overflow: visible;
-}
-.left-column_container {
-    position: relative;
-    top: 0px;
-    left: 0px;
-}
-.header {
-    color: rgba(255,255,255,.3);
-    font-size: 1.2rem;
-    font-weight: 700;
-    padding: 12px 15px 11px 35px;
-    display: flex;
-    justify-content: space-between;
-}
-.css-logo {
-}
-.css-logo_name {
-}
-
-.share-content {
-}
-.share-menu {
-}
-.share-email {
-}
-.share-facebook {
-}
-.share-twitter {
-}
-.css-order {
-}
-.game-wrapper {
-}
-.table-wrapper {
-}
-.surface-area {
-}
-.name-tags {
-}
-.table {
 }

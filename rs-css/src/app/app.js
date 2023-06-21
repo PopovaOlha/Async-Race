@@ -1,4 +1,5 @@
 import HeaderView from './view/header/header-view';
+import WrapperView from './view/wrapper/wrapper';
 
 export default class App {
     constructor() {
@@ -6,6 +7,8 @@ export default class App {
     }
     createView() {
         const headerView = new HeaderView();
-        document.body.append(headerView.getHtmlDocument());
+        const wrapperView = new WrapperView();
+        wrapperView.getHtmlDocument().append(headerView.getHtmlDocument());
+        document.body.append(wrapperView.getHtmlDocument());
     }
 }

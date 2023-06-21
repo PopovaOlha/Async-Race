@@ -1,10 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 export interface ElementsParams {
     tag: string;
     classNames: Array<string>;
     textContent: string;
     callback: unknown;
 }
+
 export default class ElementCreater {
     element!: HTMLElement;
     constructor(param: {
@@ -38,12 +38,15 @@ export default class ElementCreater {
     public setCssStyles(cssStyles: string[]) {
         cssStyles.map((className) => this.element.classList.add(className));
     }
-    public setTextContent(text: string) {
+    public setTextContent(text: string): void {
         this.element.textContent = text;
     }
     public setCallback({ callback }: { callback: unknown }) {
         if (typeof callback === 'function') {
             this.element.addEventListener('click', (event) => callback(event));
         }
+    }
+    public addAttribute(attr: string, name: string): void {
+        this.element.setAttribute(attr, name);
     }
 }
