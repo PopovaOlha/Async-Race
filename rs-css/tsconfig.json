@@ -4,8 +4,7 @@
       /* Language and Environment */
       "target": "es2016",                           
       
-      /* Modules */
-      "module": "commonjs",    
+      /* Modules */    
       "esModuleInterop": true,                          
                           
       "forceConsistentCasingInFileNames": true,           

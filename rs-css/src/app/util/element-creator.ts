@@ -4,7 +4,6 @@ export interface ElementsParams {
     textContent: string;
     callback: unknown;
 }
-
 export default class ElementCreater {
     element!: HTMLElement;
     constructor(param: {
@@ -28,7 +27,7 @@ export default class ElementCreater {
     public getElement() {
         return this.element;
     }
-    public addInnerElement({ element }: { element: HTMLElement | ElementCreater }): void {
+    public addInnerElement(element: HTMLElement | ElementCreater): void {
         if (element instanceof ElementCreater) {
             this.element.append(element.getElement());
         } else {

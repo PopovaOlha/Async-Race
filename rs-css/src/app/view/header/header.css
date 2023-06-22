@@ -13,6 +13,7 @@
     text-align: center;
     overflow-x: visible;
     position: fixed;
+    border-right: 2px solid #1a2639 ;
     top: 0;
     bottom: 0;
     left: 0;
@@ -30,19 +31,35 @@
 }
 
 .header {
-    color: rgba(255,255,255,.3);
-    font-size: 1rem;
-    font-weight: 700;
+    color: #1a2639;
+    font-size: 1.1rem;
+    font-weight: 800;
     padding: 12px 15px 11px 35px;
     display: flex;
+    align-items: center;
     justify-content: space-between;
 }
-
-.logo {
-    width: 50px;
+.share-menu {
     align-self: center;
+}
+.logo {
+    width: 15px;
+    align-self:center;
+    margin-right: 5px;
 }
 .css-logo {
     display:flex;
-    flex-direction: column;
+    align-items: center;
+}
+.css-logo_name {
+    margin-top: 5px;
+}
+.share-content {
+    margin-top: 7px;
+    display: flex;
+    gap: 5px;
+    align-self: flex-end;
+}
+.email-logo, .facebook-logo, .twitter-logo {
+    width: 20px;
 }

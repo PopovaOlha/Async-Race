@@ -4,7 +4,7 @@ const EslintPlugin = require('eslint-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-    entry: path.resolve(__dirname, './src/index.js'),
+    entry: path.resolve(__dirname, './src/index'),
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'my-bundle.js',

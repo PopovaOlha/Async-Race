@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import ElementCreater from '../../util/element-creator';
-import HeaderNavViev from '../header-nav/header-naw';
+import LinkView from '../header-links/header-links';
+import LinkViev from '../header-links/header-links';
 import View from '../view';
 
 const CssStyles = {
@@ -11,6 +11,14 @@ const CssStyles = {
     CSS_LOGO: 'css-logo',
     LOGO: 'logo',
     CSS_LOGO_NAME: 'css-logo_name',
+    SHARE_CONTENT: 'share-content',
+    SHARE_MENU: 'share-menu',
+    SHARE_EMAIL: 'share-email',
+    SHARE_FACEBOOK: 'share-facebook',
+    SHARE_TWITTER: 'share-twitter',
+    EMAIL_LOGO: 'email-logo',
+    FACEBOOK_LOGO: 'facebook-logo',
+    TWITTER_LOGO: 'twitter-logo',
 };
 
 export default class HeaderView extends View {
@@ -59,9 +67,7 @@ export default class HeaderView extends View {
             callback: null,
         };
         const creatorCssLogo = new ElementCreater({ param: paramHeaderLogo });
-        const creatorNavViev = new HeaderNavViev();
         creatorHeader.addInnerElement(creatorCssLogo);
-        creatorHeader.addInnerElement(creatorNavViev);
 
         const paramLogo = {
             tag: 'img',
@@ -70,7 +76,7 @@ export default class HeaderView extends View {
             callback: null,
         };
         const creatorLogo = new ElementCreater({ param: paramLogo });
-        creatorLogo.addAttribute('src', '../../../images/that.png');
+        creatorLogo.addAttribute('src', '../../../images/apple.png');
         creatorCssLogo.addInnerElement(creatorLogo);
 
         const paramLogName = {
@@ -81,5 +87,56 @@ export default class HeaderView extends View {
         };
         const createLogName = new ElementCreater({ param: paramLogName });
         creatorCssLogo.addInnerElement(createLogName);
+
+        const paramShareContent = {
+            tag: 'div',
+            classNames: [CssStyles.SHARE_CONTENT],
+            textContent: '',
+            callback: null,
+        };
+        const createShareContent = new ElementCreater({ param: paramShareContent });
+        creatorHeader.addInnerElement(createShareContent);
+
+        const paramShareMenu = {
+            tag: 'span',
+            classNames: [CssStyles.SHARE_MENU],
+            textContent: 'Share',
+            callback: null,
+        };
+        const createShareMenu = new ElementCreater({ param: paramShareMenu });
+        createShareContent.addInnerElement(createShareMenu);
+
+        const linkItems = [
+            {
+                LinkStyle: [CssStyles.SHARE_EMAIL],
+                ImgStyle: [CssStyles.EMAIL_LOGO],
+                LinkName: 'a',
+                ImgName: 'img',
+                Root: '../../../images/email-envelope.svg',
+            },
+            {
+                LinkStyle: [CssStyles.SHARE_FACEBOOK],
+                ImgStyle: [CssStyles.FACEBOOK_LOGO],
+                LinkName: 'a',
+                ImgName: 'img',
+                Root: '../../../images/facebook-social-logo.svg',
+            },
+            {
+                LinkStyle: [CssStyles.SHARE_TWITTER],
+                ImgStyle: [CssStyles.TWITTER_LOGO],
+                LinkName: 'a',
+                ImgName: 'img',
+                Root: '../../../images/twitter.svg',
+            },
+        ];
+
+        linkItems.forEach((item) => {
+            const imageElement = new LinkViev(item.ImgName, item.ImgStyle);
+            imageElement.elementCreater.addAttribute('src', item.Root);
+            const linkElement = new LinkView(item.LinkName, item.LinkStyle);
+            linkElement.elementCreater.addAttribute('href', '#');
+            linkElement.elementCreater.addInnerElement(imageElement.getHtmlDocument());
+            createShareContent.addInnerElement(linkElement.getHtmlDocument());
+        });
     }
 }
