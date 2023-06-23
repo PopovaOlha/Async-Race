@@ -1,6 +1,6 @@
 import ElementCreater from '../../util/element-creator';
 import LinkView from '../header-links/header-links';
-import LinkViev from '../header-links/header-links';
+import HeadlineView from '../headline/headline';
 import View from '../view';
 
 const CssStyles = {
@@ -32,7 +32,7 @@ export default class HeaderView extends View {
         super(paramsCol);
         this.configureView();
     }
-    configureView() {
+    public configureView() {
         const paramsScroll = {
             tag: 'div',
             classNames: [CssStyles.SCROLL_BOX],
@@ -131,12 +131,14 @@ export default class HeaderView extends View {
         ];
 
         linkItems.forEach((item) => {
-            const imageElement = new LinkViev(item.ImgName, item.ImgStyle);
+            const imageElement = new LinkView(item.ImgName, item.ImgStyle);
             imageElement.elementCreater.addAttribute('src', item.Root);
             const linkElement = new LinkView(item.LinkName, item.LinkStyle);
             linkElement.elementCreater.addAttribute('href', '#');
             linkElement.elementCreater.addInnerElement(imageElement.getHtmlDocument());
             createShareContent.addInnerElement(linkElement.getHtmlDocument());
         });
+        const creatorHeadline = new HeadlineView();
+        this.elementCreater.addInnerElement(creatorHeadline.getHtmlDocument());
     }
 }
