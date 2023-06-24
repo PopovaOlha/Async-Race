@@ -11,6 +11,7 @@ const CssStyles = {
     TABLE: 'table',
     DANCE: 'dance',
     TABLE_ADGE: 'table-edge',
+    TABLE_LEG: 'table-leg',
 };
 export default class TableView extends View {
     paramsGameWrapper!: ElementsParams | { tag: string; classNames: string[]; textContent: string; callback: null };
@@ -74,5 +75,25 @@ export default class TableView extends View {
             const creatorPlats = new TableContentView(item.tagName, item.className);
             creatorTable.addInnerElement(creatorPlats.getHtmlDocument());
         });
+
+        const paramsTableAdge = {
+            tag: 'div',
+            classNames: [CssStyles.TABLE_ADGE],
+            textContent: '',
+            callback: null,
+        };
+        const creatorTableAdge = new ElementCreater({ param: paramsTableAdge });
+        this.elementCreater.addInnerElement(creatorTableAdge);
+
+        const paramsTableLeg = {
+            tag: 'div',
+            classNames: [CssStyles.TABLE_LEG],
+            textContent: '',
+            callback: null,
+        };
+        const creatorLeftLeg = new ElementCreater({ param: paramsTableLeg });
+        const creatorRightLeg = new ElementCreater({ param: paramsTableLeg });
+        creatorTableAdge.addInnerElement(creatorLeftLeg);
+        creatorTableAdge.addInnerElement(creatorRightLeg);
     }
 }

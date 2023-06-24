@@ -13,6 +13,10 @@
     text-align: center;
     overflow-x: visible;
     position: fixed;
+    background-image: url(../../../images/pngwing.com.png);
+    background-size: 78%;
+    background-position:50% 50%;
+    background-repeat: no-repeat;
     border-right: 2px solid #1a2639 ;
     top: 0;
     bottom: 0;
