@@ -1,6 +1,7 @@
 import ElementCreater from '../../util/element-creator';
 import LinkView from '../header-links/header-links';
 import HeadlineView from '../headline/headline';
+import MainView from '../main/main';
 import View from '../view';
 
 const CssStyles = {
@@ -40,8 +41,11 @@ export default class HeaderView extends View {
             callback: null,
         };
         const creatorScroll = new ElementCreater({ param: paramsScroll });
+        const creatorMain = new MainView();
+        const creatorHeadline = new HeadlineView();
         this.elementCreater.addInnerElement(creatorScroll);
-
+        this.elementCreater.addInnerElement(creatorHeadline.getHtmlDocument());
+        this.elementCreater.addInnerElement(creatorMain.getHtmlDocument());
         const paramLeftContainer = {
             tag: 'div',
             classNames: [CssStyles.LEFT_COLUMN_CONTAINER],
@@ -138,7 +142,5 @@ export default class HeaderView extends View {
             linkElement.elementCreater.addInnerElement(imageElement.getHtmlDocument());
             createShareContent.addInnerElement(linkElement.getHtmlDocument());
         });
-        const creatorHeadline = new HeadlineView();
-        this.elementCreater.addInnerElement(creatorHeadline.getHtmlDocument());
     }
 }
