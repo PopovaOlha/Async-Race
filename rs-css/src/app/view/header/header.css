@@ -11,7 +11,7 @@
 .left-column {
     width: calc(100% - 30%);
     text-align: center;
-    overflow-x: visible;
+    overflow-x: scroll;
     position: fixed;
     background-image: url(../../../images/pngwing.com.png);
     background-size: 78%;
@@ -25,13 +25,21 @@
 }
 
 .scroll_box {
-    overflow: visible;
-}
-
-.left-column_container {
     position: relative;
-    top: 0px;
-    left: 0px;
+    max-width: 100%;
+    height: 100%;
+    outline: none;
+    overflow-y: scroll;
+}
+.left-column_container {
+    overflow: visible !important;
+    height: auto;
+    width: auto;
+}
+.custom-scroll_bar {
+    overflow: visible !important;
+    touch-action: pinch-zoom;
+    overflow:scroll;
 }
 
 .header {

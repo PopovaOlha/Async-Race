@@ -6,6 +6,7 @@ import View from '../view';
 
 const CssStyles = {
     LEFT_COLUMN: 'left-column',
+    CUSTOM_SCROLL_BAR: 'custom-scroll_bar',
     SCROLL_BOX: 'scroll_box',
     LEFT_COLUMN_CONTAINER: 'left-column_container',
     HEADER: 'header',
@@ -26,7 +27,7 @@ export default class HeaderView extends View {
     constructor() {
         const paramsCol = {
             tag: 'div',
-            classNames: [CssStyles.LEFT_COLUMN],
+            classNames: [CssStyles.LEFT_COLUMN, CssStyles.CUSTOM_SCROLL_BAR],
             textContent: '',
             callback: null,
         };
@@ -44,8 +45,6 @@ export default class HeaderView extends View {
         const creatorMain = new MainView();
         const creatorHeadline = new HeadlineView();
         this.elementCreater.addInnerElement(creatorScroll);
-        this.elementCreater.addInnerElement(creatorHeadline.getHtmlDocument());
-        this.elementCreater.addInnerElement(creatorMain.getHtmlDocument());
         const paramLeftContainer = {
             tag: 'div',
             classNames: [CssStyles.LEFT_COLUMN_CONTAINER],
@@ -54,7 +53,6 @@ export default class HeaderView extends View {
         };
         const creatorContainer = new ElementCreater({ param: paramLeftContainer });
         creatorScroll.addInnerElement(creatorContainer);
-
         const paramHeader = {
             tag: 'header',
             classNames: [CssStyles.HEADER],
@@ -62,7 +60,9 @@ export default class HeaderView extends View {
             callback: null,
         };
         const creatorHeader = new ElementCreater({ param: paramHeader });
-        creatorContainer.addInnerElement(creatorHeader);
+        creatorScroll.addInnerElement(creatorHeader);
+        creatorScroll.addInnerElement(creatorHeadline.getHtmlDocument());
+        creatorScroll.addInnerElement(creatorMain.getHtmlDocument());
 
         const paramHeaderLogo = {
             tag: 'div',

@@ -18,7 +18,7 @@ export default class ElementCreater {
     }) {
         this.createsElement(param);
     }
-    public createsElement({ param }: { param: ElementsParams }): void {
+    public createsElement({ param }: { param: ElementsParams }) {
         this.element = document.createElement(param.tag);
         this.setCssStyles(param.classNames);
         this.setTextContent(param.textContent);
@@ -27,7 +27,7 @@ export default class ElementCreater {
     public getElement() {
         return this.element;
     }
-    public addInnerElement(element: HTMLElement | ElementCreater): void {
+    public addInnerElement(element: HTMLElement | ElementCreater) {
         if (element instanceof ElementCreater) {
             this.element.append(element.getElement());
         } else {

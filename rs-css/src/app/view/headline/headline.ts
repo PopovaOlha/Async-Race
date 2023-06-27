@@ -16,5 +16,9 @@ export default class HeadlineView extends View {
             callback: null,
         };
         super(paramsOrder);
+        this.setContent();
+    }
+    public setContent() {
+        this.elementCreater.getElement().innerHTML = 'Select the plates';
     }
 }
