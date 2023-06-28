@@ -1,5 +1,5 @@
 @import url("reset.css");
-@import url('./app/view/header/header.css');
+@import url('./app/view/header/header-view/header.css');
 
 body {
     font-family: "Exo 2", "Lato", "Helvetibackground-ica Neue", sans-serif;

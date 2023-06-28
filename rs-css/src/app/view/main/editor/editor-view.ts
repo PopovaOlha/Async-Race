@@ -1,4 +1,7 @@
-import '../editor/editor.css';
+import Codemirror from './codemirror/lib/codemirror';
+import 'codemirror/mode/css/css';
+import 'codemirror/lib/codemirror.css';
+import './editor.css';
 import ElementCreater from '../../../util/element-creator';
 import View from '../../view';
 
@@ -15,6 +18,8 @@ const CssStyles = {
     PANEL_BUTTON: 'panel_button',
 };
 export default class EditorView extends View {
+    codeMirrorInput!: ElementCreater;
+    textareaCreator: ElementCreater | undefined;
     constructor() {
         const paramsEditor = {
             tag: 'div',
@@ -78,7 +83,54 @@ export default class EditorView extends View {
             textContent: '',
             callback: null,
         };
-        const textareaCreator = new ElementCreater({ param: paramsTextArea });
-        cssPanelCreator.addInnerElement(textareaCreator);
+        this.textareaCreator = new ElementCreater({ param: paramsTextArea });
+        cssPanelCreator.addInnerElement(this.textareaCreator);
+    }
+    generateCodeMirrorInput() {
+        this.codeMirrorInput = Codemirror.fromTextArea(this.textareaCreator, {
+          lineNumbers: false,
+          styleActiveLine: true,
+          matchBrackets: true,
+          enterMode: 'flat', 
+          theme: 'monokai',
+          smartIndent: false,
+          mode: 'css',
+        });
+    
+        this.codeMirrorInput.focus();
+    
+        this.codeMirrorInput.on({
+                arg0: 'beforeChange', arg1: (instance: any, changeObj: { text: string[]; update: (arg0: string, arg1: string, arg2: string[]) => void; from: string; to: string; }) => {
+                    const text = changeObj.text.join('').replace(/\n/g, '');
+                    changeObj.update(changeObj.from, changeObj.to, [text]);
+                    return true;
+                }
+            });
+    
+        const mirrorWrapper = document.querySelector('.CodeMirror-lines');
+        mirrorWrapper.classList.add('highlighting');
+    
+        this.codeMirrorInput.on({
+                arg0: 'change', 
+                arg1: (instance: { getValue: () => string; }): any => {
+                    if (instance.getValue()) {
+                        mirrorWrapper.classList.remove('highlighting');
+                    } else {
+                        mirrorWrapper.classList.add('highlighting');
+                    }
+                    this.codeMirrorInput.save();
+                }
+            });
+    
+        this.codeMirrorInput.on({
+                arg0: 'keyHandled', arg1: (instance: string, name: string, event: { code: string; }) => {
+                    if (event.code === 'Enter') {
+                        this.checkSelector();
+                    }
+                }
+            });
+      }
+    checkSelector() {
+        throw new Error('Method not implemented.');
     }
 }

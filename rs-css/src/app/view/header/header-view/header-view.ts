@@ -1,3 +1,4 @@
+import './header.css';
 import ElementCreater from '../../../util/element-creator';
 import LinkView from '../header-links/header-links';
 import HeadlineView from '../headline/headline';
@@ -80,7 +81,7 @@ export default class HeaderView extends View {
             callback: null,
         };
         const creatorLogo = new ElementCreater({ param: paramLogo });
-        creatorLogo.addAttribute('src', '../../../images/apple.png');
+        creatorLogo.addAttribute('src', '../../../../images/apple.png');
         creatorCssLogo.addInnerElement(creatorLogo);
 
         const paramLogName = {
@@ -116,21 +117,21 @@ export default class HeaderView extends View {
                 ImgStyle: [CssStyles.EMAIL_LOGO],
                 LinkName: 'a',
                 ImgName: 'img',
-                Root: '../../../images/email-envelope.svg',
+                Root: '../../../../images/email-envelope.svg',
             },
             {
                 LinkStyle: [CssStyles.SHARE_FACEBOOK],
                 ImgStyle: [CssStyles.FACEBOOK_LOGO],
                 LinkName: 'a',
                 ImgName: 'img',
-                Root: '../../../images/facebook-social-logo.svg',
+                Root: '../../../../images/facebook-social-logo.svg',
             },
             {
                 LinkStyle: [CssStyles.SHARE_TWITTER],
                 ImgStyle: [CssStyles.TWITTER_LOGO],
                 LinkName: 'a',
                 ImgName: 'img',
-                Root: '../../../images/twitter.svg',
+                Root: '../../../../images/twitter.svg',
             },
         ];
 
