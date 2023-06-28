@@ -1,6 +1,6 @@
 import './table-wrapper.css';
-import ElementCreater, { ElementsParams } from '../../util/element-creator';
-import View from '../view';
+import ElementCreater, { ElementsParams } from '../../../util/element-creator';
+import View from '../../view';
 import TableContentView from '../table-content/table-content';
 
 const CssStyles = {

@@ -1,6 +1,6 @@
 import '../editor/editor.css';
-import ElementCreater from '../../util/element-creator';
-import View from '../view';
+import ElementCreater from '../../../util/element-creator';
+import View from '../../view';
 
 const TEXT_CSS_EDITOR = 'CSS Editor';
 const TEXT_STYLE_CSS = 'style.css';

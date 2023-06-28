@@ -1,8 +1,8 @@
-import ElementCreater from '../../util/element-creator';
+import ElementCreater from '../../../util/element-creator';
 import LinkView from '../header-links/header-links';
 import HeadlineView from '../headline/headline';
-import MainView from '../main/main';
-import View from '../view';
+import MainView from '../../main/main-view/main';
+import View from '../../view';
 
 const CssStyles = {
     LEFT_COLUMN: 'left-column',

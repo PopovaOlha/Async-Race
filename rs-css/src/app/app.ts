@@ -1,4 +1,4 @@
-import HeaderView from './view/header/header-view';
+import HeaderView from './view/header/header-view/header-view';
 import WrapperView from './view/wrapper/wrapper';
 
 export default class App {

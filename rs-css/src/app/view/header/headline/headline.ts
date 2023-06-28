@@ -1,6 +1,6 @@
 import './headline.css';
-import View from '../view';
-import { ElementsParams } from '../../util/element-creator';
+import View from '../../view';
+import { ElementsParams } from '../../../util/element-creator';
 
 const CssStyles = {
     ORDER: 'order',
