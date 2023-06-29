@@ -1,9 +1,23 @@
-import Codemirror from './codemirror/lib/codemirror';
-import 'codemirror/mode/css/css';
-import 'codemirror/lib/codemirror.css';
 import './editor.css';
+import CodeMirror from 'codemirror';
+import './codemirror/lib/codemirror.css';
+import './codemirror/theme/neat.css';
+import './codemirror/mode/css/css';
+import './codemirror/addon/display/placeholder';
+import './codemirror/theme/dracula.css';
 import ElementCreater from '../../../util/element-creator';
 import View from '../../view';
+
+export interface DataLevels {
+    helpTitle: string;
+    selectorName?: string;
+    doThis: string;
+    selector?: string;
+    syntax: string;
+    help: string;
+    examples?: string[];
+    boardMarkup: string;
+}
 
 const TEXT_CSS_EDITOR = 'CSS Editor';
 const TEXT_STYLE_CSS = 'style.css';
@@ -12,15 +26,29 @@ const CssStyles = {
     EDITOR: 'editor',
     CSS_PANEL: 'css-panel',
     PANEL_HEADER: 'panel_header',
-    PANEL_WINDOW: 'panel_window',
-    PANEL_LINE_NUMBERS: 'panel-line_numbers',
-    PANEL_INPUT: 'panel-input',
+    FORM_INPUT: 'form-input',
+    BLINK: 'blink',
     PANEL_BUTTON: 'panel_button',
+    EDITOR_MAIN: 'editor_main',
+    FORM: 'form',
+    CODEMIRROR: 'Codemirror',
+    CM_S_DRACULA: 'cm-s-dracula',
+    CODEMIRROR_EMPTY: 'Codemirror-empty',
 };
 export default class EditorView extends View {
-    codeMirrorInput!: ElementCreater;
-    textareaCreator: ElementCreater | undefined;
-    constructor() {
+    currentElem: HTMLElement | null = null;
+
+    isPassedLevel = true;
+
+    config = {
+        theme: 'dracula',
+        value: 'Type in a CSS selector',
+        tabSize: 1,
+        lineNumbers: false,
+        mode: 'css',
+    };
+    levels: DataLevels[];
+    constructor(state: DataLevels[]) {
         const paramsEditor = {
             tag: 'div',
             classNames: [CssStyles.EDITOR],
@@ -28,6 +56,7 @@ export default class EditorView extends View {
             callback: null,
         };
         super(paramsEditor);
+        this.levels = state;
         this.configureView();
     }
     public configureView() {
@@ -67,70 +96,41 @@ export default class EditorView extends View {
         const secondSpanCreator = new ElementCreater({ param: paramsSecondSpan });
         panelHeader.addInnerElement(secondSpanCreator);
 
-        const paramsPanelWindow = {
+        const paramsEditorMain = {
             tag: 'div',
-            classNames: [CssStyles.PANEL_WINDOW],
+            classNames: [CssStyles.EDITOR_MAIN],
             textContent: '',
             callback: null,
         };
-        const panelWindowCreator = new ElementCreater({ param: paramsPanelWindow });
-        panelWindowCreator.getElement().innerHTML = `<div class="${CssStyles.PANEL_LINE_NUMBERS}">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15</div>`;
-        cssPanelCreator.addInnerElement(panelWindowCreator);
+        const editorMainCreator = new ElementCreater({ param: paramsEditorMain });
+        this.elementCreater.addInnerElement(editorMainCreator);
+
+        const paramsForm = {
+            tag: 'form',
+            classNames: [CssStyles.FORM],
+            textContent: '',
+            callback: null,
+        };
+        const formCreator = new ElementCreater({ param: paramsForm });
+        editorMainCreator.addInnerElement(formCreator);
 
         const paramsTextArea = {
             tag: 'textarea',
-            classNames: [CssStyles.PANEL_INPUT],
+            classNames: [CssStyles.FORM_INPUT, CssStyles.BLINK],
             textContent: '',
             callback: null,
         };
-        this.textareaCreator = new ElementCreater({ param: paramsTextArea });
-        cssPanelCreator.addInnerElement(this.textareaCreator);
-    }
-    generateCodeMirrorInput() {
-        this.codeMirrorInput = Codemirror.fromTextArea(this.textareaCreator, {
-          lineNumbers: false,
-          styleActiveLine: true,
-          matchBrackets: true,
-          enterMode: 'flat', 
-          theme: 'monokai',
-          smartIndent: false,
-          mode: 'css',
-        });
-    
-        this.codeMirrorInput.focus();
-    
-        this.codeMirrorInput.on({
-                arg0: 'beforeChange', arg1: (instance: any, changeObj: { text: string[]; update: (arg0: string, arg1: string, arg2: string[]) => void; from: string; to: string; }) => {
-                    const text = changeObj.text.join('').replace(/\n/g, '');
-                    changeObj.update(changeObj.from, changeObj.to, [text]);
-                    return true;
-                }
-            });
-    
-        const mirrorWrapper = document.querySelector('.CodeMirror-lines');
-        mirrorWrapper.classList.add('highlighting');
-    
-        this.codeMirrorInput.on({
-                arg0: 'change', 
-                arg1: (instance: { getValue: () => string; }): any => {
-                    if (instance.getValue()) {
-                        mirrorWrapper.classList.remove('highlighting');
-                    } else {
-                        mirrorWrapper.classList.add('highlighting');
-                    }
-                    this.codeMirrorInput.save();
-                }
-            });
-    
-        this.codeMirrorInput.on({
-                arg0: 'keyHandled', arg1: (instance: string, name: string, event: { code: string; }) => {
-                    if (event.code === 'Enter') {
-                        this.checkSelector();
-                    }
-                }
-            });
-      }
-    checkSelector() {
-        throw new Error('Method not implemented.');
+        const textareaCreator = new ElementCreater({ param: paramsTextArea });
+        textareaCreator.addAttribute('placeholder', 'tipe in a CSS selector');
+        formCreator.addInnerElement(textareaCreator);
+
+        const paramsCodemirror = {
+            tag: 'div',
+            classNames: [CssStyles.CODEMIRROR, CssStyles.CM_S_DRACULA, CssStyles.CODEMIRROR_EMPTY],
+            textContent: '',
+            callback: null,
+        };
+        const codemirrorCreator = new ElementCreater({ param: paramsCodemirror });
+        formCreator.addInnerElement(codemirrorCreator);
     }
 }

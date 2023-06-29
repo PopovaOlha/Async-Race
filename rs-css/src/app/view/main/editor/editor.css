@@ -29,33 +29,106 @@
     border-left: 1px solid rgb(11, 11, 31);
     background-color: rgb(178, 178, 209);
 }
-.panel_window {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+
+.editor .editor_main {
     position: relative;
-    height: calc(100% - 50px);
-    background: beige;
-    color: black;
-    font-size: 1.4rem;
-    line-height: 2rem;
-    padding: 5px 5px 5px 50px;
+    padding-left: 40px;
+    background: #282a36;
+    height: 100%;
+    line-height: 140%;
 }
-.panel-line_numbers {
+.editor .form {
+    width: 100%;
     display: flex;
-    justify-content: flex-end;
-    padding: 8px;
+    align-items: center;
+    margin: 0 5px;
+}
+.form .form__input {
+    margin-right: 10px;
+    border: none;
+    width: 100%;
+    height: 20px;
+    resize: none;
+    background-color: inherit;
+    transition: .5s;
+}
+.CodeMirror {
+    width: 100%;
+    margin-top: 3px;
+    margin-right: 5px;
+    height: 30px;
+    font-size: 16px;
+    background-color: inherit;
+}
+.CodeMirror-vscrollbar {
+    display: none !important;
+}
+.CodeMirror-hscrollbar {
+    display: none !important;
+}
+.CodeMirror-scrollbar-filler {
+    display: none !important;
+}
+.line-number {
     position: absolute;
+    z-index: 4;
     top: 0;
     left: 0;
-    width: 40px;
+    padding: 10px;
     height: 100%;
-    color: black;
-    background: beige;
+    text-align: right;
+    color: #5b6d99;
+    background: #282a36;
+    /*  box-shadow: -1px 0px 6px 0px rgba(0, 0, 0, 0.5); */
 }
-.panel-input {
-    display: inline-flex;
-    float:right;
-    width: 100%;
-    opacity: 0.8;
+
+.blink {
+    animation: blink 1s linear infinite;
+    background-color: rgba(62, 203, 255, 0.3);
+}
+
+[data-hover] {
+    outline: 10px solid #ff79c5d0 !important;
+}
+
+.bold {
+    background-color: rgba(255, 255, 255, 0.055);
+}
+
+.hidden {
+    display: block !important;
+}
+
+.passed {
+    color: #50fa7b !important;
+}
+.not-passed {
+    color: #ff79c6 !important;
+}
+.tooltip {
+    background-color: #282a36;
+    position: absolute;
+    display: none;
+    text-align: center;
+    padding: 10px;
+    font-family: monospace;
+    border-radius: 5px;
+    box-shadow: inset 0px 0px 0px 1px #f8f8f2;
+    border: 1px solid #282a36;
+}
+@keyframes blink {
+    0% {
+        background-color: #f1fa8c42;
+    }
+    50% {
+        background-color: initial;
+    }
+    100% {
+        background-color: #f1fa8c42;
+    }
+}
+
+.shake {
+    -webkit-animation: 0.1s tremor ease-out infinite;
+    animation: 0.3s tremor ease-out;
 }

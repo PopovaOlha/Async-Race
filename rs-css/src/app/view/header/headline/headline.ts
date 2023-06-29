@@ -1,6 +1,7 @@
 import './headline.css';
 import View from '../../view';
 import { ElementsParams } from '../../../util/element-creator';
+import levels from '../../../data/level-game';
 
 const CssStyles = {
     ORDER: 'order',
@@ -12,13 +13,15 @@ export default class HeadlineView extends View {
         const paramsOrder = {
             tag: 'div',
             classNames: [CssStyles.ORDER],
-            textContent: 'Select the plates',
+            textContent: '',
             callback: null,
         };
         super(paramsOrder);
         this.setContent();
     }
     public setContent() {
-        this.elementCreater.getElement().innerHTML = 'Select the plates';
+        levels.forEach((level) => {
+            this.elementCreater.getElement().innerHTML = level.doThis;
+        });
     }
 }

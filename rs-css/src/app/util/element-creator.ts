@@ -5,15 +5,6 @@ export interface ElementsParams {
     callback: unknown;
 }
 export default class ElementCreater {
-    save() {
-        throw new Error('Method not implemented.');
-    }
-    on(arg0: { arg0: string; arg1: (instance: any, changeObj: { text: string[]; update: (arg0: string, arg1: string, arg2: string[]) => void; from: string; to: string; }) => boolean; }) {
-        throw new Error('Method not implemented.');
-    }
-    focus() {
-        throw new Error('Method not implemented.');
-    }
     element!: HTMLElement;
     constructor(param: {
         param:
