@@ -5,6 +5,7 @@ import TableContentView from '../table-content/table-content';
 
 const CssStyles = {
     GAME_WRAPPER: 'game-wrapper',
+    KITHEN_IMAGE: 'kitchen-image',
     TABLE_WRAPPER: 'table-wrapper',
     TABLE_SURFACE: 'table-surface',
     NAMETAGS: 'nametags',
@@ -15,6 +16,7 @@ const CssStyles = {
 };
 export default class TableView extends View {
     paramsGameWrapper!: ElementsParams | { tag: string; classNames: string[]; textContent: string; callback: null };
+    creatorTable!: ElementCreater;
     constructor() {
         const paramsGameWrapper = {
             tag: 'div',
@@ -59,8 +61,8 @@ export default class TableView extends View {
             textContent: '',
             callback: null,
         };
-        const creatorTable = new ElementCreater({ param: paramsTable });
-        creatorTableWrapper.addInnerElement(creatorTable);
+        this.creatorTable = new ElementCreater({ param: paramsTable });
+        creatorTableWrapper.addInnerElement(this.creatorTable);
         const ContentOfTable = [
             {
                 className: [CssStyles.DANCE],
@@ -73,7 +75,7 @@ export default class TableView extends View {
         ];
         ContentOfTable.forEach((item) => {
             const creatorPlats = new TableContentView(item.tagName, item.className);
-            creatorTable.addInnerElement(creatorPlats.getHtmlDocument());
+            this.creatorTable.addInnerElement(creatorPlats.getHtmlDocument());
         });
 
         const paramsTableAdge = {
@@ -95,5 +97,8 @@ export default class TableView extends View {
         const creatorRightLeg = new ElementCreater({ param: paramsTableLeg });
         creatorTableAdge.addInnerElement(creatorLeftLeg);
         creatorTableAdge.addInnerElement(creatorRightLeg);
+    }
+    getTableContent() {
+        return this.creatorTable.getElement();
     }
 }

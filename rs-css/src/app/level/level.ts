@@ -27,7 +27,7 @@ export default class Level extends View {
     isMenuActive = false;
     isPrintText = true;
     isGame = true;
-    levelActive = localStorage.getItem('level') || 0;
+    levelActive = Number(localStorage.getItem('levels')) || 0;
     editor: any;
     hljs = hljs;
     levels: any;

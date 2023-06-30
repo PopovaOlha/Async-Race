@@ -7,6 +7,9 @@ import './codemirror/addon/display/placeholder';
 import './codemirror/theme/dracula.css';
 import ElementCreater from '../../../util/element-creator';
 import View from '../../view';
+import FormButtonView from './editor-button/editor-button';
+import levels from '../../../data/level-game';
+import TableView from '../table-wrapper/table-wrapper';
 
 export interface DataLevels {
     helpTitle: string;
@@ -34,12 +37,12 @@ const CssStyles = {
     CODEMIRROR: 'Codemirror',
     CM_S_DRACULA: 'cm-s-dracula',
     CODEMIRROR_EMPTY: 'Codemirror-empty',
+    FORM_DIV: 'form-div',
 };
 export default class EditorView extends View {
     currentElem: HTMLElement | null = null;
 
     isPassedLevel = true;
-
     config = {
         theme: 'dracula',
         value: 'Type in a CSS selector',
@@ -48,7 +51,15 @@ export default class EditorView extends View {
         mode: 'css',
     };
     levels: DataLevels[];
-    constructor(state: DataLevels[]) {
+    formCreator!: ElementCreater;
+    isMenuActive = false;
+    isPrintText = true;
+    isGame = true;
+    levelActive = Number(localStorage.getItem('levels')) || 0;
+    editor: any;
+    table: any;
+     
+    constructor() {
         const paramsEditor = {
             tag: 'div',
             classNames: [CssStyles.EDITOR],
@@ -56,7 +67,7 @@ export default class EditorView extends View {
             callback: null,
         };
         super(paramsEditor);
-        this.levels = state;
+        this.levels = levels;
         this.configureView();
     }
     public configureView() {
@@ -111,8 +122,8 @@ export default class EditorView extends View {
             textContent: '',
             callback: null,
         };
-        const formCreator = new ElementCreater({ param: paramsForm });
-        editorMainCreator.addInnerElement(formCreator);
+        this.formCreator = new ElementCreater({ param: paramsForm });
+        editorMainCreator.addInnerElement(this.formCreator);
 
         const paramsTextArea = {
             tag: 'textarea',
@@ -122,7 +133,7 @@ export default class EditorView extends View {
         };
         const textareaCreator = new ElementCreater({ param: paramsTextArea });
         textareaCreator.addAttribute('placeholder', 'tipe in a CSS selector');
-        formCreator.addInnerElement(textareaCreator);
+        this.formCreator.addInnerElement(textareaCreator);
 
         const paramsCodemirror = {
             tag: 'div',
@@ -131,6 +142,60 @@ export default class EditorView extends View {
             callback: null,
         };
         const codemirrorCreator = new ElementCreater({ param: paramsCodemirror });
-        formCreator.addInnerElement(codemirrorCreator);
+        this.formCreator.addInnerElement(codemirrorCreator);
+
+        const paramsDiv = {
+            tag: 'div',
+            classNames: [CssStyles.FORM_DIV],
+            textContent: '',
+            callback: null,
+        };
+        const divCreator = new ElementCreater({ param: paramsDiv });
+        codemirrorCreator.addInnerElement(divCreator);
+
+        const formButtonCreator = new FormButtonView();
+        this.formCreator.addInnerElement(formButtonCreator.getHtmlDocument());
+
+        this.formCreator.getElement().addEventListener('submit', (e: Event) => {
+            e.preventDefault();
+            if (this.isPrintText && this.isGame) {
+                this.checkingResult();
+            } 
+        });
     }
+    checkingResult = (): void => {
+        const elementsTable = Array.prototype.slice.call(new TableView().getTableContent().querySelectorAll('*'));
+        const isElements = elementsTable.every(
+            (item: Element) =>
+                item.closest(`.table ${this.editor.getValue()}`) ===
+                item.closest(`.table ${this.levels[this.levelActive].selector}`),
+        );
+
+        if (isElements) {
+            new TableView().getTableContent().querySelectorAll('*').forEach((item: Element) => {
+                if (item.closest(this.levels[this.levelActive].selector)) {
+                    item.closest(`${this.levels[this.levelActive].selector}`).classList.add('win');
+                    item.addEventListener('animationend', () => {
+                        this.loudNewLewel();
+                    });
+                }
+            });
+            this.setLocalStorageProgress();
+            this.levelActive += 1;
+            this.isPassedLevel = true;
+        } else {
+            this.elementCreater.getElement().classList.add('shake');
+            this.elementCreater.getElement().addEventListener('animationend', () => {
+            this.elementCreater.getElement().classList.remove('shake');
+            });
+        }
+    };
+    setLocalStorageProgress = (): void => {
+        const progress = JSON.parse(localStorage.getItem('progress')) || {};
+        const result =
+            progress[`${this.levelActive}`] && progress[`${this.levelActive}`].correct
+                ? progress
+                : { ...progress, [this.levelActive]: { correct: this.isPassedLevel, incorrect: !this.isPassedLevel } };
+        localStorage.setItem('progress', JSON.stringify(result));
+    };
 }

@@ -1,0 +1,5 @@
+.level-column {
+    width: 30%;
+    background-color:rgb(245, 67, 67);
+    z-index: 3;
+}
