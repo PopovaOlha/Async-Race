@@ -2,6 +2,7 @@ import './headline.css';
 import View from '../../view';
 import { ElementsParams } from '../../../util/element-creator';
 import levels from '../../../data/level-game';
+import { DataLevels } from '../../main/editor/editor-view';
 
 const CssStyles = {
     ORDER: 'order',
@@ -9,6 +10,8 @@ const CssStyles = {
 
 export default class HeadlineView extends View {
     paramsOrder!: ElementsParams | { tag: string; classNames: string[]; textContent: string; callback: null };
+    levels!: DataLevels[];
+    levelActive = Number(localStorage.getItem('level')) || 0;
     constructor() {
         const paramsOrder = {
             tag: 'div',
@@ -18,10 +21,11 @@ export default class HeadlineView extends View {
         };
         super(paramsOrder);
         this.setContent();
+        this.levels = levels;
     }
     public setContent() {
-        levels.forEach((level) => {
-            this.elementCreater.getElement().innerHTML = level.doThis;
+        levels.forEach(() => {
+            this.elementCreater.getElement().innerHTML = levels[this.levelActive].doThis;
         });
     }
 }

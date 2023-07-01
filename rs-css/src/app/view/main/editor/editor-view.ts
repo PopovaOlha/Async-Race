@@ -10,6 +10,7 @@ import View from '../../view';
 import FormButtonView from './editor-button/editor-button';
 import levels from '../../../data/level-game';
 import TableView from '../table-wrapper/table-wrapper';
+import ViewerView from './viewer/viewer';
 
 export interface DataLevels {
     helpTitle: string;
@@ -30,19 +31,19 @@ const CssStyles = {
     CSS_PANEL: 'css-panel',
     PANEL_HEADER: 'panel_header',
     FORM_INPUT: 'form-input',
-    BLINK: 'blink',
     PANEL_BUTTON: 'panel_button',
     EDITOR_MAIN: 'editor_main',
     FORM: 'form',
+    BLINK: 'blink',
     CODEMIRROR: 'Codemirror',
     CM_S_DRACULA: 'cm-s-dracula',
     CODEMIRROR_EMPTY: 'Codemirror-empty',
     FORM_DIV: 'form-div',
+    LINE_NUMBER: 'line-number',
 };
 export default class EditorView extends View {
     currentElem: HTMLElement | null = null;
 
-    isPassedLevel = true;
     config = {
         theme: 'dracula',
         value: 'Type in a CSS selector',
@@ -51,16 +52,17 @@ export default class EditorView extends View {
         mode: 'css',
     };
     levels: DataLevels[];
-    formCreator!: ElementCreater;
+    isPassedLevel = true;
     isMenuActive = false;
     isPrintText = true;
     isGame = true;
-    levelActive = Number(localStorage.getItem('levels')) || 0;
+    levelActive = Number(localStorage.getItem('level')) || 0;
     editor: any;
-    table: any;
-     
+    formCreator!: ElementCreater | HTMLFormElement;
+    textareaCreator!: ElementCreater | HTMLFormElement;
+    lineNumberCreator!: ElementCreater;
     constructor() {
-        const paramsEditor = {
+        const paramsEditor = { 
             tag: 'div',
             classNames: [CssStyles.EDITOR],
             textContent: '',
@@ -115,6 +117,8 @@ export default class EditorView extends View {
         };
         const editorMainCreator = new ElementCreater({ param: paramsEditorMain });
         this.elementCreater.addInnerElement(editorMainCreator);
+        const viewerCreator = new ViewerView();
+        this.elementCreater.addInnerElement(viewerCreator.getHtmlDocument());
 
         const paramsForm = {
             tag: 'form',
@@ -131,9 +135,9 @@ export default class EditorView extends View {
             textContent: '',
             callback: null,
         };
-        const textareaCreator = new ElementCreater({ param: paramsTextArea });
-        textareaCreator.addAttribute('placeholder', 'tipe in a CSS selector');
-        this.formCreator.addInnerElement(textareaCreator);
+        this.textareaCreator = new ElementCreater({ param: paramsTextArea });
+        this.textareaCreator.addAttribute('placeholder', 'tipe in a CSS selector');
+        this.formCreator.addInnerElement(this.textareaCreator);
 
         const paramsCodemirror = {
             tag: 'div',
@@ -154,48 +158,30 @@ export default class EditorView extends View {
         codemirrorCreator.addInnerElement(divCreator);
 
         const formButtonCreator = new FormButtonView();
+        formButtonCreator.elementCreater.addAttribute('type', 'submit');
         this.formCreator.addInnerElement(formButtonCreator.getHtmlDocument());
 
         this.formCreator.getElement().addEventListener('submit', (e: Event) => {
             e.preventDefault();
             if (this.isPrintText && this.isGame) {
-                this.checkingResult();
-            } 
+                new TableView().checkingResult();
+            }
         });
-    }
-    checkingResult = (): void => {
-        const elementsTable = Array.prototype.slice.call(new TableView().getTableContent().querySelectorAll('*'));
-        const isElements = elementsTable.every(
-            (item: Element) =>
-                item.closest(`.table ${this.editor.getValue()}`) ===
-                item.closest(`.table ${this.levels[this.levelActive].selector}`),
-        );
 
-        if (isElements) {
-            new TableView().getTableContent().querySelectorAll('*').forEach((item: Element) => {
-                if (item.closest(this.levels[this.levelActive].selector)) {
-                    item.closest(`${this.levels[this.levelActive].selector}`).classList.add('win');
-                    item.addEventListener('animationend', () => {
-                        this.loudNewLewel();
-                    });
-                }
-            });
-            this.setLocalStorageProgress();
-            this.levelActive += 1;
-            this.isPassedLevel = true;
-        } else {
-            this.elementCreater.getElement().classList.add('shake');
-            this.elementCreater.getElement().addEventListener('animationend', () => {
-            this.elementCreater.getElement().classList.remove('shake');
-            });
-        }
-    };
-    setLocalStorageProgress = (): void => {
-        const progress = JSON.parse(localStorage.getItem('progress')) || {};
-        const result =
-            progress[`${this.levelActive}`] && progress[`${this.levelActive}`].correct
-                ? progress
-                : { ...progress, [this.levelActive]: { correct: this.isPassedLevel, incorrect: !this.isPassedLevel } };
-        localStorage.setItem('progress', JSON.stringify(result));
-    };
+        this.textareaCreator.getElement().addEventListener('input', () => {
+            return this.textareaCreator.getElement().value.length === 0
+                ? this.textareaCreator.getElement().classList.add('blink')
+                : this.textareaCreator.getElement().classList.remove('blink');
+        });
+
+        const paramsLineNumber = {
+            tag: 'div',
+            classNames: [CssStyles.LINE_NUMBER],
+            textContent: '',
+            callback: null,
+        };
+        this.lineNumberCreator = new ElementCreater({ param: paramsLineNumber });
+        editorMainCreator.addInnerElement(this.lineNumberCreator);
+            this.lineNumberCreator.getElement().innerHTML = `1`;
+    }
 }

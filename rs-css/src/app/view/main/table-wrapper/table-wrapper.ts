@@ -2,6 +2,8 @@ import './table-wrapper.css';
 import ElementCreater, { ElementsParams } from '../../../util/element-creator';
 import View from '../../view';
 import TableContentView from '../table-content/table-content';
+import { DataLevels } from '../editor/editor-view';
+import levels from '../../../data/level-game'
 
 const CssStyles = {
     GAME_WRAPPER: 'game-wrapper',
@@ -17,6 +19,13 @@ const CssStyles = {
 export default class TableView extends View {
     paramsGameWrapper!: ElementsParams | { tag: string; classNames: string[]; textContent: string; callback: null };
     creatorTable!: ElementCreater;
+    levels!: DataLevels[];
+    isPassedLevel = true;
+    isMenuActive = false;
+    isPrintText = true;
+    isGame = true;
+    levelActive = Number(localStorage.getItem('level')) | 0;
+    editor: any;
     constructor() {
         const paramsGameWrapper = {
             tag: 'div',
@@ -25,6 +34,7 @@ export default class TableView extends View {
             callback: null,
         };
         super(paramsGameWrapper);
+        this.levels = levels;
         this.configureView();
     }
     public configureView() {
@@ -101,4 +111,38 @@ export default class TableView extends View {
     getTableContent() {
         return this.creatorTable.getElement();
     }
+    checkingResult = (): void => {
+        const elementsTable = Array.prototype.slice.call(this.creatorTable.getElement().querySelectorAll('*'));
+        const isElements = elementsTable.every(
+            (item: Element) =>
+                item.closest(`.table ${this.editor.getValue()}`) ===
+                item.closest(`.table ${this.levels[this.levelActive].selector}`)
+        );
+        if (isElements) {
+            this.creatorTable.getElement().querySelectorAll('*').forEach((item: Element) => {
+                    if (item.closest(this.levels[this.levelActive].selector)) {
+                        item.closest(`${this.levels[this.levelActive].selector}`).classList.add('win');
+                        item.addEventListener('animationend', () => {
+                            this.loudNewLewel();
+                        });
+                    }
+                });
+            this.setLocalStorageProgress();
+            this.levelActive += 1;
+            this.isPassedLevel = true;
+        } else {
+            this.elementCreater.getElement().classList.add('shake');
+            this.elementCreater.getElement().addEventListener('animationend', () => {
+                this.elementCreater.getElement().classList.remove('shake');
+            });
+        }
+    };
+    setLocalStorageProgress = (): void => {
+        const progress = JSON.parse(localStorage.getItem('progress')) || {};
+        const result =
+            progress[`${this.levelActive}`] && progress[`${this.levelActive}`].correct
+                ? progress
+                : { ...progress, [this.levelActive]: { correct: this.isPassedLevel, incorrect: !this.isPassedLevel } };
+        localStorage.setItem('progress', JSON.stringify(result));
+    };
 }

@@ -37,8 +37,11 @@ export default class ElementCreater {
     public setCssStyles(cssStyles: string[]) {
         cssStyles.map((className) => this.element.classList.add(className));
     }
-    public setTextContent(text: string): void {
-        this.element.textContent = text;
+    public setTextContent(text: string) {
+        this.element.innerHTML = text;
+    }
+    public getElementFragment(element: DocumentFragment) {
+        this.element.append(element);
     }
     public setCallback({ callback }: { callback: unknown }) {
         if (typeof callback === 'function') {

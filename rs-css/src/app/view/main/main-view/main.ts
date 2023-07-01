@@ -2,7 +2,6 @@ import './main.css';
 import TableView from '../table-wrapper/table-wrapper';
 import View from '../../view';
 import EditorView from '../editor/editor-view';
-import levels from '../../../data/level-game';
 
 const CssStyles = {
     MAIN: 'main',
@@ -20,7 +19,7 @@ export default class MainView extends View {
     }
     configeView() {
         const tableCreator = new TableView();
-        const editorCreator = new EditorView(levels);
+        const editorCreator = new EditorView();
         this.elementCreater.addInnerElement(tableCreator.getHtmlDocument());
         this.elementCreater.addInnerElement(editorCreator.getHtmlDocument());
     }
