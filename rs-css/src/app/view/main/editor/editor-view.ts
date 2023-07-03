@@ -1,5 +1,4 @@
 import './editor.css';
-import CodeMirror from 'codemirror';
 import './codemirror/lib/codemirror.css';
 import './codemirror/theme/neat.css';
 import './codemirror/mode/css/css';
@@ -16,7 +15,7 @@ export interface DataLevels {
     helpTitle: string;
     selectorName?: string;
     doThis: string;
-    selector?: string;
+    selector: string;
     syntax: string;
     help: string;
     examples?: string[];
@@ -57,12 +56,12 @@ export default class EditorView extends View {
     isPrintText = true;
     isGame = true;
     levelActive = Number(localStorage.getItem('level')) || 0;
-    editor: any;
+    editor!: string;
     formCreator!: ElementCreater | HTMLFormElement;
     textareaCreator!: ElementCreater | HTMLFormElement;
     lineNumberCreator!: ElementCreater;
     constructor() {
-        const paramsEditor = { 
+        const paramsEditor = {
             tag: 'div',
             classNames: [CssStyles.EDITOR],
             textContent: '',
@@ -182,6 +181,6 @@ export default class EditorView extends View {
         };
         this.lineNumberCreator = new ElementCreater({ param: paramsLineNumber });
         editorMainCreator.addInnerElement(this.lineNumberCreator);
-            this.lineNumberCreator.getElement().innerHTML = `1`;
+        this.lineNumberCreator.getElement().innerHTML = `1`;
     }
 }

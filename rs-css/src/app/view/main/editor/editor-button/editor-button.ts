@@ -32,6 +32,5 @@ export default class FormButtonView extends View {
         };
         const buttonSpanCreator = new ElementCreater({ param: paramsButtonSpan });
         this.elementCreater.addInnerElement(buttonSpanCreator);
-
     }
 }

@@ -52,3 +52,10 @@
     pointer-events: none;
     pointer-events: none;
 }
+.CodeMirror {
+    width: 100%;
+    /* max-width: 300px; */
+    height: 30px;
+    font-size: 16px;
+    background-color: inherit;
+  }

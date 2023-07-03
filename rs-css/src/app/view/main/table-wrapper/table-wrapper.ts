@@ -3,7 +3,13 @@ import ElementCreater, { ElementsParams } from '../../../util/element-creator';
 import View from '../../view';
 import TableContentView from '../table-content/table-content';
 import { DataLevels } from '../editor/editor-view';
-import levels from '../../../data/level-game'
+import levels from '../../../data/level-game';
+import ViewerView from '../editor/viewer/viewer';
+// @ts-ignore
+import hljs from 'highlight.js/lib/core';
+import HeadlineView from '../../header/headline/headline';
+import LevelMenuView from '../../../level-column/level-menu/level-menu';
+import LevelColumnView from '../../../level-column/level-column';
 
 const CssStyles = {
     GAME_WRAPPER: 'game-wrapper',
@@ -24,8 +30,9 @@ export default class TableView extends View {
     isMenuActive = false;
     isPrintText = true;
     isGame = true;
-    levelActive = Number(localStorage.getItem('level')) | 0;
+    levelActive = Number(localStorage.getItem('level')) || 0;
     editor: any;
+    htmlCode!: ElementCreater;
     constructor() {
         const paramsGameWrapper = {
             tag: 'div',
@@ -119,9 +126,12 @@ export default class TableView extends View {
                 item.closest(`.table ${this.levels[this.levelActive].selector}`)
         );
         if (isElements) {
-            this.creatorTable.getElement().querySelectorAll('*').forEach((item: Element) => {
-                    if (item.closest(this.levels[this.levelActive].selector)) {
-                        item.closest(`${this.levels[this.levelActive].selector}`).classList.add('win');
+            this.creatorTable
+                .getElement()
+                .querySelectorAll('*')
+                .forEach((item: Element) => {
+                    if (item.closest(levels[this.levelActive].selector)) {
+                        item.closest(`${levels[this.levelActive].selector}`).classList.add('win');
                         item.addEventListener('animationend', () => {
                             this.loudNewLewel();
                         });
@@ -144,5 +154,53 @@ export default class TableView extends View {
                 ? progress
                 : { ...progress, [this.levelActive]: { correct: this.isPassedLevel, incorrect: !this.isPassedLevel } };
         localStorage.setItem('progress', JSON.stringify(result));
+    };
+    loudNewLewel = (): void => {
+        const htmlCode = new ViewerView().getHtmlDocument();
+        if (this.levelActive < levels.length) {
+            this.isGame = true;
+            htmlCode.innerHTML = ``;
+            this.editor.setValue('');
+            this.editor.focus();
+            this.isPrintText = true;
+            htmlCode.append(new ViewerView().getViewerCode());
+            htmlCode.querySelectorAll('.code').forEach((block) => {
+                hljs.highlightBlock(block);
+            });
+            this.creatorTable.getElement().innerHTML = levels[this.levelActive].boardMarkup;
+            this.creatorTable
+                .getElement()
+                .querySelectorAll('*')
+                .forEach((item: Element) => {
+                    if (item.closest(levels[this.levelActive].selector)) {
+                        if (item.tagName === 'BAT' || item.className === 'red') {
+                            item.closest(`.table ${levels[this.levelActive].selector}`).classList.add(
+                                'selected-bat'
+                            );
+                        } else if (
+                            item.tagName === 'PUMPKIN' ||
+                            item.tagName === 'SKULL' ||
+                            item.tagName === 'CASPER'
+                        ) {
+                            item.closest(`.table ${levels[this.levelActive].selector}`).classList.add(
+                                'selected-pumpkin'
+                            );
+                        } else {
+                            item.closest(`.table ${levels[this.levelActive].selector}`).classList.add(
+                                'selected-element'
+                            );
+                        }
+                    }
+                });
+            new LevelMenuView().getLevelMenu().removeChild(new LevelColumnView(levels).createLevelHelp());
+            new LevelMenuView().getLevelMenu().append(new LevelColumnView(levels).createLevelHelp());
+            this.toggleListActives();
+            localStorage.setItem('level', `${this.levelActive}`);
+        } else {
+            this.isGame = false;
+            this.editor.setValue('');
+            this.creatorTable.getElement().innerHTML = '';
+            this.showWinningResult();
+        }
     };
 }

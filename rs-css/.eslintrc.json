@@ -20,6 +20,7 @@
     "rules": {
         "@typescript-eslint/no-var-requires": 0,
         "@typescript-eslint/no-explicit-any": 2,
+        "@typescript-eslint/ban-ts-comment": "off",
         "no-debugger": "off",
         "no-console": 0,
         "class-methods-use-this": "off",
@@ -28,6 +29,7 @@
             ]
     },
     "ignorePatterns": [
-        "./webpack.config.js"
+        "./webpack.config.js",
+        "./node_modules"
     ]
 }
