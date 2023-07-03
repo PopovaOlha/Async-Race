@@ -11,7 +11,6 @@ import 'highlight.js/styles/github.css';
 import { DataLevels } from '../view/main/editor/editor-view';
 import LevelMenuView from './level-menu/level-menu';
 import levels from '../data/level-game';
-import HeadlineView from '../view/header/headline/headline';
 hljs.registerLanguage('xml', xml);
 
 const CssStyles = {
@@ -59,6 +58,7 @@ export default class LevelColumnView extends View {
     selectorButtonCreator!: ElementCreater;
     selectorExampleCreator!: ElementCreater;
     selectorExamplesCreator!: ElementCreater;
+    exampleCreator!: ElementCreater;
     constructor(date: DataLevels[]) {
         const paramsLevelColumn = {
             tag: 'div',
@@ -187,20 +187,21 @@ export default class LevelColumnView extends View {
             classNames: [CssStyles.EXAMPLES],
             textContent: EXAMPLE_CONTENT,
             callback: null,
-        }
+        };
+        this.exampleCreator = new ElementCreater({ param: paramsExamples });
     }
     createLevelHelp = (): HTMLElement => {
-      this.levelHelpCreator.addInnerElement(this.selectorTitleCreator);
-      this.levelHelpCreator.addInnerElement(this.selectorSyntaxCreator);
-      this.levelHelpCreator.addInnerElement(this.selectorDescriptionCreator);
-      this.levelHelpCreator.addInnerElement(this.selectorButtonCreator);
+        this.levelHelpCreator.addInnerElement(this.selectorTitleCreator);
+        this.levelHelpCreator.addInnerElement(this.selectorSyntaxCreator);
+        this.levelHelpCreator.addInnerElement(this.selectorDescriptionCreator);
+        this.levelHelpCreator.addInnerElement(this.selectorButtonCreator);
+        this.levelHelpCreator.addInnerElement(this.exampleCreator);
 
         if (levels[this.levelActive].examples) {
             this.levelHelpCreator.addInnerElement(this.selectorExamplesCreator);
-            levels[this.levelActive].examples!.forEach((el) =>
-                this.selectorExampleCreator.setTextContent(el),
-                this.levelHelpCreator.addInnerElement(this.selectorExampleCreator)
-            );
+            levels[this.levelActive].examples?.forEach((el) => {
+                return this.selectorExampleCreator.setTextContent(el);
+            }, this.levelHelpCreator.addInnerElement(this.selectorExampleCreator));
         }
         return this.levelHelpCreator.getElement();
     };

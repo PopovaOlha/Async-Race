@@ -132,7 +132,7 @@ export default class ViewerView extends View {
         return this.spanTagCreator.getElement();
     }
 
-    getAttributes = function (child: any): string {
+    getAttributes = (child: any) => {
         let childClass;
         if (child.attributes.class) {
             childClass = child.attributes.class.value

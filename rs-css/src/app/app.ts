@@ -2,7 +2,7 @@ import LevelColumnView from './level-column/level-column';
 import HeaderView from './view/header/header-view/header-view';
 import WrapperView from './view/wrapper/wrapper';
 import levels from './data/level-game';
-import '../images/3534508.png'
+import '../images/3534508.png';
 
 export default class App {
     constructor() {

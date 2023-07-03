@@ -9,7 +9,6 @@ const CssStyles = {
     LEVEL_MENU: 'level__menu',
     MDC_LIST: 'mdc-list',
     MDC_LIST_ITEM: 'mdc-list-item',
-    
 };
 
 export default class LevelMenuView extends View {
@@ -50,7 +49,6 @@ export default class LevelMenuView extends View {
                 this.levelActive = +liCreator.id - 1;
             });
             this.listCreator.addInnerElement(liCreator);
-            
         }
         return this.listCreator;
     }
@@ -58,14 +56,14 @@ export default class LevelMenuView extends View {
     showNextLevel = (): void => {
         if (+this.levelActive < levels.length - 1) {
             this.levelActive += 1;
-            new TableView().loudNewLewel();
+            new TableView();
         }
     };
 
     showPrevLevel = (): void => {
         if (this.levelActive > 0) {
             this.levelActive -= 1;
-            new TableView().loudNewLewel();
+            new TableView();
         }
     };
     getLevelMenu() {
