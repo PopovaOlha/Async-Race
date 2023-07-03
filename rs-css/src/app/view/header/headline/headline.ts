@@ -24,6 +24,6 @@ export default class HeadlineView extends View {
         this.levels = levels;
     }
     public setContent() {
-        return this.elementCreater;
+        this.elementCreater.setTextContent(levels[this.levelActive].doThis);
     }
 }
