@@ -8,7 +8,7 @@
     "dev": "webpack-dev-server --mode=development",
     "prod": "webpack --mode=production",
     "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint .js --fix"
+    "lint:fix": "eslint ./ --fix"
   },
   "keywords": [
     "JavaScript",

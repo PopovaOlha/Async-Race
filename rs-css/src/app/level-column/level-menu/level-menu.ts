@@ -4,6 +4,7 @@ import levels from '../../data/level-game';
 import ElementCreater, { ElementsParams } from '../../util/element-creator';
 import { DataLevels } from '../../view/main/editor/editor-view';
 import TableView from '../../view/main/table-wrapper/table-wrapper';
+import LevelColumnView from '../level-column';
 
 const CssStyles = {
     LEVEL_MENU: 'level__menu',
@@ -17,6 +18,7 @@ export default class LevelMenuView extends View {
     levels: DataLevels[];
     listCreator!: ElementCreater;
     tableView!: TableView;
+    isMenuActive!: false;
     constructor() {
         const paramsLevelMenu = {
             tag: 'div',
@@ -47,26 +49,10 @@ export default class LevelMenuView extends View {
             liCreator.id = (i + 1).toString();
             liCreator.addEventListener('click', () => {
                 this.levelActive = +liCreator.id - 1;
+                new LevelColumnView(levels).toggleMenu();
             });
             this.listCreator.addInnerElement(liCreator);
         }
         return this.listCreator;
-    }
-
-    showNextLevel = (): void => {
-        if (+this.levelActive < levels.length - 1) {
-            this.levelActive += 1;
-            new TableView();
-        }
-    };
-
-    showPrevLevel = (): void => {
-        if (this.levelActive > 0) {
-            this.levelActive -= 1;
-            new TableView();
-        }
-    };
-    getLevelMenu() {
-        return this.elementCreater.getElement();
     }
 }

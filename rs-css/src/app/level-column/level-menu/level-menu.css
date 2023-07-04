@@ -1,7 +1,7 @@
 .level__menu {
     position: absolute;
     width: 100%;
-    height: 80vh;
+    height: 100vh;
     top: 80px;
     padding-top: 50px;
     right: 0px;
@@ -16,6 +16,8 @@
   
   .level__menu .mdc-list-item {
     height: 28px;
+    font-size: 1em;
+    padding-top: 10px;
     color: #f0f7f2 !important;
     font-family: 'Monaco', monospace !important;
   }
@@ -44,116 +46,7 @@
     border-radius: 3px;
   }
   
-  .level__help {
-    padding: 10px;
-    -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-    background-color: #282a36;
-    color: #e1e1de;
-    height: 100%;
-    padding-bottom: 50px;
-  }
   
-  .level__help .selector-name {
-    font-weight: 600;
-  }
-  
-  .level__help .title {
-    font-weight: 400;
-  }
-  
-  .level__help .syntax {
-    width: auto;
-    display: inline-block;
-    padding: 0 10px;
-    margin: 10px;
-    background-color: #e1e1de;
-    border-bottom: 2px solid #ff79c6;
-    color: #282a36;
-    font-family: 'Monaco', monospace !important;
-  }
-  
-  .level__help .discription {
-    font-size: 13px;
-  }
-  
-  .level__help .examples {
-    font-weight: 500;
-  }
-  
-  .level__help .example {
-    font-size: 13px;
-    border-bottom: 1px solid #f8f8f28e;
-    padding: 5px;
-  }
-  
-  .level__help .example strong {
-    font-size: 13px;
-    padding: 0px 3px;
-  }
-  
-  .level__help .example:last-child {
-    border: none;
-  }
-  
-  .level__help strong {
-    display: -webkit-inline-box;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    padding: 0px 3px;
-    margin: 0px 2px;
-    font-size: 14px;
-    background-color: #e1e1de;
-    color: #282a36;
-    font-family: 'Monaco', monospace !important;
-  }
-  
-  .level__help tag {
-    display: -webkit-inline-box;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    padding: 0px 2px;
-    margin: 0px 2px;
-    font-size: 14px;
-    background-color: #e1e1de;
-    border-bottom: 1px solid #ff79c6;
-    color: #282a36;
-    font-family: 'Monaco', monospace !important;
-  }
-  
-  .level__help tag:before {
-    content: '<';
-    font-size: 10px;
-    margin-right: 1px;
-    font-family: 'Monaco', monospace !important;
-  }
-  
-  .level__help tag:after {
-    content: '>';
-    font-size: 10px;
-    margin-left: 1px;
-    font-family: 'Monaco', monospace !important;
-  }
-  
-  .level__help .reset {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    -webkit-transform: translateX(-50%);
-            transform: translateX(-50%);
-  }
   .mdc-list {
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
@@ -228,4 +121,9 @@
     --mdc-ripple-fg-translate-start: 0;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
     will-change: transform,opacity;
+}
+.level__menu .mdc-list-item {
+  height: 28px;
+  color: #f0f7f2!important;
+  font-family: Monaco,monospace!important;
 }
