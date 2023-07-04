@@ -23,6 +23,7 @@ const CssStyles = {
     FACEBOOK_LOGO: 'facebook-logo',
     TWITTER_LOGO: 'twitter-logo',
 };
+const PULL_REQUEST = 'https://github.com/rolling-scopes-school/popovaolha-JSFE2023Q1/pull/76';
 
 export default class HeaderView extends View {
     constructor() {
@@ -102,6 +103,16 @@ export default class HeaderView extends View {
         const createShareContent = new ElementCreater({ param: paramShareContent });
         creatorHeader.addInnerElement(createShareContent);
 
+        const paramPullReq = {
+            tag: 'a',
+            classNames: [],
+            textContent: 'Pull request',
+            callback: null,
+        };
+        const pullRequestContent = new ElementCreater({ param: paramPullReq });
+        pullRequestContent.addAttribute('href', PULL_REQUEST);
+        pullRequestContent.getElement().style.color = '#1a2639';
+        creatorHeader.addInnerElement(pullRequestContent);
         const paramShareMenu = {
             tag: 'span',
             classNames: [CssStyles.SHARE_MENU],
