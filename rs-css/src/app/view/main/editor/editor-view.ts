@@ -29,7 +29,7 @@ const CssStyles = {
     EDITOR: 'editor',
     CSS_PANEL: 'css-panel',
     PANEL_HEADER: 'panel_header',
-    FORM_INPUT: 'form-input',
+    FORM_INPUT: 'form__input',
     PANEL_BUTTON: 'panel_button',
     EDITOR_MAIN: 'editor_main',
     FORM: 'form',
@@ -46,7 +46,7 @@ const CssStyles = {
 const HELP_BUTTON_TEXCONTENT = 'help';
 export class EditorView extends View {
     currentElem: HTMLElement | null = null;
-
+    isPassedLevel = true;
     config = {
         theme: 'dracula',
         value: 'Type in a CSS selector',
@@ -54,13 +54,6 @@ export class EditorView extends View {
         lineNumbers: false,
         mode: 'css',
     };
-    levels: DataLevels[];
-    isPassedLevel = true;
-    isMenuActive = false;
-    isPrintText = true;
-    isGame = true;
-    levelActive = Number(localStorage.getItem('level')) || 0;
-    editor!: string;
     formCreator!: ElementCreater | HTMLFormElement;
     textareaCreator!: ElementCreater | HTMLFormElement;
     lineNumberCreator!: ElementCreater;
@@ -197,4 +190,27 @@ export class EditorView extends View {
         editorMainCreator.addInnerElement(this.lineNumberCreator);
         this.lineNumberCreator.getElement().innerHTML = `1`;
     }
+    showAnswer = (): void => {
+        if (this.isPrintText && this.isGame) {
+            this.editor.setValue('');
+            this.isPrintText = false;
+            const arrayResponseLetters: string[] = levels[this.levelActive].selector.split('');
+            this.textareaCreator.getElement().classList.remove('blink');
+            let count = 0;
+            const printText = (): void => {
+                if (count === arrayResponseLetters.length) {
+                    this.isPrintText = true;
+                    return;
+                }
+                this.textareaCreator.getElement().value += arrayResponseLetters[count];
+                this.editor.setValue(this.editor.getValue() + arrayResponseLetters[count]);
+                count += 1;
+                this.editor.focus();
+                this.editor.setCursor(this.editor.lineCount(), 0);
+                setTimeout(printText, 500);
+            };
+            printText();
+            this.isPassedLevel = false;
+        }
+    };
 }

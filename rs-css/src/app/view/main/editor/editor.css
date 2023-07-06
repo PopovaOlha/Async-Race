@@ -43,7 +43,7 @@
     align-items: center;
     margin: 0 5px;
 }
-.form-input {
+.form__input {
     margin-right: -6px;
     border: none;
     width: 90%;

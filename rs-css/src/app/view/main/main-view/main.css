@@ -1,3 +1,14 @@
 .main {
     min-height: 100%;
 }
+.tooltip {
+    background-color: #282a36;
+    position: absolute;
+    display: none;
+    text-align: center;
+    padding: 10px;
+    font-family: monospace;
+    border-radius: 5px;
+    box-shadow: inset 0 0 0 1px #f8f8f2;
+    border: 1px solid #282a36;
+}

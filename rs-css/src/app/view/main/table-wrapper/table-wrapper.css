@@ -26,12 +26,16 @@
     bottom: 0;
 }
 .table {
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
     transform-style: preserve-3d;
     outline: solid 1px transparent;
     margin: 0px auto 0px auto;
     min-height: 132px;
     padding: 15px 15px 22px 15px;
-    display: inline-block;
     z-index: 999;
     position: relative;
     white-space: nowrap;
@@ -161,7 +165,7 @@
     background-repeat: no-repeat;
   }
   
-  tombstone {
+  plates {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -178,8 +182,8 @@
     margin: -20px 5px 5px 5px;
     width: 70px;
     height: 100px;
-    border-radius: 40% 40% 0 0;
-    background-image: url(../../../../images/apple.png);
+    border-radius: 50%;
+    background-image: url(../../../../images/pngimg.com\ -\ plate_PNG5327.png);
     background-size: 95px 112px;
     background-position: center;
     background-repeat: no-repeat;

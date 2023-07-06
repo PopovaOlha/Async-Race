@@ -6,8 +6,6 @@ import levels from '../../../../data/level-game';
 import { DataLevels } from '../../editor/editor-view';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import hljs from 'highlight.js/lib/core';
-import { TableView } from '../../table-wrapper/table-wrapper';
 
 const CssStyles = {
     VIEWER: 'viewer',
@@ -23,7 +21,6 @@ const CssStyles = {
 
 const TITLE_VIEWER = 'HTML viewer';
 const TITLE_INDEX_HTML = 'index.html';
-
 export class ViewerView extends View {
     paramsViewer!: ElementsParams | { tag: string; classNames: string[]; textContent: string; callback: null };
     currentElem: HTMLElement | null = null;
@@ -33,12 +30,7 @@ export class ViewerView extends View {
     lineNumberCreator!: ElementCreater;
     wrapCreator!: ElementCreater;
     spanTagCreator!: ElementCreater;
-    isPassedLevel = true;
-    isMenuActive = false;
-    isPrintText = true;
-    isGame = true;
-    editor!: string;
-    hljs = hljs;
+   
     constructor() {
         const paramsOrder = {
             tag: 'div',
@@ -108,9 +100,6 @@ export class ViewerView extends View {
         this.HTMLCreator = new ElementCreater({ param: paramsHTML });
         viewerMainCreator.addInnerElement(this.HTMLCreator);
 
-        this.HTMLCreator.getElement().addEventListener('mouseover', (e: Event) => this.highlightElement(e));
-        this.HTMLCreator.getElement().addEventListener('mouseout', (e: Event) => this.highlightElement(e));
-
         const paramsWrap = {
             tag: 'div',
             classNames: [CssStyles.WRAP],
@@ -174,40 +163,5 @@ export class ViewerView extends View {
             if (element.nodeType === 1) result.append(this.getElementViewerCode(element));
         });
         return result;
-    };
-    showTooltip = (element: HTMLElement): void => {
-        if (element.tagName) {
-            const tooltipText = `<${element.tagName.toLocaleLowerCase()}${this.getAttributes(
-                element
-            )}></${element.tagName.toLocaleLowerCase()}>`;
-            const node = document.querySelector('.tooltip') as HTMLElement;
-            node.classList.toggle('hidden');
-            node.innerHTML = this.hljs.highlightAuto(tooltipText).value;
-            node.style.left = `${element.getClientRects()[0].x}px`;
-            node.style.top = `${element.getClientRects()[0].y - 70}px`;
-        }
-    };
-    highlightElement = (e: any): void => {
-        if (this.isGame) {
-            const elementsCode = Array.prototype.slice.call(this.HTMLCreator.getElement().querySelectorAll('div'));
-            const elementsTable = Array.prototype.slice.call(new TableView().getTableContent().querySelectorAll('*'));
-            const index = e.target.closest('.table')
-                ? elementsTable.indexOf(e.target)
-                : elementsCode.indexOf(e.target.closest('.wrap'));
-            if (e.type === 'mouseover') {
-                if (this.currentElem) return;
-                this.currentElem = e.target;
-                this.showTooltip(elementsTable[index]);
-                elementsTable[index].dataset.hover = true;
-                elementsCode[index].classList.add('bold');
-            }
-            if (e.type === 'mouseout') {
-                if (!this.currentElem) return;
-                elementsTable[index].removeAttribute('data-hover');
-                elementsCode[index].classList.remove('bold');
-                this.currentElem = null;
-                this.showTooltip(elementsTable[index]);
-            }
-        }
     };
 }

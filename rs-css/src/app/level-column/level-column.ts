@@ -223,15 +223,6 @@ export class LevelColumnView extends View {
             }, this.levelHelpCreator.addInnerElement(this.selectorExampleCreator));
         }
     }
-    getMdcCard = () => {
-        return this.levelCreater.getElement();
-    } 
-    getLevelHeader = () => {
-        return this.levelHeaderCreater.getElement();
-    }
-    getLevelHelp = () => {
-        return this.levelHelpCreator.getElement();
-    }
     toggleMenu = () => {
         this.isMenuActive = !this.isMenuActive;
         levelMenuCreator.getHtmlDocument().style.right = this.isMenuActive
