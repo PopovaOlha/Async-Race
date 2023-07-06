@@ -15,7 +15,6 @@ const CssStyles = {
     VIEWER_MAIN: 'viewer_main',
     LINE_NUMBER: 'line-number',
     HTML_CODE: 'html-code',
-    WRAP: 'wrap',
     CODE: 'code',
 };
 
@@ -28,9 +27,6 @@ export class ViewerView extends View {
     levelActive = Number(localStorage.getItem('level')) || 0;
     HTMLCreator!: ElementCreater;
     lineNumberCreator!: ElementCreater;
-    wrapCreator!: ElementCreater;
-    spanTagCreator!: ElementCreater;
-   
     constructor() {
         const paramsOrder = {
             tag: 'div',
@@ -98,36 +94,24 @@ export class ViewerView extends View {
             callback: null,
         };
         this.HTMLCreator = new ElementCreater({ param: paramsHTML });
+        this.HTMLCreator.getElement().append(this.getViewerCode());
+        this.HTMLCreator.getElement()
+            .querySelectorAll('.code')
+            .forEach((block) => {
+                this.hljs.highlightBlock(block);
+            });
         viewerMainCreator.addInnerElement(this.HTMLCreator);
-
-        const paramsWrap = {
-            tag: 'div',
-            classNames: [CssStyles.WRAP],
-            textContent: '',
-            callback: null,
-        };
-        this.wrapCreator = new ElementCreater({ param: paramsWrap });
-        this.HTMLCreator.addInnerElement(this.wrapCreator);
-
-        const paramsSpanTag = {
-            tag: 'span',
-            classNames: [CssStyles.CODE],
-            textContent: '',
-            callback: null,
-        };
-        this.spanTagCreator = new ElementCreater({ param: paramsSpanTag });
-        this.wrapCreator.addInnerElement(this.spanTagCreator);
     }
     getHtmlElement = () => {
         return this.HTMLCreator.getElement();
-    }
+    };
 
     getAttributes = (child: any) => {
         let childClass;
         if (child.attributes.class) {
             childClass = child.attributes.class.value
                 .split(' ')
-                .filter((e: string) => e !== 'dance' && e !== 'selected-bat' && e !== 'selected-pumpkin')
+                .filter((e: string) => e !== 'selected-element' && e !== 'selected-bat' && e !== 'selected-pumpkin')
                 .join('');
         }
         const childId = child.attributes.getNamedItem('id');
@@ -138,27 +122,35 @@ export class ViewerView extends View {
     };
 
     getElementViewerCode = (element: any): HTMLElement => {
+        const div = document.createElement('div');
+        div.classList.add('wrap');
         const openTag = `&lt${element.nodeName.toLocaleLowerCase()}${this.getAttributes(element)}>`;
         const closedTag = `&lt;/${element.nodeName.toLocaleLowerCase()}>`;
         if (element.children.length > 0) {
-            this.spanTagCreator.setTextContent(openTag);
-            this.wrapCreator.addInnerElement(this.spanTagCreator);
+            const span = document.createElement('span');
+            span.classList.add('code');
+            span.innerHTML = `${openTag}`;
+            div.append(span);
             for (let i = 0; i < element.children.length; i += 1) {
-                this.wrapCreator.addInnerElement(this.getElementViewerCode(element.children[i].cloneNode(true)));
+                div.append(this.getElementViewerCode(element.children[i].cloneNode(true)));
             }
-            this.spanTagCreator.setTextContent(closedTag);
-            this.wrapCreator.addInnerElement(this.spanTagCreator);
+            const secondSpan = document.createElement('span');
+            secondSpan.classList.add('code');
+            secondSpan.innerHTML = `${closedTag}`;
+            div.append(secondSpan);
         } else {
-            this.spanTagCreator.setTextContent(`${openTag}${closedTag}`);
-            this.wrapCreator.addInnerElement(this.spanTagCreator);
+            const thirdSpan = document.createElement('span');
+            thirdSpan.classList.add('code');
+            thirdSpan.innerHTML = `${openTag}${closedTag}`;
+            div.append(thirdSpan);
         }
-        return this.wrapCreator.getElement();
+        return div;
     };
 
     getViewerCode = (): DocumentFragment => {
         const result = document.createDocumentFragment();
         const container = document.createElement('div');
-        container.innerHTML = this.levels[this.levelActive].boardMarkup;
+        container.innerHTML = levels[this.levelActive].boardMarkup;
         container.childNodes.forEach((element: Node) => {
             if (element.nodeType === 1) result.append(this.getElementViewerCode(element));
         });

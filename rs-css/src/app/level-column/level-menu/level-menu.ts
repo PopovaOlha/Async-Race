@@ -68,5 +68,5 @@ export class LevelMenuView extends View {
             });
         }
         return this.listCreator.getElement();
-    }
+    };
 }

@@ -10,6 +10,7 @@ import { FormButtonView } from './editor-button/editor-button';
 import levels from '../../../data/level-game';
 import { TableView } from '../table-wrapper/table-wrapper';
 import { ViewerView } from './viewer/viewer';
+import CodeMirror from 'codemirror';
 
 export interface DataLevels {
     helpTitle: string;
@@ -24,7 +25,6 @@ export interface DataLevels {
 
 const TEXT_CSS_EDITOR = 'CSS Editor';
 const TEXT_STYLE_CSS = 'style.css';
-
 const CssStyles = {
     EDITOR: 'editor',
     CSS_PANEL: 'css-panel',
@@ -212,5 +212,27 @@ export class EditorView extends View {
             printText();
             this.isPassedLevel = false;
         }
+    };
+    createCodeMirrorTextaria = (): void => {
+        this.editor = CodeMirror.fromTextArea(this.textareaCreator.getElement(), this.config);
+        this.editor.on('beforeChange', (instance: any, change: any) => {
+            const newtext = change.text.join('').replace(/\n/g, '');
+            change.update(change.from, change.to, [newtext]);
+            return true;
+        });
+        this.editor.setOption('extraKeys', {
+            Enter: () => {
+                new TableView().checkingResult();
+            },
+        });
+        this.editor.on('change', (editor: any) => {
+            if (editor.getValue().length > 0) {
+                document.querySelector('.CodeMirror-lines')?.classList.remove('blink');
+            } else {
+                document.querySelector('.CodeMirror-lines')?.classList.add('blink');
+            }
+        });
+        document.querySelector('.CodeMirror-lines')?.classList.add('blink');
+        this.editor.getTextArea();
     };
 }

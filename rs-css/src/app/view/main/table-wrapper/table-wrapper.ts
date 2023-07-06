@@ -3,7 +3,6 @@ import ElementCreater from '../../../util/element-creator';
 import { ElementsParams } from '../../../util/element-creator';
 import View from '../../view';
 import { TableContentView } from '../table-content/table-content';
-import { DataLevels } from '../editor/editor-view';
 import levels from '../../../data/level-game';
 import { ViewerView } from '../editor/viewer/viewer';
 import HeadlineView from '../../header/headline/headline';
@@ -25,13 +24,7 @@ const CssStyles = {
 export class TableView extends View {
     paramsGameWrapper!: ElementsParams | { tag: string; classNames: string[]; textContent: string; callback: null };
     creatorTable!: ElementCreater;
-    levels!: DataLevels[];
-    isPassedLevel = true;
-    isMenuActive = false;
-    isPrintText = true;
-    isGame = true;
-    levelActive = Number(localStorage.getItem('level')) || 0;
-    editor!: any;
+    isPassedLevel = false;
     htmlCode!: ElementCreater;
     constructor() {
         const paramsGameWrapper = {
@@ -127,7 +120,7 @@ export class TableView extends View {
     }
     getTableContent = () => {
         return this.creatorTable.getElement();
-    }
+    };
     checkingResult = (): void => {
         const elementsTable = Array.prototype.slice.call(this.creatorTable.getElement().querySelectorAll('*'));
         const isElements = elementsTable.every(
@@ -153,7 +146,7 @@ export class TableView extends View {
         } else {
             document.querySelector('.editor')?.classList.add('shake');
             document.querySelector('.editor')?.addEventListener('animationend', () => {
-            document.querySelector('.editor')?.classList.remove('shake');
+                document.querySelector('.editor')?.classList.remove('shake');
             });
         }
     };
@@ -166,7 +159,6 @@ export class TableView extends View {
         localStorage.setItem('progress', JSON.stringify(result));
     };
     loudNewLewel = (): void => {
-        const viewerView = new ViewerView();
         const levelColumn = new LevelColumnView();
         const headLine = new HeadlineView();
         if (this.levelActive < levels.length) {
@@ -174,27 +166,35 @@ export class TableView extends View {
             this.editor.setValue('');
             this.editor.focus();
             this.isPrintText = true;
-            document.querySelector('.html-code')?.append(viewerView.getViewerCode());
-            document.querySelector('.html-code')?.querySelectorAll('.code').forEach((block: any) => {
-                this.hljs.highlightBlock(block);
-            });
+            document.querySelector('.html-code')?.append(new ViewerView().getViewerCode());
+            document
+                .querySelector('.html-code')
+                ?.querySelectorAll('.code')
+                .forEach((block: any) => {
+                    this.hljs.highlightBlock(block);
+                });
             this.creatorTable.getElement().innerHTML = levels[this.levelActive].boardMarkup;
             headLine.getHtmlDocument().innerHTML = levels[this.levelActive].doThis;
-            this.creatorTable.getElement().querySelectorAll('*').forEach((item: Element) => {
-                if (item.closest(levels[this.levelActive].selector)) {
-                    if (item.tagName === 'BAT' || item.className === 'red') {
-                        item.closest(`.table ${levels[this.levelActive].selector}`)?.classList.add('selected-bat');
-                    } else if (item.tagName === 'PUMPKIN' || item.tagName === 'SKULL' || item.tagName === 'CASPER') {
-                        item.closest(`.table ${levels[this.levelActive].selector}`)?.classList.add(
-                            'selected-pumpkin',
-                        );
-                    } else {
-                        item.closest(`.table ${levels[this.levelActive].selector}`)?.classList.add(
-                            'dance',
-                        );
+            this.creatorTable
+                .getElement()
+                .querySelectorAll('*')
+                .forEach((item: Element) => {
+                    if (item.closest(levels[this.levelActive].selector)) {
+                        if (item.tagName === 'BAT' || item.className === 'red') {
+                            item.closest(`.table ${levels[this.levelActive].selector}`)?.classList.add('selected-bat');
+                        } else if (
+                            item.tagName === 'PUMPKIN' ||
+                            item.tagName === 'SKULL' ||
+                            item.tagName === 'CASPER'
+                        ) {
+                            item.closest(`.table ${levels[this.levelActive].selector}`)?.classList.add(
+                                'selected-pumpkin'
+                            );
+                        } else {
+                            item.closest(`.table ${levels[this.levelActive].selector}`)?.classList.add('dance');
+                        }
                     }
-                }
-            });
+                });
             document.querySelector('.mdc-card')?.removeChild(document.querySelector('.mdc-list')!);
             document.querySelector('.mdc-card')?.append(document.querySelector('.level__help')!);
             levelColumn.toggleListActives();
@@ -206,5 +206,3 @@ export class TableView extends View {
         }
     };
 }
-
-

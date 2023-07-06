@@ -47,6 +47,7 @@ const BUTTON_TITLE = 'RESET';
 let EXAMPLE_CONTENT: 'Examples';
 const levelMenuCreator = new LevelMenuView();
 const tableView = new TableView();
+
 export class LevelColumnView extends View {
     paramsLevelColumn!: ElementsParams | { tag: string; classNames: string[]; textContent: string; callback: null };
     levelHelpCreator!: ElementCreater;
@@ -71,7 +72,6 @@ export class LevelColumnView extends View {
         };
         super(paramsLevelColumn);
         this.getConfigureView();
-        this.toggleListActives();
         this.levels = levels;
     }
     getConfigureView() {
@@ -116,7 +116,12 @@ export class LevelColumnView extends View {
 
         const paramsCheckMark = {
             tag: 'i',
-            classNames: [CssStyles.CHECK_MARK, CssStyles.MATERIAL_ICONS, CssStyles.MDC_LIST_ITEM_GRAPHIC, CssStyles.CHECK],
+            classNames: [
+                CssStyles.CHECK_MARK,
+                CssStyles.MATERIAL_ICONS,
+                CssStyles.MDC_LIST_ITEM_GRAPHIC,
+                CssStyles.CHECK,
+            ],
             textContent: CHECK_MARK_CONTENT,
             callback: null,
         };
