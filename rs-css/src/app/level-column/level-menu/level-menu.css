@@ -127,3 +127,6 @@
   color: #f0f7f2!important;
   font-family: Monaco,monospace!important;
 }
+.passed {
+  color: #50fa7b!important;
+}

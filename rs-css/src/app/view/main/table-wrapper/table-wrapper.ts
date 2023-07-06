@@ -1,9 +1,13 @@
 import './table-wrapper.css';
-import ElementCreater, { ElementsParams } from '../../../util/element-creator';
+import ElementCreater from '../../../util/element-creator';
+import { ElementsParams } from '../../../util/element-creator';
 import View from '../../view';
-import TableContentView from '../table-content/table-content';
+import { TableContentView } from '../table-content/table-content';
 import { DataLevels } from '../editor/editor-view';
 import levels from '../../../data/level-game';
+import { ViewerView } from '../editor/viewer/viewer';
+import HeadlineView from '../../header/headline/headline';
+import { LevelColumnView } from '../../../level-column/level-column';
 
 const CssStyles = {
     GAME_WRAPPER: 'game-wrapper',
@@ -16,7 +20,8 @@ const CssStyles = {
     TABLE_ADGE: 'table-edge',
     TABLE_LEG: 'table-leg',
 };
-export default class TableView extends View {
+
+export class TableView extends View {
     paramsGameWrapper!: ElementsParams | { tag: string; classNames: string[]; textContent: string; callback: null };
     creatorTable!: ElementCreater;
     levels!: DataLevels[];
@@ -109,7 +114,7 @@ export default class TableView extends View {
         creatorTableAdge.addInnerElement(creatorLeftLeg);
         creatorTableAdge.addInnerElement(creatorRightLeg);
     }
-    getTableContent() {
+    getTableContent = () => {
         return this.creatorTable.getElement();
     }
     checkingResult = (): void => {
@@ -139,4 +144,46 @@ export default class TableView extends View {
             });
         }
     };
+    loudNewLewel = (): void => {
+        const headline = new HeadlineView();
+        const viewerView = new ViewerView();
+        const levelColumn = new LevelColumnView();
+        if (this.levelActive < levels.length) {
+            this.isGame = true;
+            this.editor.setValue('');
+            this.editor.focus();
+            this.isPrintText = true;
+            viewerView.getHtmlElement().append(viewerView.getViewerCode());
+            viewerView.getHtmlDocument().querySelectorAll('.code').forEach((block: any) => {
+                this.hljs.highlightBlock(block);
+            });
+            this.creatorTable.getElement().innerHTML = levels[this.levelActive].boardMarkup;
+            headline.setContent();
+            this.creatorTable.getElement().querySelectorAll('*').forEach((item: Element) => {
+                if (item.closest(levels[this.levelActive].selector)) {
+                    if (item.tagName === 'BAT' || item.className === 'red') {
+                        item.closest(`.table ${levels[this.levelActive].selector}`)?.classList.add('selected-bat');
+                    } else if (item.tagName === 'PUMPKIN' || item.tagName === 'SKULL' || item.tagName === 'CASPER') {
+                        item.closest(`.table ${levels[this.levelActive].selector}`)?.classList.add(
+                            'selected-pumpkin',
+                        );
+                    } else {
+                        item.closest(`.table ${levels[this.levelActive].selector}`)?.classList.add(
+                            'selected-element',
+                        );
+                    }
+                }
+            });
+            levelColumn.getMdcCard().removeChild(levelColumn.getLevelHeader());
+            levelColumn.getMdcCard().append(levelColumn.getLevelHelp());
+            levelColumn.toggleListActives();
+            localStorage.setItem('level', `${this.levelActive}`);
+        } else {
+            this.isGame = false;
+            this.editor.setValue('');
+            this.creatorTable.getElement().innerHTML = '';
+        }
+    };
 }
+
+

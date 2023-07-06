@@ -6,10 +6,10 @@ import './codemirror/addon/display/placeholder';
 import './codemirror/theme/dracula.css';
 import ElementCreater from '../../../util/element-creator';
 import View from '../../view';
-import FormButtonView from './editor-button/editor-button';
+import { FormButtonView } from './editor-button/editor-button';
 import levels from '../../../data/level-game';
-import TableView from '../table-wrapper/table-wrapper';
-import ViewerView from './viewer/viewer';
+import { TableView } from '../table-wrapper/table-wrapper';
+import { ViewerView } from './viewer/viewer';
 
 export interface DataLevels {
     helpTitle: string;
@@ -39,8 +39,12 @@ const CssStyles = {
     CODEMIRROR_EMPTY: 'Codemirror-empty',
     FORM_DIV: 'form-div',
     LINE_NUMBER: 'line-number',
+    FORM_BUTTON_HELP: 'form__button-help',
+    MDC_ICON_BUTTON: 'mdc-icon-button',
+    MATERIALS_ICONS: 'material-icons',
 };
-export default class EditorView extends View {
+const HELP_BUTTON_TEXCONTENT = 'help';
+export class EditorView extends View {
     currentElem: HTMLElement | null = null;
 
     config = {
@@ -159,6 +163,16 @@ export default class EditorView extends View {
         const formButtonCreator = new FormButtonView();
         formButtonCreator.elementCreater.addAttribute('type', 'submit');
         this.formCreator.addInnerElement(formButtonCreator.getHtmlDocument());
+
+        const paramsHelpButton = {
+            tag: 'button',
+            classNames: [CssStyles.FORM_BUTTON_HELP, CssStyles.MDC_ICON_BUTTON, CssStyles.MATERIALS_ICONS],
+            textContent: HELP_BUTTON_TEXCONTENT,
+            callback: null,
+        };
+        const helpButtonCreator = new ElementCreater({ param: paramsHelpButton });
+        helpButtonCreator.getElement().addEventListener('click', this.showAnswer);
+        this.formCreator.addInnerElement(helpButtonCreator);
 
         this.formCreator.getElement().addEventListener('submit', (e: Event) => {
             e.preventDefault();

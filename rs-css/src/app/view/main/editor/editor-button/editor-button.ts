@@ -1,6 +1,7 @@
 import './editor-button.css';
 import View from '../../../view';
-import ElementCreater, { ElementsParams } from '../../../../util/element-creator';
+import ElementCreater from '../../../../util/element-creator';
+import { ElementsParams } from '../../../../util/element-creator';
 
 const CssStyles = {
     FORM_BUTTON: 'form__button',
@@ -11,7 +12,7 @@ const CssStyles = {
 
 const BUTTON_TEXT = 'Enter';
 
-export default class FormButtonView extends View {
+export class FormButtonView extends View {
     paramsFormButton!: ElementsParams | { tag: string; classNames: string[]; textContent: string; callback: null };
     constructor() {
         const paramsFormButton = {

@@ -1,10 +1,10 @@
 import './level-menu.css';
 import View from '../../view/view';
 import levels from '../../data/level-game';
-import ElementCreater, { ElementsParams } from '../../util/element-creator';
-import { DataLevels } from '../../view/main/editor/editor-view';
-import TableView from '../../view/main/table-wrapper/table-wrapper';
-import LevelColumnView from '../level-column';
+import ElementCreater from '../../util/element-creator';
+import { ElementsParams } from '../../util/element-creator';
+import { TableView } from '../../view/main/table-wrapper/table-wrapper';
+import { LevelColumnView } from '../level-column';
 
 const CssStyles = {
     LEVEL_MENU: 'level__menu',
@@ -12,13 +12,12 @@ const CssStyles = {
     MDC_LIST_ITEM: 'mdc-list-item',
 };
 
-export default class LevelMenuView extends View {
+export class LevelMenuView extends View {
     paramsLevelMenu!: ElementsParams | { tag: string; classNames: string[]; textContent: string; callback: null };
     levelActive = Number(localStorage.getItem('level')) || 0;
-    levels: DataLevels[];
     listCreator!: ElementCreater;
     tableView!: TableView;
-    isMenuActive!: false;
+    levelColumn!: LevelColumnView;
     constructor() {
         const paramsLevelMenu = {
             tag: 'div',
@@ -40,7 +39,7 @@ export default class LevelMenuView extends View {
         this.listCreator = new ElementCreater({ param: paramsList });
         this.elementCreater.addInnerElement(this.createMenuLevel());
     }
-    createMenuLevel() {
+    createMenuLevel = (): any => {
         for (let i = 0; i < levels.length; i += 1) {
             const liCreator = document.createElement('li');
             liCreator.classList.add(CssStyles.MDC_LIST_ITEM);
@@ -49,10 +48,25 @@ export default class LevelMenuView extends View {
             liCreator.id = (i + 1).toString();
             liCreator.addEventListener('click', () => {
                 this.levelActive = +liCreator.id - 1;
-                new LevelColumnView(levels).toggleMenu();
+                new LevelColumnView().toggleMenu();
+                new TableView().loudNewLewel();
             });
             this.listCreator.addInnerElement(liCreator);
+            const objProgress = JSON.parse(localStorage.getItem('progress') as string) || {};
+            this.listCreator.getElement().childNodes.forEach((item: any, i: number) => {
+                item.classList.remove('mdc-list-item--activated');
+                if (+item.id === this.levelActive + 1) item.classList.add('mdc-list-item--activated');
+                item.children[0].classList.remove('not-passed', 'passed');
+                if (objProgress[`${i}`]) {
+                    if (objProgress[`${i}`].correct && !objProgress[`${i}`].incorrect) {
+                        item.children[0].classList.add('passed');
+                    }
+                    if (objProgress[`${i}`].incorrect && !objProgress[`${i}`].correct) {
+                        item.children[0].classList.add('not-passed');
+                    }
+                }
+            });
         }
-        return this.listCreator;
+        return this.listCreator.getElement();
     }
 }

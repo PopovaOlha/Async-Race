@@ -1,7 +1,7 @@
 import './main.css';
-import TableView from '../table-wrapper/table-wrapper';
+import { TableView } from '../table-wrapper/table-wrapper';
 import View from '../../view';
-import EditorView from '../editor/editor-view';
+import { EditorView } from '../editor/editor-view';
 
 const CssStyles = {
     MAIN: 'main',

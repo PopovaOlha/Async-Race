@@ -23,7 +23,7 @@ export default class HeadlineView extends View {
         this.setContent();
         this.levels = levels;
     }
-    public setContent() {
-        this.elementCreater.setTextContent(levels[this.levelActive].doThis);
+    public setContent = () => {
+        return this.elementCreater.getElement().innerHTML = levels[this.levelActive].doThis;
     }
 }

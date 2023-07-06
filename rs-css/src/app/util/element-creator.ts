@@ -5,6 +5,7 @@ export interface ElementsParams {
     callback: unknown;
 }
 export default class ElementCreater {
+    htmlCode = document.createElement('div');
     containerMenu = document.createElement('div');
     element!: HTMLElement;
     constructor(param: {

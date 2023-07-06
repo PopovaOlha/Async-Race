@@ -1,6 +1,7 @@
 import './level-column.css';
 import View from '../view/view';
-import ElementCreater, { ElementsParams } from '../util/element-creator';
+import ElementCreater from '../util/element-creator';
+import { ElementsParams } from '../util/element-creator';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import hljs from 'highlight.js/lib/core';
@@ -8,9 +9,9 @@ import hljs from 'highlight.js/lib/core';
 // @ts-ignore
 import xml from 'highlight.js/lib/languages/xml';
 import 'highlight.js/styles/github.css';
-import { DataLevels } from '../view/main/editor/editor-view';
-import LevelMenuView from './level-menu/level-menu';
+import { LevelMenuView } from './level-menu/level-menu';
 import levels from '../data/level-game';
+import { TableView } from '../view/main/table-wrapper/table-wrapper';
 hljs.registerLanguage('xml', xml);
 
 const CssStyles = {
@@ -34,24 +35,20 @@ const CssStyles = {
     EXAMPLES: 'examples',
     EXAMPLE: 'example',
     LEVEL_MENU: 'level__menu',
+    CHECK_MARK: 'check-mark',
+    MDC_LIST_ITEM_GRAPHIC: 'mdc-list-item__graphic',
+    CHECK: 'check',
 };
-const appIconTextContent = `<i class="fa-solid fa-check"></i>`;
 const buttonMenuTextContent = 'close';
+const CHECK_MARK_CONTENT = 'done';
 const BUTTON_PREV_CONTENT = 'navigate_before';
 const BUTTON_NEXT_CONTENT = 'navigate_next';
 const BUTTON_TITLE = 'RESET';
 let EXAMPLE_CONTENT: 'Examples';
 const levelMenuCreator = new LevelMenuView();
-
-export default class LevelColumnView extends View {
+const tableView = new TableView();
+export class LevelColumnView extends View {
     paramsLevelColumn!: ElementsParams | { tag: string; classNames: string[]; textContent: string; callback: null };
-    isMenuActive = false;
-    isPrintText = true;
-    isGame = true;
-    levelActive = Number(localStorage.getItem('levels')) || 0;
-    editor!: string;
-    hljs = hljs;
-    levels: DataLevels[];
     levelHelpCreator!: ElementCreater;
     selectorNameCreator!: ElementCreater;
     selectorTitleCreator!: ElementCreater;
@@ -64,7 +61,8 @@ export default class LevelColumnView extends View {
     appTittleCreater!: ElementCreater;
     levelHeaderCreater!: ElementCreater;
     examplesCreator!: ElementCreater;
-    constructor(date: DataLevels[]) {
+    levelCreater!: ElementCreater;
+    constructor() {
         const paramsLevelColumn = {
             tag: 'div',
             classNames: [CssStyles.LEVEL_COLUMN],
@@ -73,7 +71,8 @@ export default class LevelColumnView extends View {
         };
         super(paramsLevelColumn);
         this.getConfigureView();
-        this.levels = date;
+        this.toggleListActives();
+        this.levels = levels;
     }
     getConfigureView() {
         const paramsLevel = {
@@ -82,8 +81,8 @@ export default class LevelColumnView extends View {
             textContent: '',
             callback: null,
         };
-        const levelCreater = new ElementCreater({ param: paramsLevel });
-        this.elementCreater.addInnerElement(levelCreater);
+        this.levelCreater = new ElementCreater({ param: paramsLevel });
+        this.elementCreater.addInnerElement(this.levelCreater);
         const paramsLevelHeader = {
             tag: 'div',
             classNames: [CssStyles.LEVEL_HEADER, CssStyles.MDC_TOP_APP],
@@ -91,7 +90,7 @@ export default class LevelColumnView extends View {
             callback: null,
         };
         this.levelHeaderCreater = new ElementCreater({ param: paramsLevelHeader });
-        levelCreater.addInnerElement(this.levelHeaderCreater);
+        this.levelCreater.addInnerElement(this.levelHeaderCreater);
 
         const paramsButtonMenu = {
             tag: 'button',
@@ -102,13 +101,7 @@ export default class LevelColumnView extends View {
 
         const buttonMenuCreater = new ElementCreater({ param: paramsButtonMenu });
         this.levelHeaderCreater.addInnerElement(buttonMenuCreater);
-        buttonMenuCreater.getElement().addEventListener('click', () => {
-            this.isMenuActive = !this.isMenuActive;
-            levelMenuCreator.getHtmlDocument().style.right = this.isMenuActive
-                ? '0px'
-                : `-${levelMenuCreator.getHtmlDocument().offsetWidth}px`;
-            this.levelHeaderCreater.getElement().children[0].textContent = this.isMenuActive ? 'close' : 'menu';
-        });
+        buttonMenuCreater.getElement().addEventListener('click', this.toggleMenu);
 
         const paramsAppTittle = {
             tag: 'span',
@@ -121,15 +114,15 @@ export default class LevelColumnView extends View {
         this.appTittleCreater.getElement().textContent = `Level ${this.levelActive + 1} of ${levels.length}`;
         this.levelHeaderCreater.addInnerElement(this.appTittleCreater);
 
-        const paramsAppIcon = {
-            tag: 'span',
-            classNames: [],
-            textContent: appIconTextContent,
+        const paramsCheckMark = {
+            tag: 'i',
+            classNames: [CssStyles.CHECK_MARK, CssStyles.MATERIAL_ICONS, CssStyles.MDC_LIST_ITEM_GRAPHIC, CssStyles.CHECK],
+            textContent: CHECK_MARK_CONTENT,
             callback: null,
         };
 
-        const appIconCreater = new ElementCreater({ param: paramsAppIcon });
-        this.levelHeaderCreater.addInnerElement(appIconCreater);
+        const checkMarkCreator = new ElementCreater({ param: paramsCheckMark });
+        this.levelHeaderCreater.addInnerElement(checkMarkCreator);
 
         const paramsButPrev = {
             tag: 'button',
@@ -164,7 +157,7 @@ export default class LevelColumnView extends View {
             callback: null,
         };
         this.levelHelpCreator = new ElementCreater({ param: paramsLevelHelp });
-        levelCreater.addInnerElement(this.levelHelpCreator);
+        this.levelCreater.addInnerElement(this.levelHelpCreator);
 
         const paramsSelectorName = {
             tag: 'h2',
@@ -230,25 +223,49 @@ export default class LevelColumnView extends View {
             }, this.levelHelpCreator.addInnerElement(this.selectorExampleCreator));
         }
     }
-    toggleMenu(): void {
+    getMdcCard = () => {
+        return this.levelCreater.getElement();
+    } 
+    getLevelHeader = () => {
+        return this.levelHeaderCreater.getElement();
+    }
+    getLevelHelp = () => {
+        return this.levelHelpCreator.getElement();
+    }
+    toggleMenu = () => {
         this.isMenuActive = !this.isMenuActive;
         levelMenuCreator.getHtmlDocument().style.right = this.isMenuActive
             ? '0px'
             : `-${levelMenuCreator.getHtmlDocument().offsetWidth}px`;
         this.levelHeaderCreater.getElement().children[0].textContent = this.isMenuActive ? 'close' : 'menu';
-    }
+    };
+    toggleListActives = (): void => {
+        this.levelHeaderCreater.getElement().children[2].classList.remove('not-passed', 'passed');
+        this.appTittleCreater.getElement().textContent = `Level ${this.levelActive + 1} of ${levels.length}`;
+
+        const objProgress = JSON.parse(localStorage.getItem('progress') as string) || {};
+        if (objProgress[this.levelActive] && objProgress[this.levelActive].correct) {
+            this.levelHeaderCreater.getElement().children[2].classList.add('passed');
+        }
+        if (objProgress[this.levelActive] && objProgress[this.levelActive].incorrect) {
+            this.levelHeaderCreater.getElement().children[2].classList.add('not-passed');
+        }
+    };
     showPrevLevel = (): void => {
         if (this.levelActive > 0) {
             this.levelActive -= 1;
+            tableView.loudNewLewel();
         }
     };
     showNextLevel = (): void => {
         if (+this.levelActive < this.levels.length - 1) {
             this.levelActive += 1;
+            tableView.loudNewLewel();
         }
     };
     reset = (): void => {
         this.levelActive = 0;
         localStorage.clear();
+        tableView.loudNewLewel();
     };
 }

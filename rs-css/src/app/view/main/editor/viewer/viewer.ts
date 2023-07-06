@@ -1,12 +1,13 @@
 import './viewer.css';
 import View from '../../../view';
-import ElementCreater, { ElementsParams } from '../../../../util/element-creator';
+import ElementCreater from '../../../../util/element-creator';
+import { ElementsParams } from '../../../../util/element-creator';
 import levels from '../../../../data/level-game';
 import { DataLevels } from '../../editor/editor-view';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import hljs from 'highlight.js/lib/core';
-import TableView from '../../table-wrapper/table-wrapper';
+import { TableView } from '../../table-wrapper/table-wrapper';
 
 const CssStyles = {
     VIEWER: 'viewer',
@@ -23,7 +24,7 @@ const CssStyles = {
 const TITLE_VIEWER = 'HTML viewer';
 const TITLE_INDEX_HTML = 'index.html';
 
-export default class ViewerView extends View {
+export class ViewerView extends View {
     paramsViewer!: ElementsParams | { tag: string; classNames: string[]; textContent: string; callback: null };
     currentElem: HTMLElement | null = null;
     levels!: DataLevels[];
@@ -128,8 +129,8 @@ export default class ViewerView extends View {
         this.spanTagCreator = new ElementCreater({ param: paramsSpanTag });
         this.wrapCreator.addInnerElement(this.spanTagCreator);
     }
-    getHtmlElement() {
-        return this.spanTagCreator.getElement();
+    getHtmlElement = () => {
+        return this.HTMLCreator.getElement();
     }
 
     getAttributes = (child: any) => {
