@@ -70,7 +70,7 @@ const levels = [
     {
         doThis: 'Select the bat on the rip tombstone',
         selector: '#rip bat',
-        selectorName: '',
+        selectorName: 'name',
         helpTitle: 'Combine the Descendant & ID Selectors',
         syntax: '#id&nbsp;&nbsp;A',
         help: 'You can combine any selector with the descendent selector.',

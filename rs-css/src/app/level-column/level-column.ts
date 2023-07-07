@@ -10,8 +10,8 @@ import hljs from 'highlight.js/lib/core';
 import xml from 'highlight.js/lib/languages/xml';
 import 'highlight.js/styles/github.css';
 import { LevelMenuView } from './level-menu/level-menu';
-import levels from '../data/level-game';
 import { TableView } from '../view/main/table-wrapper/table-wrapper';
+import levels from '../data/level-game';
 hljs.registerLanguage('xml', xml);
 
 const CssStyles = {
@@ -38,6 +38,7 @@ const CssStyles = {
     CHECK_MARK: 'check-mark',
     MDC_LIST_ITEM_GRAPHIC: 'mdc-list-item__graphic',
     CHECK: 'check',
+    PASSED: 'passed',
 };
 const buttonMenuTextContent = 'close';
 const CHECK_MARK_CONTENT = 'done';
@@ -121,6 +122,7 @@ export class LevelColumnView extends View {
                 CssStyles.MATERIAL_ICONS,
                 CssStyles.MDC_LIST_ITEM_GRAPHIC,
                 CssStyles.CHECK,
+                CssStyles.PASSED,
             ],
             textContent: CHECK_MARK_CONTENT,
             callback: null,
@@ -228,6 +230,15 @@ export class LevelColumnView extends View {
             }, this.levelHelpCreator.addInnerElement(this.selectorExampleCreator));
         }
     }
+    getLevelHeader = () => {
+        return this.levelHeaderCreater.getElement();
+    };
+    getLevelHelpCreator = () => {
+        return this.levelHelpCreator.getElement();
+    };
+    getLevelColumn = () => {
+        return this.levelCreater.getElement();
+    };
     toggleMenu = () => {
         this.isMenuActive = !this.isMenuActive;
         levelMenuCreator.getHtmlDocument().style.right = this.isMenuActive
@@ -250,14 +261,11 @@ export class LevelColumnView extends View {
     showPrevLevel = (): void => {
         if (this.levelActive > 0) {
             this.levelActive -= 1;
-            tableView.loudNewLewel();
         }
     };
     showNextLevel = (): void => {
-        if (+this.levelActive < this.levels.length - 1) {
-            this.levelActive += 1;
-            tableView.loudNewLewel();
-        }
+        this.levelActive++;
+        new TableView().loudNewLewel();
     };
     reset = (): void => {
         this.levelActive = 0;

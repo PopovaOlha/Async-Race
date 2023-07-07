@@ -35,6 +35,7 @@
 }
 .html-code {
     font-family: monospace;
+    background-color: #282a36;;
     margin: 10px;
 }
 .mdc-card::after {
@@ -63,6 +64,7 @@
     display: block;
     overflow-x: auto;
     padding: 0.5em;
+    background-color: #282a36;
   }
   
   .hljs-built_in,
@@ -124,4 +126,7 @@
   .hljs-emphasis,
   .hljs-attr {
     font-style: italic !important;
+  }
+  .wrap {
+    background-color: #282a36;;
   }

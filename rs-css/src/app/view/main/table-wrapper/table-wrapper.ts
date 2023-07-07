@@ -4,10 +4,10 @@ import { ElementsParams } from '../../../util/element-creator';
 import View from '../../view';
 import { TableContentView } from '../table-content/table-content';
 import levels from '../../../data/level-game';
-import { ViewerView } from '../editor/viewer/viewer';
 import HeadlineView from '../../header/headline/headline';
 import { LevelColumnView } from '../../../level-column/level-column';
 import MainView from '../main-view/main';
+import { LevelMenuView } from '../../../level-column/level-menu/level-menu';
 
 const CssStyles = {
     GAME_WRAPPER: 'game-wrapper',
@@ -72,6 +72,20 @@ export class TableView extends View {
             callback: null,
         };
         this.creatorTable = new ElementCreater({ param: paramsTable });
+        this.creatorTable
+            .getElement()
+            .querySelectorAll('*')
+            .forEach((item: Element) => {
+                if (item.closest(levels[this.levelActive].selector)) {
+                    if (item.tagName === 'BAT' || item.className === 'red') {
+                        item.closest(`.table ${levels[this.levelActive].selector}`)?.classList.add('selected-bat');
+                    } else if (item.tagName === 'PUMPKIN' || item.tagName === 'SKULL' || item.tagName === 'CASPER') {
+                        item.closest(`.table ${levels[this.levelActive].selector}`)?.classList.add('selected-pumpkin');
+                    } else {
+                        item.closest(`.table ${levels[this.levelActive].selector}`)?.classList.add('dance');
+                    }
+                }
+            });
         this.creatorTable.getElement().addEventListener('mouseover', (e: any) => {
             if (e.target.className !== 'table mdc-card') {
                 new MainView().highlightElement(e);
@@ -126,7 +140,7 @@ export class TableView extends View {
         const isElements = elementsTable.every(
             (item: Element) =>
                 item.closest(`.table ${this.editor.getValue()}`) ===
-                item.closest(`.table ${this.levels[this.levelActive].selector}`)
+                item.closest(`.table ${levels[this.levelActive].selector}`)
         );
         if (isElements) {
             this.creatorTable
@@ -163,45 +177,16 @@ export class TableView extends View {
         const headLine = new HeadlineView();
         if (this.levelActive < levels.length) {
             this.isGame = true;
-            this.editor.setValue('');
-            this.editor.focus();
             this.isPrintText = true;
-            document.querySelector('.html-code')?.append(new ViewerView().getViewerCode());
-            document
-                .querySelector('.html-code')
-                ?.querySelectorAll('.code')
-                .forEach((block: any) => {
-                    this.hljs.highlightBlock(block);
-                });
-            this.creatorTable.getElement().innerHTML = levels[this.levelActive].boardMarkup;
+            this.creatorTable.getElement().innerText = levels[this.levelActive].boardMarkup;
             headLine.getHtmlDocument().innerHTML = levels[this.levelActive].doThis;
-            this.creatorTable
-                .getElement()
-                .querySelectorAll('*')
-                .forEach((item: Element) => {
-                    if (item.closest(levels[this.levelActive].selector)) {
-                        if (item.tagName === 'BAT' || item.className === 'red') {
-                            item.closest(`.table ${levels[this.levelActive].selector}`)?.classList.add('selected-bat');
-                        } else if (
-                            item.tagName === 'PUMPKIN' ||
-                            item.tagName === 'SKULL' ||
-                            item.tagName === 'CASPER'
-                        ) {
-                            item.closest(`.table ${levels[this.levelActive].selector}`)?.classList.add(
-                                'selected-pumpkin'
-                            );
-                        } else {
-                            item.closest(`.table ${levels[this.levelActive].selector}`)?.classList.add('dance');
-                        }
-                    }
-                });
-            document.querySelector('.mdc-card')?.removeChild(document.querySelector('.mdc-list')!);
-            document.querySelector('.mdc-card')?.append(document.querySelector('.level__help')!);
+
+            levelColumn.getLevelColumn().removeChild(levelColumn.getLevelHeader());
+            levelColumn.getLevelColumn().append(levelColumn.getLevelHelpCreator());
             levelColumn.toggleListActives();
             localStorage.setItem('level', `${this.levelActive}`);
         } else {
             this.isGame = false;
-            this.editor.setValue('');
             this.creatorTable.getElement().innerHTML = '';
         }
     };
