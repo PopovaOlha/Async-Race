@@ -11,7 +11,7 @@ import xml from 'highlight.js/lib/languages/xml';
 import 'highlight.js/styles/github.css';
 import { LevelMenuView } from './level-menu/level-menu';
 import { TableView } from '../view/main/table-wrapper/table-wrapper';
-import levels from '../data/level-game';
+import { ViewerView } from '../view/main/editor/viewer/viewer';
 hljs.registerLanguage('xml', xml);
 
 const CssStyles = {
@@ -45,10 +45,9 @@ const CHECK_MARK_CONTENT = 'done';
 const BUTTON_PREV_CONTENT = 'navigate_before';
 const BUTTON_NEXT_CONTENT = 'navigate_next';
 const BUTTON_TITLE = 'RESET';
-let EXAMPLE_CONTENT: 'Examples';
-const levelMenuCreator = new LevelMenuView();
 const tableView = new TableView();
-
+const levelMenuCreator = new LevelMenuView();
+const viewerView = new ViewerView();
 export class LevelColumnView extends View {
     paramsLevelColumn!: ElementsParams | { tag: string; classNames: string[]; textContent: string; callback: null };
     levelHelpCreator!: ElementCreater;
@@ -73,7 +72,6 @@ export class LevelColumnView extends View {
         };
         super(paramsLevelColumn);
         this.getConfigureView();
-        this.levels = levels;
     }
     getConfigureView() {
         const paramsLevel = {
@@ -112,7 +110,7 @@ export class LevelColumnView extends View {
         };
 
         this.appTittleCreater = new ElementCreater({ param: paramsAppTittle });
-        this.appTittleCreater.getElement().textContent = `Level ${this.levelActive + 1} of ${levels.length}`;
+        this.appTittleCreater.getElement().textContent = `Level ${this.levelActive + 1} of ${this.levels.length}`;
         this.levelHeaderCreater.addInnerElement(this.appTittleCreater);
 
         const paramsCheckMark = {
@@ -169,15 +167,16 @@ export class LevelColumnView extends View {
         const paramsSelectorName = {
             tag: 'h2',
             classNames: [CssStyles.SELECTOR_NAME],
-            textContent: levels[this.levelActive].selectorName,
+            textContent: `${this.levels[this.levelActive].selectorName}`,
             callback: null,
         };
         this.selectorNameCreator = new ElementCreater({ param: paramsSelectorName });
         this.levelHelpCreator.addInnerElement(this.selectorNameCreator);
+
         const paramsTitle = {
             tag: 'h3',
             classNames: [CssStyles.TITLE],
-            textContent: levels[this.levelActive].helpTitle,
+            textContent: `${this.levels[this.levelActive].helpTitle}`,
             callback: null,
         };
         this.selectorTitleCreator = new ElementCreater({ param: paramsTitle });
@@ -185,7 +184,7 @@ export class LevelColumnView extends View {
         const paramsSyntax = {
             tag: 'h2',
             classNames: [CssStyles.SYNTAX],
-            textContent: levels[this.levelActive].syntax,
+            textContent: `${this.levels[this.levelActive].syntax}`,
             callback: null,
         };
         this.selectorSyntaxCreator = new ElementCreater({ param: paramsSyntax });
@@ -193,7 +192,7 @@ export class LevelColumnView extends View {
         const paramsDescription = {
             tag: 'p',
             classNames: [CssStyles.DESCRIPTION],
-            textContent: levels[this.levelActive].help,
+            textContent: `${this.levels[this.levelActive].help}`,
             callback: null,
         };
         this.selectorDescriptionCreator = new ElementCreater({ param: paramsDescription });
@@ -206,30 +205,20 @@ export class LevelColumnView extends View {
         };
         this.selectorButtonCreator = new ElementCreater({ param: paramsReset });
         this.selectorButtonCreator.addAttribute('type', 'button');
-        this.selectorButtonCreator.getElement().addEventListener('click', this.reset);
         this.levelHelpCreator.addInnerElement(this.selectorButtonCreator);
-
-        if (!levels[this.levelActive].examples) {
-            const paramsExamples = {
-                tag: 'h3',
-                classNames: [CssStyles.EXAMPLES],
-                textContent: EXAMPLE_CONTENT,
-                callback: null,
-            };
-            this.examplesCreator = new ElementCreater({ param: paramsExamples });
-            this.levelHelpCreator.addInnerElement(this.selectorExamplesCreator);
-            levels[this.levelActive].examples?.forEach((el) => {
-                const paramsExample = {
-                    tag: 'div',
-                    classNames: [CssStyles.EXAMPLE],
-                    textContent: EXAMPLE_CONTENT,
-                    callback: null,
-                };
-                this.exampleCreator = new ElementCreater({ param: paramsExample });
-                this.selectorExampleCreator.setTextContent(el);
-            }, this.levelHelpCreator.addInnerElement(this.selectorExampleCreator));
-        }
     }
+    showPrevLevel = (): void => {
+        if (this.levelActive > 0) {
+            this.levelActive -= 1;
+            this.checkLevelHeader();
+        }
+    };
+    showNextLevel = (): void => {
+        if (this.levelActive <= this.levels.length) {
+            this.levelActive += 1;
+            this.checkLevelHeader();
+        }
+    };
     getLevelHeader = () => {
         return this.levelHeaderCreater.getElement();
     };
@@ -248,7 +237,7 @@ export class LevelColumnView extends View {
     };
     toggleListActives = (): void => {
         this.levelHeaderCreater.getElement().children[2].classList.remove('not-passed', 'passed');
-        this.appTittleCreater.getElement().textContent = `Level ${this.levelActive + 1} of ${levels.length}`;
+        this.appTittleCreater.getElement().textContent = `Level ${this.levelActive + 1} of ${this.levels.length}`;
 
         const objProgress = JSON.parse(localStorage.getItem('progress') as string) || {};
         if (objProgress[this.levelActive] && objProgress[this.levelActive].correct) {
@@ -258,14 +247,31 @@ export class LevelColumnView extends View {
             this.levelHeaderCreater.getElement().children[2].classList.add('not-passed');
         }
     };
-    showPrevLevel = (): void => {
-        if (this.levelActive > 0) {
-            this.levelActive -= 1;
+    checkLevelHeader = () => {
+        if (this.levelActive < this.levels.length) {
+            this.isGame = true;
+            this.htmlCode.innerHTML = ``;
+            this.isPrintText = true;
+            this.htmlCode.append(viewerView.getViewerCode());
+            this.htmlCode.querySelectorAll('.code').forEach((block) => {
+                this.hljs.highlightBlock(block);
+            });
+            const headline: any = document.querySelector('.order');
+            const tableView: any = document.querySelector('.table');
+            tableView.innerHTML = `${this.levels[this.levelActive].boardMarkup}`;
+            headline.innerHTML = `${this.levels[this.levelActive].doThis}`;
+            this.appTittleCreater.getElement().textContent = `Level ${this.levelActive} of ${this.levels.length}`;
+            this.selectorNameCreator.setTextContent(`${this.levels[this.levelActive].selectorName}`);
+            this.selectorTitleCreator.setTextContent(`${this.levels[this.levelActive].helpTitle}`);
+            this.selectorSyntaxCreator.setTextContent(`${this.levels[this.levelActive].syntax}`);
+            this.selectorDescriptionCreator.setTextContent(`${this.levels[this.levelActive].help}`);
+
+            new LevelColumnView().toggleListActives();
+            localStorage.setItem('level', `${this.levelActive}`);
+        } else {
+            this.isGame = false;
+            tableView.getHtmlDocument().innerHTML = '';
         }
-    };
-    showNextLevel = (): void => {
-        this.levelActive++;
-        new TableView().loudNewLewel();
     };
     reset = (): void => {
         this.levelActive = 0;

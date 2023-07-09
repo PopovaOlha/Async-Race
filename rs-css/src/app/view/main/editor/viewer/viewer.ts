@@ -2,8 +2,6 @@ import './viewer.css';
 import View from '../../../view';
 import ElementCreater from '../../../../util/element-creator';
 import { ElementsParams } from '../../../../util/element-creator';
-import levels from '../../../../data/level-game';
-import { DataLevels } from '../../editor/editor-view';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 
@@ -23,8 +21,6 @@ const TITLE_INDEX_HTML = 'index.html';
 export class ViewerView extends View {
     paramsViewer!: ElementsParams | { tag: string; classNames: string[]; textContent: string; callback: null };
     currentElem: HTMLElement | null = null;
-    levels!: DataLevels[];
-    levelActive = Number(localStorage.getItem('level')) || 0;
     HTMLCreator!: ElementCreater;
     lineNumberCreator!: ElementCreater;
     constructor() {
@@ -36,7 +32,6 @@ export class ViewerView extends View {
         };
         super(paramsOrder);
         this.configureView();
-        this.levels = levels;
     }
     public configureView() {
         const paramsHeaderViewer = {
@@ -150,7 +145,7 @@ export class ViewerView extends View {
     getViewerCode = (): DocumentFragment => {
         const result = document.createDocumentFragment();
         const container = document.createElement('div');
-        container.innerHTML = levels[this.levelActive].boardMarkup;
+        container.innerHTML = this.levels[this.levelActive].boardMarkup;
         container.childNodes.forEach((element: Node) => {
             if (element.nodeType === 1) result.append(this.getElementViewerCode(element));
         });

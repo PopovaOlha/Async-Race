@@ -7,6 +7,7 @@ import hljs from 'highlight.js/lib/core';
 import xml from 'highlight.js/lib/languages/xml';
 import 'highlight.js/styles/github.css';
 import { DataLevels } from '../view/main/editor/editor-view';
+import levels from '../data/level-game';
 
 hljs.registerLanguage('xml', xml);
 
@@ -14,11 +15,13 @@ export default abstract class View {
     isMenuActive = false;
     isPrintText = true;
     isGame = true;
-    levelActive = Number(localStorage.getItem('level')) || 0;
+    levelActive = 0;
     editor: any;
     hljs = hljs;
-    levels!: DataLevels[];
+    levels: DataLevels[] = levels;
     elementCreater: ElementCreater;
+    htmlCode: HTMLElement = document.createElement('div');
+    listMenu: HTMLElement = document.createElement('div');
 
     constructor(params: ElementsParams) {
         this.elementCreater = this.createView({ params });

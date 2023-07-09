@@ -141,7 +141,7 @@
     -webkit-box-align: start;
         -ms-flex-align: start;
             align-items: flex-start;
-    background-image: url(../../../../images/pngwing.com.png);
+    background-image: url(../../../../images/apple.png);
     background-size: 55px;
     background-position: center;
     background-repeat: no-repeat;
@@ -159,8 +159,8 @@
             align-items: flex-start;
     width: 50px;
     height: 50px;
-    background-image: url(../../../../images/pngimg.com\ -\ plate_PNG5338.png);
-    background-size: 50px;
+    background-image: url(../../../../images/pumpkin.png);
+    background-size: 100%;
     background-position: center;
     background-repeat: no-repeat;
   }
@@ -191,8 +191,8 @@
             box-shadow: white 0.006em 0.006em 0.007em, #87a1ab 1px 1px 1px, #87a1ab 1px 2px 1px, #87a1ab 1px 3px 1px, #87a1ab 1px 4px 1px, #87a1ab 1px 5px 1px, #87a1ab 1px 6px 1px, #87a1ab 1px 7px 1px, #87a1ab 1px 8px 1px, #87a1ab 1px 9px 1px, #87a1ab 1px 10px 1px, #87a1ab 1px 11px 1px, #87a1ab 1px 12px 1px, rgba(16, 16, 16, 0.4) 1px 18px 6px, rgba(16, 16, 16, 0.2) 1px 22px 10px, rgba(16, 16, 16, 0.2) 1px 26px 35px;
   }
   
-  #rip {
-    background-image: url(../../../../images/twitter.svg);
+  #apple {
+    background-image: url(../../../../images/apple.png);
   }
   
   earth {
@@ -206,8 +206,8 @@
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    background-image: url(../../../../images/pngimg.com\ -\ plate_PNG5327.png);
-    background-size: 100px;
+    background-image: url(../../../../images/pngimg.com\ -\ plate_PNG5338.png);
+
   }
   
   pumpkin {
@@ -218,8 +218,8 @@
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    background-image: url(../../../../images/apple.png);
-    background-size: 70px;
+    background-image: url(../../../../images/pumpkin.png);
+    background-size: 100%;
     background-repeat: no-repeat;
     -webkit-box-pack: center;
         -ms-flex-pack: center;
@@ -239,7 +239,7 @@
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    background-image: url(../../../../images/pngwing.com.png);
+    background-image: url(../../../../images/apple.png);
     background-size: 70px 97px;
     background-repeat: no-repeat;
     -webkit-box-pack: center;
@@ -267,7 +267,7 @@
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    background-image: url(../../../../images/pngimg.com\ -\ plate_PNG5327.png);
+    background-image: url(../../../../images/casper.png);
     background-size: 70px 105px;
     background-repeat: no-repeat;
     -webkit-box-pack: center;

@@ -3,11 +3,9 @@ import ElementCreater from '../../../util/element-creator';
 import { ElementsParams } from '../../../util/element-creator';
 import View from '../../view';
 import { TableContentView } from '../table-content/table-content';
-import levels from '../../../data/level-game';
-import HeadlineView from '../../header/headline/headline';
 import { LevelColumnView } from '../../../level-column/level-column';
 import MainView from '../main-view/main';
-import { LevelMenuView } from '../../../level-column/level-menu/level-menu';
+import { ViewerView } from '../editor/viewer/viewer';
 
 const CssStyles = {
     GAME_WRAPPER: 'game-wrapper',
@@ -20,12 +18,17 @@ const CssStyles = {
     DANCE: 'dance',
     TABLE_ADGE: 'table-edge',
     TABLE_LEG: 'table-leg',
+    UNANSWERED: 'unanswered',
+    INCORRECT: 'incorrect',
+    GAME_OVER: 'game-over',
 };
 export class TableView extends View {
     paramsGameWrapper!: ElementsParams | { tag: string; classNames: string[]; textContent: string; callback: null };
     creatorTable!: ElementCreater;
     isPassedLevel = false;
-    htmlCode!: ElementCreater;
+    creatorUnswer!: ElementCreater;
+    creatorIncorrect!: ElementCreater;
+    creatorGameOver!: ElementCreater;
     constructor() {
         const paramsGameWrapper = {
             tag: 'div',
@@ -34,7 +37,6 @@ export class TableView extends View {
             callback: null,
         };
         super(paramsGameWrapper);
-        this.levels = levels;
         this.configureView();
     }
     public configureView() {
@@ -72,31 +74,6 @@ export class TableView extends View {
             callback: null,
         };
         this.creatorTable = new ElementCreater({ param: paramsTable });
-        this.creatorTable
-            .getElement()
-            .querySelectorAll('*')
-            .forEach((item: Element) => {
-                if (item.closest(levels[this.levelActive].selector)) {
-                    if (item.tagName === 'BAT' || item.className === 'red') {
-                        item.closest(`.table ${levels[this.levelActive].selector}`)?.classList.add('selected-bat');
-                    } else if (item.tagName === 'PUMPKIN' || item.tagName === 'SKULL' || item.tagName === 'CASPER') {
-                        item.closest(`.table ${levels[this.levelActive].selector}`)?.classList.add('selected-pumpkin');
-                    } else {
-                        item.closest(`.table ${levels[this.levelActive].selector}`)?.classList.add('dance');
-                    }
-                }
-            });
-        this.creatorTable.getElement().addEventListener('mouseover', (e: any) => {
-            if (e.target.className !== 'table mdc-card') {
-                new MainView().highlightElement(e);
-            }
-        });
-        this.creatorTable.getElement().addEventListener('mouseout', (e: any) => {
-            if (e.target.className !== 'table mdc-card') {
-                new MainView().highlightElement(e);
-            }
-        });
-        creatorTableWrapper.addInnerElement(this.creatorTable);
         const ContentOfTable = [
             {
                 className: [CssStyles.DANCE],
@@ -110,6 +87,54 @@ export class TableView extends View {
         ContentOfTable.forEach((item) => {
             const creatorPlats = new TableContentView(item.tagName, item.className);
             this.creatorTable.addInnerElement(creatorPlats.getHtmlDocument());
+        });
+        creatorTableWrapper.addInnerElement(this.creatorTable);
+        const paramsUnswer = {
+            tag: 'div',
+            classNames: [CssStyles.UNANSWERED],
+            textContent: '',
+            callback: null,
+        };
+        this.creatorUnswer = new ElementCreater({ param: paramsUnswer });
+        const paramsIncorrect = {
+            tag: 'div',
+            classNames: [CssStyles.INCORRECT],
+            textContent: '',
+            callback: null,
+        };
+        this.creatorIncorrect = new ElementCreater({ param: paramsIncorrect });
+        const paramsGameOver = {
+            tag: 'div',
+            classNames: [CssStyles.GAME_OVER],
+            textContent: '',
+            callback: null,
+        };
+        this.creatorGameOver = new ElementCreater({ param: paramsGameOver });
+        this.creatorTable
+            .getElement()
+            .querySelectorAll('*')
+            .forEach((item: Element) => {
+                if (item.closest(this.levels[this.levelActive].selector)) {
+                    if (item.tagName === 'BAT' || item.className === 'red') {
+                        item.closest(`.table ${this.levels[this.levelActive].selector}`)?.classList.add('selected-bat');
+                    } else if (item.tagName === 'PUMPKIN' || item.tagName === 'SKULL' || item.tagName === 'CASPER') {
+                        item.closest(`.table ${this.levels[this.levelActive].selector}`)?.classList.add(
+                            'selected-pumpkin'
+                        );
+                    } else {
+                        item.closest(`.table ${this.levels[this.levelActive].selector}`)?.classList.add('dance');
+                    }
+                }
+            });
+        this.creatorTable.getElement().addEventListener('mouseover', (e: any) => {
+            if (e.target.className !== 'table mdc-card') {
+                new MainView().highlightElement(e);
+            }
+        });
+        this.creatorTable.getElement().addEventListener('mouseout', (e: any) => {
+            if (e.target.className !== 'table mdc-card') {
+                new MainView().highlightElement(e);
+            }
         });
 
         const paramsTableAdge = {
@@ -140,14 +165,14 @@ export class TableView extends View {
         const isElements = elementsTable.every(
             (item: Element) =>
                 item.closest(`.table ${this.editor.getValue()}`) ===
-                item.closest(`.table ${levels[this.levelActive].selector}`)
+                item.closest(`.table ${this.levels[this.levelActive].selector}`)
         );
         if (isElements) {
             this.creatorTable
                 .getElement()
                 .querySelectorAll('*')
                 .forEach((item: Element) => {
-                    if (item.closest(levels[this.levelActive].selector)) {
+                    if (item.closest(this.levels[this.levelActive].selector)) {
                         item.addEventListener('animationend', () => {
                             item.classList.add('animationed');
                             this.loudNewLewel();
@@ -155,7 +180,7 @@ export class TableView extends View {
                     }
                 });
             this.setLocalStorageProgress();
-            this.levelActive += 1;
+            this.levelActive++;
             this.isPassedLevel = true;
         } else {
             document.querySelector('.editor')?.classList.add('shake');
@@ -173,21 +198,51 @@ export class TableView extends View {
         localStorage.setItem('progress', JSON.stringify(result));
     };
     loudNewLewel = (): void => {
-        const levelColumn = new LevelColumnView();
-        const headLine = new HeadlineView();
-        if (this.levelActive < levels.length) {
+        if (this.levelActive < this.levels.length - 1) {
             this.isGame = true;
+            this.htmlCode.innerHTML = ``;
             this.isPrintText = true;
-            this.creatorTable.getElement().innerText = levels[this.levelActive].boardMarkup;
-            headLine.getHtmlDocument().innerHTML = levels[this.levelActive].doThis;
+            this.htmlCode.append(new ViewerView().getViewerCode());
+            this.htmlCode.querySelectorAll('.code').forEach((block) => {
+                this.hljs.highlightBlock(block);
+            });
+            const headline: any = document.querySelector('.order');
+            const tableView: any = document.querySelector('.table');
+            tableView.innerHTML = `${this.levels[this.levelActive].boardMarkup}`;
+            headline.innerHTML = `${this.levels[this.levelActive].doThis}`;
 
-            levelColumn.getLevelColumn().removeChild(levelColumn.getLevelHeader());
-            levelColumn.getLevelColumn().append(levelColumn.getLevelHelpCreator());
-            levelColumn.toggleListActives();
+            new LevelColumnView().toggleListActives();
             localStorage.setItem('level', `${this.levelActive}`);
         } else {
             this.isGame = false;
             this.creatorTable.getElement().innerHTML = '';
         }
+    };
+    showWinningResult = (): void => {
+        const objProgress = JSON.parse(localStorage.getItem('progress') as string);
+        let countCorrect = 0;
+        let countIncorrect = 0;
+        Object.keys(objProgress).forEach((e) => {
+            if (objProgress[e].correct) countCorrect += 1;
+            if (objProgress[e].incorrect) countIncorrect += 1;
+        });
+        const win = document.createElement('div');
+        win.classList.add('game-win');
+        win.innerHTML = 'YOU WIN';
+        const unanswered =
+            this.levels.length - countCorrect - countIncorrect === 0
+                ? ''
+                : (this.creatorUnswer.getElement().innerHTML = `unanswered: ${
+                      this.levels.length - countCorrect - countIncorrect
+                  }`);
+        const correct =
+            countCorrect === 0 ? '' : (this.creatorIncorrect.getElement().innerHTML = `correct: ${countCorrect}`);
+        const incorrect =
+            countIncorrect === 0 ? '' : (this.creatorIncorrect.getElement().innerHTML = `wrong: ${countIncorrect}`);
+        const result =
+            countCorrect === this.levels.length
+                ? win
+                : (this.creatorGameOver.getElement().innerHTML = `${correct}, ${incorrect}, ${unanswered}`);
+        this.creatorTable.getElement().append(result);
     };
 }

@@ -7,7 +7,6 @@ import './codemirror/theme/dracula.css';
 import ElementCreater from '../../../util/element-creator';
 import View from '../../view';
 import { FormButtonView } from './editor-button/editor-button';
-import levels from '../../../data/level-game';
 import { TableView } from '../table-wrapper/table-wrapper';
 import { ViewerView } from './viewer/viewer';
 import CodeMirror from 'codemirror';
@@ -16,7 +15,7 @@ export interface DataLevels {
     helpTitle: string;
     selectorName?: string;
     doThis: string;
-    selector?: string;
+    selector: string;
     syntax: string;
     help: string;
     examples?: string[];
@@ -65,7 +64,6 @@ export class EditorView extends View {
             callback: null,
         };
         super(paramsEditor);
-        this.levels = levels;
         this.configureView();
     }
     public configureView() {
@@ -194,7 +192,7 @@ export class EditorView extends View {
         if (this.isPrintText && this.isGame) {
             this.editor.setValue('');
             this.isPrintText = false;
-            const arrayResponseLetters: string[] = levels[this.levelActive].selector.split('');
+            const arrayResponseLetters: string[] = this.levels[this.levelActive].selector.split('');
             this.textareaCreator.getElement().classList.remove('blink');
             let count = 0;
             const printText = (): void => {
@@ -220,11 +218,13 @@ export class EditorView extends View {
             change.update(change.from, change.to, [newtext]);
             return true;
         });
+
         this.editor.setOption('extraKeys', {
             Enter: () => {
                 new TableView().checkingResult();
             },
         });
+
         this.editor.on('change', (editor: any) => {
             if (editor.getValue().length > 0) {
                 document.querySelector('.CodeMirror-lines')?.classList.remove('blink');
