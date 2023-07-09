@@ -106,7 +106,7 @@ export class ViewerView extends View {
         if (child.attributes.class) {
             childClass = child.attributes.class.value
                 .split(' ')
-                .filter((e: string) => e !== 'selected-element' && e !== 'selected-bat' && e !== 'selected-pumpkin')
+                .filter((e: string) => e !== 'dance' && e !== 'selected-bat' && e !== 'selected-pumpkin')
                 .join('');
         }
         const childId = child.attributes.getNamedItem('id');
