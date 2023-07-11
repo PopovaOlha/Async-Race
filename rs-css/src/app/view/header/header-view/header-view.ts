@@ -127,27 +127,26 @@ export default class HeaderView extends View {
                 ImgStyle: [CssStyles.EMAIL_LOGO],
                 LinkName: 'a',
                 ImgName: 'img',
-                Root: '../../../../images/email-envelope.svg',
+                Root: '',
             },
             {
                 LinkStyle: [CssStyles.SHARE_FACEBOOK],
                 ImgStyle: [CssStyles.FACEBOOK_LOGO],
                 LinkName: 'a',
                 ImgName: 'img',
-                Root: '../../../../images/facebook-social-logo.svg',
+                Root: '',
             },
             {
                 LinkStyle: [CssStyles.SHARE_TWITTER],
                 ImgStyle: [CssStyles.TWITTER_LOGO],
                 LinkName: 'a',
                 ImgName: 'img',
-                Root: '../../../../images/twitter.svg',
+                Root: '',
             },
         ];
 
         linkItems.forEach((item) => {
             const imageElement = new LinkView(item.ImgName, item.ImgStyle);
-            imageElement.elementCreater.addAttribute('src', item.Root);
             const linkElement = new LinkView(item.LinkName, item.LinkStyle);
             linkElement.elementCreater.addAttribute('href', '#');
             linkElement.elementCreater.addInnerElement(imageElement.getHtmlDocument());
