@@ -70,3 +70,24 @@
 .email-logo, .facebook-logo, .twitter-logo {
     width: 20px;
 }
+.email-logo {
+    width: 20px;
+    height: 20px;
+    background-image: url(../../../../images/email-envelope.svg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+.facebook-logo {
+    width: 20px;
+    height: 20px;
+    background-image: url(../../../../images/facebook-social-logo.svg);
+    background-size: 100%;
+    background-repeat: no-repeat; 
+}
+.twitter-logo {
+    width: 20px;
+    height: 20px;
+    background-image: url(../../../../images/twitter.svg);
+    background-size: 100%;
+    background-repeat: no-repeat; 
+}
