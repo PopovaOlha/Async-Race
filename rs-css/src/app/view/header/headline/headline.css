@@ -1,5 +1,7 @@
 .order {
-    color:#3e4a61;
+    color:#1a2639;
+    position: sticky;
+    top: 20px;
     font-size: 45px;
     margin-top: -10px;
     font-weight: 700;

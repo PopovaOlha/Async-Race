@@ -1,8 +1,9 @@
 .viewer {
     flex: 100 1 auto;
-    height: 40vh;
+    height: 100%;
     width: 100%;
     margin: 5px 0 0;
+    overflow: hidden;
 }
 .viewer_header {
     position: relative;

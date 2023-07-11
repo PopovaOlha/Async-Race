@@ -115,14 +115,14 @@ export class TableView extends View {
             .querySelectorAll('*')
             .forEach((item: Element) => {
                 if (item.closest(this.levels[this.levelActive].selector)) {
-                    if (item.tagName === 'BAT' || item.className === 'red') {
+                    if (item.tagName === 'PUMPKIN' || item.className === 'small') {
                         item.closest(`.table ${this.levels[this.levelActive].selector}`)?.classList.add('selected-bat');
-                    } else if (item.tagName === 'PUMPKIN' || item.tagName === 'SKULL' || item.tagName === 'CASPER') {
-                        item.closest(`.table ${this.levels[this.levelActive].selector}`)?.classList.add(
-                            'selected-pumpkin'
-                        );
-                    } else {
+                    } else if (item.tagName === 'NAPKIN' || item.tagName === 'PUMPKIN' || item.tagName === 'PLATES') {
                         item.closest(`.table ${this.levels[this.levelActive].selector}`)?.classList.add('dance');
+                    } else {
+                        item.closest(`.table ${this.levels[this.levelActive].selector}`)?.classList.add(
+                            'selected-element'
+                        );
                     }
                 }
             });
@@ -161,24 +161,22 @@ export class TableView extends View {
         return this.creatorTable.getElement();
     };
     checkingResult = (): void => {
-        const elementsTable = Array.prototype.slice.call(this.creatorTable.getElement().querySelectorAll('*'));
+        const table = document.querySelector('.table');
+        const elementsTable = Array.prototype.slice.call(table?.querySelectorAll('*'));
         const isElements = elementsTable.every(
             (item: Element) =>
                 item.closest(`.table ${this.editor.getValue()}`) ===
                 item.closest(`.table ${this.levels[this.levelActive].selector}`)
         );
         if (isElements) {
-            this.creatorTable
-                .getElement()
-                .querySelectorAll('*')
-                .forEach((item: Element) => {
-                    if (item.closest(this.levels[this.levelActive].selector)) {
-                        item.addEventListener('animationend', () => {
-                            item.classList.add('animationed');
-                            this.loudNewLewel();
-                        });
-                    }
-                });
+            elementsTable.forEach((item: Element) => {
+                if (item.closest(this.levels[this.levelActive].selector)) {
+                    item.addEventListener('animationend', () => {
+                        item.classList.add('animationed');
+                        this.loudNewLewel();
+                    });
+                }
+            });
             this.setLocalStorageProgress();
             this.levelActive++;
             this.isPassedLevel = true;

@@ -1,7 +1,6 @@
 import { LevelColumnView } from './level-column/level-column';
 import HeaderView from './view/header/header-view/header-view';
 import WrapperView from './view/wrapper/wrapper';
-import '../images/3534508.png';
 import { EditorView } from '../../src/app/view/main/editor/editor-view';
 import { TableView } from './view/main/table-wrapper/table-wrapper';
 

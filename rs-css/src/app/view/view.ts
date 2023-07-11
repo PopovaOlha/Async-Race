@@ -22,6 +22,7 @@ export default abstract class View {
     elementCreater: ElementCreater;
     htmlCode: HTMLElement = document.createElement('div');
     listMenu: HTMLElement = document.createElement('div');
+    container: HTMLElement = document.createElement('div');
 
     constructor(params: ElementsParams) {
         this.elementCreater = this.createView({ params });

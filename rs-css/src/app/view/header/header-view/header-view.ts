@@ -82,7 +82,6 @@ export default class HeaderView extends View {
             callback: null,
         };
         const creatorLogo = new ElementCreater({ param: paramLogo });
-        creatorLogo.addAttribute('src', '../../../../images/apple.png');
         creatorCssLogo.addInnerElement(creatorLogo);
 
         const paramLogName = {

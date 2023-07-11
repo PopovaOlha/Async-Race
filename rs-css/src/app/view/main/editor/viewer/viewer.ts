@@ -21,6 +21,7 @@ const TITLE_INDEX_HTML = 'index.html';
 export class ViewerView extends View {
     paramsViewer!: ElementsParams | { tag: string; classNames: string[]; textContent: string; callback: null };
     currentElem: HTMLElement | null = null;
+    isGame = true;
     HTMLCreator!: ElementCreater;
     lineNumberCreator!: ElementCreater;
     constructor() {
@@ -78,7 +79,7 @@ export class ViewerView extends View {
         };
         this.lineNumberCreator = new ElementCreater({ param: paramsLineNumber });
         viewerMainCreator.addInnerElement(this.lineNumberCreator);
-        for (let i = 0; i < 14; i += 1) {
+        for (let i = 0; i < 25; i += 1) {
             this.lineNumberCreator.getElement().innerHTML += `${i + 1}<br>`;
         }
 
@@ -144,9 +145,10 @@ export class ViewerView extends View {
 
     getViewerCode = (): DocumentFragment => {
         const result = document.createDocumentFragment();
-        const container = document.createElement('div');
-        container.innerHTML = this.levels[this.levelActive].boardMarkup;
-        container.childNodes.forEach((element: Node) => {
+        if (this.isGame && this.levelActive < this.levels.length) {
+            this.container.innerHTML = `${this.levels[this.levelActive++].boardMarkup}`;
+        }
+        this.container.childNodes.forEach((element: Node) => {
             if (element.nodeType === 1) result.append(this.getElementViewerCode(element));
         });
         return result;

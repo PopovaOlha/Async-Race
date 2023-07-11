@@ -48,6 +48,7 @@ const BUTTON_TITLE = 'RESET';
 const tableView = new TableView();
 const levelMenuCreator = new LevelMenuView();
 const viewerView = new ViewerView();
+
 export class LevelColumnView extends View {
     paramsLevelColumn!: ElementsParams | { tag: string; classNames: string[]; textContent: string; callback: null };
     levelHelpCreator!: ElementCreater;
@@ -207,13 +208,13 @@ export class LevelColumnView extends View {
         this.selectorButtonCreator.addAttribute('type', 'button');
         this.levelHelpCreator.addInnerElement(this.selectorButtonCreator);
     }
-    showPrevLevel = (): void => {
+    showPrevLevel = (): any => {
         if (this.levelActive > 0) {
             this.levelActive -= 1;
             this.checkLevelHeader();
         }
     };
-    showNextLevel = (): void => {
+    showNextLevel = (): any => {
         if (this.levelActive <= this.levels.length) {
             this.levelActive += 1;
             this.checkLevelHeader();
@@ -250,23 +251,23 @@ export class LevelColumnView extends View {
     checkLevelHeader = () => {
         if (this.levelActive < this.levels.length) {
             this.isGame = true;
-            this.htmlCode.innerHTML = ``;
             this.isPrintText = true;
-            this.htmlCode.append(viewerView.getViewerCode());
-            this.htmlCode.querySelectorAll('.code').forEach((block) => {
+            const htmlCode: any = document.querySelector('.html-code');
+            htmlCode.innerHTML = ``;
+            htmlCode.append(viewerView.getViewerCode());
+            htmlCode.querySelectorAll('.code').forEach((block: any) => {
                 this.hljs.highlightBlock(block);
             });
             const headline: any = document.querySelector('.order');
             const tableView: any = document.querySelector('.table');
             tableView.innerHTML = `${this.levels[this.levelActive].boardMarkup}`;
             headline.innerHTML = `${this.levels[this.levelActive].doThis}`;
-            this.appTittleCreater.getElement().textContent = `Level ${this.levelActive} of ${this.levels.length}`;
+            this.appTittleCreater.getElement().textContent = `Level ${this.levelActive + 1} of ${this.levels.length}`;
             this.selectorNameCreator.setTextContent(`${this.levels[this.levelActive].selectorName}`);
             this.selectorTitleCreator.setTextContent(`${this.levels[this.levelActive].helpTitle}`);
             this.selectorSyntaxCreator.setTextContent(`${this.levels[this.levelActive].syntax}`);
             this.selectorDescriptionCreator.setTextContent(`${this.levels[this.levelActive].help}`);
-
-            new LevelColumnView().toggleListActives();
+            this.toggleListActives();
             localStorage.setItem('level', `${this.levelActive}`);
         } else {
             this.isGame = false;
