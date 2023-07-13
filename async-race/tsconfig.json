@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+    
+      /* Language and Environment */
+      "target": "es2016",                           
+      
+      /* Modules */    
+      "esModuleInterop": true,                          
+                          
+      "forceConsistentCasingInFileNames": true,           
+  
+      /* Type Checking */
+      "strict": true,                                      
+      "noImplicitAny": true,                                        
+      "skipLibCheck": true                                 
+    }
+  
+  }
