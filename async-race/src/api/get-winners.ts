@@ -14,11 +14,9 @@ async function getWinnersAPI({ pageNumber, sort, order }) {
     }
 
     return {
-        items: await Promise.all(
-          items.map(async (winner: any) => ({ ...winner, car: await getCar(winner.id) }))
-        ),
+        items: await Promise.all(items.map(async (winner: any) => ({ ...winner, car: await getCar(winner.id) }))),
         count,
-      };
     };
-    
-    export default getWinnersAPI;
+}
+
+export default getWinnersAPI;

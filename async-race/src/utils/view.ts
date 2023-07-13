@@ -1,5 +1,5 @@
-import ElementsParams from "../interfaces/types";
-import ElementCreater from "./element-creator";
+import ElementsParams from '../interfaces/types';
+import ElementCreater from './element-creator';
 
 export default abstract class View {
     elementCreater: ElementCreater;

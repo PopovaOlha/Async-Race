@@ -1,4 +1,4 @@
-import ElementsParams from "../interfaces/types";
+import ElementsParams from '../interfaces/types';
 
 export default class ElementCreater {
     element!: HTMLElement;

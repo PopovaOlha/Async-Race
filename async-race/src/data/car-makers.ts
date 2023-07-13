@@ -106,6 +106,6 @@ const carMake: Readonly<string[]> = [
     'Volvo',
     'Xpeng',
     'Zotye',
-  ];
-  
-  export default carMake;
+];
+
+export default carMake;

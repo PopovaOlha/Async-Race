@@ -1,17 +1,21 @@
-import View from "../../utils/view";
-
+import View from '../../utils/view';
+import TitleView from '../title/title';
+const CssStyles = {
+    HEADER: 'header',
+};
 export default class HeaderView extends View {
     constructor() {
-        const paramsCol = {
-            tag: 'div',
-            classNames: [],
+        const paramsHeader = {
+            tag: 'header',
+            classNames: [CssStyles.HEADER],
             textContent: '',
             callback: null,
         };
-        super(paramsCol);
+        super(paramsHeader);
         this.configureView();
     }
     configureView = () => {
-        
-    }
+        const titleView = new TitleView();
+        this.elementCreater.addInnerElement(titleView.getHtmlDocument());
+    };
 }

@@ -57,6 +57,6 @@ const carModel: Readonly<string[]> = [
     'Rio',
     'Creta',
     'Solaris',
-  ];
-  
-  export default carModel;
+];
+
+export default carModel;
