@@ -16,10 +16,10 @@
         }
       }
       .title {
-        text-align: center;
+        display: flex;
         letter-spacing: 0.2px;
         font-family: 'Courier New', Courier, monospace;
         font-weight: 800;
-        font-size:  50px;
+        font-size:  30px;
         color:aliceblue;
       }

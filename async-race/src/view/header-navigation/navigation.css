@@ -1,0 +1,59 @@
+.nav {
+  display: flex;
+}
+.fill:hover,
+.fill:focus {
+  box-shadow: inset 0 0 0 3em #a972cb ;
+}
+
+.pulse:hover, 
+.pulse:focus {
+  animation: pulse 1s;
+  box-shadow: 0 0 0 2em transparent;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0  #eba0c5; }
+} 
+
+.pulse:hover,
+.pulse:focus {
+    box-shadow: 
+      0 0 0 0 var #eb8aba,
+      inset 6em 3.5em 0 0  #ec8fbe;
+}
+
+.fill {  
+  color:  #a972cb;
+  font-size: 15px;
+  font-weight: 800;
+  transition: 0.25s;
+} 
+
+  .fill:hover,
+  .fill:focus { 
+    border-color:  #af87c9;
+    color: #fff;
+  }
+
+.pulse {
+  font-size: 15px;
+  font-weight: 800;
+  color:  #ef6eae;
+  transition: 0.25s;
+}
+
+.pulse:hover,
+  .pulse:focus { 
+    border-color: #ef6eae;
+    color: #fff;
+  }
+
+.button {
+  background: none;
+  border: 2px solid;
+  font: inherit;
+  line-height: 1;
+  margin: 0.5em;
+  padding: 1em 2em;
+}
