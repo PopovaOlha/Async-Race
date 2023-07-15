@@ -13,4 +13,17 @@
     height: 50px;
     opacity: 0.7;
 }
-
+@media (max-width: 767.98px) {
+    .header{
+        flex-direction: column;
+    }
+    .logo {
+        order: 1;
+    }
+    .title {
+        order: 2;
+    }
+    .nav {
+        order: 3;
+    }
+}

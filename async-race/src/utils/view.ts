@@ -3,9 +3,11 @@ import ElementCreater from './element-creator';
 
 export default abstract class View {
     elementCreater: ElementCreater;
+    disabled?: boolean;
 
     constructor(params: ElementsParams) {
         this.elementCreater = this.createView({ params });
+        this.disabled = true;
     }
     public getHtmlDocument() {
         return this.elementCreater.getElement();

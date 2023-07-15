@@ -1,11 +1,11 @@
 .menu {
     padding: 0 20px;
 }
-.create-car {
+.create-car, .update-car {
     display: flex;
     align-items: center;
 }
-.create-text {
+.create-text, .update-text {
     width: 250px;
     height: 35px;
     margin-right: 5px;
@@ -13,11 +13,15 @@
     border: 3px solid rgb(143, 110, 110);
 }
 
-.create-color {
+.create-color, .update-color {
     background-color: rgb(104, 83, 83);
     height: 35px;
 }
 .swipe {
     color:#fff;
     padding: 8px 16px;
+}
+.disabled {
+    opacity: 0.6;
+    pointer-events: none;
 }

@@ -1,0 +1,30 @@
+.race-controls {
+    display: flex;
+}
+.link {
+    color: #fff;
+    border: none;
+    position: relative;
+}
+.link:hover::after {
+    width: 100%;
+    right: 0;
+  }
+  
+  .link::after {
+    background: none repeat scroll 0 0 transparent;
+    bottom: 0;
+    content: "";
+    display: block;
+    height: 4px;
+    right: 0;
+    position: absolute;
+    background: linear-gradient(to left, #f69ec4, #f9dd94 100%);
+    transition: width .5s ease 0s, right .5s ease 0s;
+    width: 0;
+  }
+  @media (max-width: 767.98px) {
+    .link {
+        padding: 10px 10px;
+    }
+  }

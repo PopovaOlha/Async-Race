@@ -6,11 +6,11 @@ const CssStyles = {
     MAIN: 'garage',
 }
 export default class MainView extends View {
-    constructor() {
+    constructor(car: any) {
         const paramsMain = {
             tag: 'main',
             classNames: [CssStyles.MAIN],
-            textContent: '',
+            textContent: car,
             callback: null,
         };
         super(paramsMain);
