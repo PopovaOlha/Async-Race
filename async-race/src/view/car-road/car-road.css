@@ -1,0 +1,63 @@
+.car_and_road{
+    position: relative;
+    margin-bottom: 25px;
+}
+.car_btns{
+    display: flex;
+}
+.select{
+    color: #fff;
+    align-self: flex-start;
+    padding: 5px 8px;
+}
+.delete{
+    color: #fff;
+    align-self: flex-start;
+    align-self: center;
+    padding: 5px 8px;
+}
+.road{
+    border-bottom: 3px;
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+    border-style: dashed;
+    border-color: rgb(255, 255, 255);
+}
+.start {
+    color: #fff;
+    align-self: center;
+    padding: 5px 8px;
+}
+.stop {
+    color: #fff;
+    align-self: center;
+    padding: 5px 8px;
+}
+.lounch{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+.car_name{
+    color: rgb(231, 155, 13);
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 16px;
+}
+.controls{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.flag{
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    bottom: 1%;
+    right: 115px;
+}
+.button:disabled{
+    opacity: 0.5;
+}

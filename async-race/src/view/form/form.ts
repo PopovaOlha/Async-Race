@@ -4,17 +4,17 @@ import FormButtonsView from '../form-buttons/form-buttons';
 import './form.css';
 
 const CssStyles = {
-MENU: 'menu',
-CREATE_CAR: 'create-car',
-CREATE_TEXT: 'create-text',
-CREATE_COLOR: 'create-color',
-BUTTON: 'button',
-SWIPE: 'swipe',
-UPDATE_CAR: 'update-car',
-UPDATE_TEXT: 'update-text',
-UPDATE_COLOR: 'update-color',
-DISABLED: 'disabled',
-}
+    MENU: 'menu',
+    CREATE_CAR: 'create-car',
+    CREATE_TEXT: 'create-text',
+    CREATE_COLOR: 'create-color',
+    BUTTON: 'button',
+    SWIPE: 'swipe',
+    UPDATE_CAR: 'update-car',
+    UPDATE_TEXT: 'update-text',
+    UPDATE_COLOR: 'update-color',
+    DISABLED: 'disabled',
+};
 const CREATE_BUTTON_TEXT = 'CREATE';
 const UPDATE_BUTTON_TEXT = 'UPDATE';
 
@@ -57,19 +57,21 @@ export default class FormView extends View {
             callback: null,
         };
         const colorInputCreator = new ElementCreater({ param: paramsInputColor });
-        const Attributes = [{
-            attribute: 'id',
-            type: 'create-color',
-        }, 
-        {
-            attribute: 'name',
-            type: 'create-color',
-        },
-        {
-            attribute: 'type',
-            type: 'color',
-        }];
-        Attributes.forEach(element => {
+        const Attributes = [
+            {
+                attribute: 'id',
+                type: 'create-color',
+            },
+            {
+                attribute: 'name',
+                type: 'create-color',
+            },
+            {
+                attribute: 'type',
+                type: 'color',
+            },
+        ];
+        Attributes.forEach((element) => {
             return colorInputCreator.addAttribute(element.attribute, element.type);
         });
         containerCreator.addInnerElement(colorInputCreator);
@@ -110,19 +112,21 @@ export default class FormView extends View {
         };
         const secondInputColorCreator = new ElementCreater({ param: paramsSecondInputColor });
 
-        const SecondInputsAttributes = [{
-            attribute: 'id',
-            type: 'update-color',
-        }, 
-        {
-            attribute: 'name',
-            type: 'update-color',
-        },
-        {
-            attribute: 'type',
-            type: 'color',
-        }];
-        SecondInputsAttributes.forEach(element => {
+        const SecondInputsAttributes = [
+            {
+                attribute: 'id',
+                type: 'update-color',
+            },
+            {
+                attribute: 'name',
+                type: 'update-color',
+            },
+            {
+                attribute: 'type',
+                type: 'color',
+            },
+        ];
+        SecondInputsAttributes.forEach((element) => {
             return secondInputColorCreator.addAttribute(element.attribute, element.type);
         });
         updateCarCreator.addInnerElement(secondInputColorCreator);
@@ -136,10 +140,10 @@ export default class FormView extends View {
         const updateButtonCreator = new ElementCreater({ param: paramsUpdateButton });
         if (this.disabled) {
             updateButtonCreator.getElement().classList.add('disabled');
-          }
+        }
         updateCarCreator.addInnerElement(updateButtonCreator);
 
         const formButtonsCreator = new FormButtonsView();
         this.elementCreater.addInnerElement(formButtonsCreator.getHtmlDocument());
-    }
+    };
 }

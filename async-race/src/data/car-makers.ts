@@ -1,4 +1,4 @@
-const carMake: Readonly<string[]> = [
+const carMake: string[] = [
     'Acura',
     'Alfa Romeo',
     'Alpine',

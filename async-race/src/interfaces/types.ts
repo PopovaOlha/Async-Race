@@ -1,5 +1,5 @@
-import carMake from "../data/car-makers";
-import carModel from "../data/car-models";
+import carMake from '../data/car-makers';
+import carModel from '../data/car-models';
 
 export default interface ElementParams {
     tag: string;
@@ -7,14 +7,14 @@ export default interface ElementParams {
     textContent: string;
     callback: unknown;
 }
-export type CarName = `${typeof carMake[number]} ${typeof carModel[number]}`;
+export type CarName = `${(typeof carMake)[number]} ${(typeof carModel)[number]}`;
 
 export interface Car {
     name: CarName;
     color: Color;
     id: number;
-  }
-  
+}
+
 type RGB = `rgb(${number}, ${number}, ${number})`;
 type RGBA = `rgba(${number}, ${number}, ${number}, ${number})`;
 type HEX = `#${string}`;
@@ -31,18 +31,51 @@ export interface Winner {
     id: number;
     wins: number;
     time: number;
-  }
+}
 
 export interface WinnerAndCar extends Winner {
     car: Car;
-  }
+}
 
 export interface CarsResponse {
     items: Car[];
     count: string;
-  }
-  
-  export interface WinnersResponse {
+}
+
+export interface WinnersResponse {
     items: WinnerAndCar[];
     count: string;
-  }
+}
+export interface CarOBJ {
+    color: string;
+    id: number;
+    name: string;
+}
+
+export interface Update {
+    color: string;
+    name: string;
+}
+
+export interface Cars {
+    items: Array<CarOBJ>;
+    count: number;
+}
+
+export interface Createwinner {
+    id: number;
+    wins: number;
+    time: number;
+}
+export interface Save {
+    id: number;
+    time: number;
+}
+export interface Engine {
+    velocity: number;
+    distance: number;
+}
+export interface Winners {
+    items: Array<Createwinner>;
+    count: number;
+}

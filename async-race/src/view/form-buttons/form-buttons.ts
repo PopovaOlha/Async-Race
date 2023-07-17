@@ -7,7 +7,7 @@ const CssStyles = {
     BUTTON: 'button',
     DISABLED: 'disabled',
     LINK: 'link',
-}
+};
 const RACE_BUTTON_TEXT = 'RACE';
 const RESET_BUTTON_TEXT = 'RESET';
 const GENERATE_BUTTON_TEXT = 'GENERATE CARS';
@@ -44,9 +44,9 @@ export default class FormButtonsView extends View {
         const resetButtonCreator = new ElementCreater({ param: paramsResetButton });
         if (this.disabled) {
             resetButtonCreator.getElement().classList.add('disabled');
-          }
+        }
         resetButtonCreator.addAttribute('id', 'reset');
-        resetButtonCreator
+        resetButtonCreator;
         this.elementCreater.addInnerElement(resetButtonCreator);
 
         const paramsGenerateButton = {
@@ -58,5 +58,5 @@ export default class FormButtonsView extends View {
         const generateButtonCreator = new ElementCreater({ param: paramsGenerateButton });
         generateButtonCreator.addAttribute('id', 'generate-cars');
         this.elementCreater.addInnerElement(generateButtonCreator);
-    }
+    };
 }

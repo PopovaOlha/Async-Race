@@ -1,6 +1,6 @@
 import { GARAGE } from './variables';
 
-const createCarAPI = async (body: Body) =>
+const createCarAPI = async (body: any) =>
     (
         await fetch(GARAGE, {
             method: 'POST',

@@ -1,5 +1,4 @@
 import getCarsAPI from '../../api/get-cars';
-import getWinnersAPI from '../../api/get-winners';
 import { CarsResponse, WinnersResponse } from '../../interfaces/types';
 import { turnOffLoadingAnimation, turnOnLoadingAnimation } from '../../utils/load';
 import HeaderView from '../header/header';
@@ -26,13 +25,10 @@ export default class App {
           const startPage = 1;
           const garagePage = 'Garage';
           const winnersPage = 'Winners';
-          let carResponse: CarsResponse;
-          let winnersResponse: WinnersResponse;
-          
-        
+          let carResponse: CarsResponse; 
           try {
             carResponse = await getCarsAPI(startPage);
-            const mainView = new MainView(carResponse);
+            const mainView = new MainView();
             body.append(
             headerView.getHtmlDocument(), mainView.getHtmlDocument());
           } catch (error) {
@@ -42,5 +38,4 @@ export default class App {
           return body;
         };
 } 
-
 

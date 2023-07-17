@@ -1,5 +1,9 @@
 import { GARAGE } from './variables';
 
-const getCarAPI: any = async (id: number) => (await fetch(`${GARAGE}/${id}`)).json();
+export const getCarAPI = async (id: number) => {
+    const response = await fetch(`${GARAGE}/${id}`);
+    const data = await response.json();
+    return data;
+};
 
 export default getCarAPI;

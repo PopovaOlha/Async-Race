@@ -7,7 +7,8 @@ const CssStyles = {
     BUTTON: 'button',
     FILL: 'fill',
     PULSE: 'pulse',
-}
+    HEADERS: 'headers',
+};
 const BUTTON_GARAGE_TEXT = 'TO GARAGE';
 const BUTTON_WINNERS_TEXT = 'TO WINNERS';
 
@@ -42,5 +43,14 @@ export default class NavigationView extends View {
         const winnersButtonCreator = new ElementCreater({ param: paramsWinnersButton });
         garageButtonCreator.addAttribute('id', 'to-winners');
         this.elementCreater.addInnerElement(winnersButtonCreator);
-    }
+
+        const paramsCount = {
+            tag: 'div',
+            classNames: [CssStyles.HEADERS],
+            textContent: '',
+            callback: null,
+        };
+        const countCreator = new ElementCreater({ param: paramsCount });
+        this.elementCreater.addInnerElement(countCreator);
+    };
 }

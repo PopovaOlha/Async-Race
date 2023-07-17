@@ -1,4 +1,4 @@
-const carModel: Readonly<string[]> = [
+const carModel: string[] = [
     'Durango',
     'Ram',
     'Challenger',
