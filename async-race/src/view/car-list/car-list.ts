@@ -36,75 +36,87 @@ export default class CarList extends View {
         this.page = 1;
         this.count = 4;
         this.getCarMet(this.page);
-        this.renderCars();
     }
     async getCarMet(page: number): Promise<void> {
         this.count = (await getCarsAPI(this.page)).count;
         ((await getCarsAPI(page)).items as Array<CarOBJ>).forEach((el) => {
-          const caradnroad = new CarRoad(el);
-          document.querySelector('.cars_list')?.appendChild(caradnroad.getHtmlDocument());
-          caradnroad.addCarImg(el.id);
+          const carAndRoad = new CarRoad(el);
+          this.elementCreater.addInnerElement(carAndRoad.getHtmlDocument());
+          carAndRoad.addCarImg(el.id);
         });
         await this.paginPrev();
         await this.paginNext();
       }
-    async paginNext(): Promise<void> {
-        const btn = document.querySelector('.next') as HTMLButtonElement;
-        if (this.page * 7 < this.count) {
-            btn.onclick = () => {
-                this.page++;
-                (document.querySelector('.cars_list') as HTMLDivElement).innerHTML = '';
-                this.getCarMet(this.page);
-            };
-    }
-}
-
-    paginPrev(): void {
+      paginPrev(): void {
         const btn = document.querySelector('.prev') as HTMLButtonElement;
         if (this.page > 1) {
-            btn.onclick = () => {
-                this.page--;
-                (document.querySelector('.cars_list') as HTMLDivElement).innerHTML = '';
-                this.getCarMet(this.page);
-            };
+          btn.disabled = false;
+          btn.onclick = () => {
+            this.page -= 1;
+            this.elementCreater.getElement().innerHTML = '';
+            this.getCarMet(this.page);
+          };
         } else {
+          btn.disabled = true;
         }
-    }
-
-    getRandomName(): string {
+        this.updateStateGarage();
+      }
+      async paginNext(): Promise<void> {
+        const btn = document.querySelector('.next') as HTMLButtonElement;
+        if (this.page * 7 < this.count) {
+          btn.disabled = false;
+          btn.onclick = () => {
+            this.page += 1;
+            this.elementCreater.getElement().innerHTML = '';
+            this.getCarMet(this.page);
+          };
+        } else {
+          btn.disabled = true;
+        }
+        this.updateStateGarage();
+      }
+      getRandomName(): string {
         const name = this.names[Math.floor(Math.random() * this.names.length)];
         const model = this.models[Math.floor(Math.random() * this.models.length)];
         return `${name} ${model}`;
-    }
-
-    getRandomColor(): string {
+      }
+    
+      getRandomColor(): string {
         let color = '#';
         for (let i = 0; i < 6; i += 1) {
-            color += this.leter[Math.floor(Math.random() * 16)];
+          color += this.leter[Math.floor(Math.random() * 16)];
         }
         return color;
-    }
-
-    generateRandomCars(): {
+      }
+      generateRandomCars(): {
         name: string;
         color: string;
-    }[] {
+      }[] {
         const count = 100;
         const arr = new Array(count).fill(1).map(() => ({ name: this.getRandomName(), color: this.getRandomColor() }));
         return arr;
-    }
-
-    renderCars(): void {
-        const btn = document.querySelector('.gen_car') as HTMLButtonElement;
+      }
+      renderCars(): void {
+        const btn = document.querySelector('#generate-cars') as HTMLButtonElement;
         btn.addEventListener('click', async () => {
-            const cars = this.generateRandomCars();
-            await Promise.all(
-                cars.map(async (car) => {
-                    return await createCarAPI(car);
-                })
-            );
-            (document.querySelector('.cars_list') as HTMLDivElement).innerHTML = '';
-            this.getCarMet(this.page);
+          btn.disabled = true;
+          const cars = this.generateRandomCars();
+          await Promise.all(
+            cars.map(async (c) => {
+              await createCarAPI(c);
+            }),
+          );
+          (document.querySelector('.cars_list') as HTMLDivElement).innerHTML = '';
+          this.getCarMet(this.page);
+          this.updateStateGarage();
+          btn.disabled = false;
         });
-    }
+      }
+      updateStateGarage(): void {
+        const headers = document.querySelector('.header-title') as HTMLDivElement;
+        headers.innerHTML = `
+            <h1 class="garage_count">Garage (${this.count})</h1>
+            <h2>Page #${this.page}</h2>
+        `;
+      }
 }

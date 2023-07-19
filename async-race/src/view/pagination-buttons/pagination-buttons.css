@@ -1,0 +1,28 @@
+.pagination {
+  text-align: center;
+}
+@media (max-width: 767.98px) {
+  .pagination {
+    text-align: left;
+  }
+}
+.prev {
+    color: #e4cb58;
+    transition: 0.25s;
+}
+.next {
+    color: #8fc866;
+    transition: 0.25s;
+}
+.prev:hover,
+.prev:focus {
+  box-shadow: inset 0 -3.25em 0 0 #e4cb58;
+  color: #fff;
+}
+
+
+.next:hover,
+.next:focus {
+  box-shadow: inset 6.7em 0 0 0 #8fc866;
+  color: #fff;
+}

@@ -25,14 +25,22 @@
     border-color: rgb(255, 255, 255);
 }
 .start {
-    color: #fff;
+    color: #ffa260;
     align-self: center;
-    padding: 5px 8px;
+    padding: 5px 5px;
+    transition: 0.25ms;
+}
+.start:hover {
+    color:#fff;
 }
 .stop {
-    color: #fff;
+    color:  #ff7f82;
+    transition: 0.25ms;
     align-self: center;
-    padding: 5px 8px;
+    padding: 5px 5px;
+}
+.stop:hover {
+    color:#fff;
 }
 .lounch{
     display: flex;
@@ -40,6 +48,7 @@
     justify-content: flex-start;
 }
 .car_name{
+    margin-top: 15px;
     color: rgb(231, 155, 13);
     font-weight: 800;
     font-size: 18px;

@@ -1,16 +1,15 @@
-import getCarsAPI from '../../api/get-cars';
-import { CarOBJ } from '../../interfaces/types';
+import ElementCreater from '../../utils/element-creator';
 import View from '../../utils/view';
-import CarRoad from '../car-road/car-road';
+import CarList from '../car-list/car-list';
 import FormView from '../form/form';
+import PaginationButtons from '../pagination-buttons/pagination-buttons';
 import './main.css';
 
 const CssStyles = {
     MAIN: 'garage',
+    HEADER_TITLE: 'header-title',
 };
 export default class MainView extends View {
-    page: number
-    count: number;
     constructor() {
         const paramsMain = {
             tag: 'main',
@@ -20,21 +19,23 @@ export default class MainView extends View {
         };
         super(paramsMain);
         this.configureView();
-        this.count = 4;
-        this.page = 1;
-        this.getCarMet(this.page);
     }
     configureView = () => {
+        const paramsHeaderTitle = {
+            tag: 'div',
+            classNames: [CssStyles.HEADER_TITLE],
+            textContent: '',
+            callback: null,
+        };
+        const headerTitleCreator = new ElementCreater({ param: paramsHeaderTitle });
+        this.elementCreater.addInnerElement(headerTitleCreator);
         const formView = new FormView();
         this.elementCreater.addInnerElement(formView.getHtmlDocument());
 
-}
-async getCarMet(page: number): Promise<void> {
-    this.count = (await getCarsAPI(this.page)).count;
-    ((await getCarsAPI(page)).items as Array<CarOBJ>).forEach((el) => {
-      const caradnroad = new CarRoad(el);
-      this.elementCreater.addInnerElement(caradnroad.getHtmlDocument());
-      caradnroad.addCarImg(el.id);
-});
+        const carList = new CarList();
+        this.elementCreater.addInnerElement(carList.getHtmlDocument());
+
+        const paginationButtons = new PaginationButtons();
+        this.elementCreater.addInnerElement(paginationButtons.getHtmlDocument());
 }
 }

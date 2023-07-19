@@ -20,8 +20,8 @@ export default class CarRoad extends View {
         <div class="road">
             <div class="lounch" id="${id}">
                 <div class="controls">
-                    <button class="button btn_contol start " value="${id}" id="start${id}">start</button>
-                    <button class="button btn_contol stop " value="${id}" id="stop${id}" disabled>stop</button>
+                    <button class="button start " value="${id}" id="start${id}">start</button>
+                    <button class="button stop " value="${id}" id="stop${id}" disabled>stop</button>
                 </div>
             </div>
         </div>
