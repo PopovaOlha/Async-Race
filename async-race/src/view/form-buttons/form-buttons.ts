@@ -7,6 +7,10 @@ const CssStyles = {
     BUTTON: 'button',
     DISABLED: 'disabled',
     LINK: 'link',
+    RESET: 'reset',
+    RACE: 'race',
+    GENERATE_CARS: 'generate-cars',
+
 };
 const RACE_BUTTON_TEXT = 'RACE';
 const RESET_BUTTON_TEXT = 'RESET';
@@ -26,37 +30,32 @@ export default class FormButtonsView extends View {
     configureView = () => {
         const paramsRaceButton = {
             tag: 'button',
-            classNames: [CssStyles.BUTTON, CssStyles.LINK],
+            classNames: [CssStyles.BUTTON, CssStyles.LINK, CssStyles.RACE],
             textContent: RACE_BUTTON_TEXT,
             callback: null,
         };
 
         const raceButtonCreator = new ElementCreater({ param: paramsRaceButton });
-        raceButtonCreator.addAttribute('id', 'race');
         this.elementCreater.addInnerElement(raceButtonCreator);
 
         const paramsResetButton = {
             tag: 'button',
-            classNames: [CssStyles.BUTTON, CssStyles.LINK, CssStyles.DISABLED],
+            classNames: [CssStyles.BUTTON, CssStyles.LINK, CssStyles.RESET],
             textContent: RESET_BUTTON_TEXT,
             callback: null,
         };
         const resetButtonCreator = new ElementCreater({ param: paramsResetButton });
-        if (this.disabled) {
-            resetButtonCreator.getElement().classList.add('disabled');
-        }
-        resetButtonCreator.addAttribute('id', 'reset');
+        resetButtonCreator.addAttribute('disabled', 'disabled');
         resetButtonCreator;
         this.elementCreater.addInnerElement(resetButtonCreator);
 
         const paramsGenerateButton = {
             tag: 'button',
-            classNames: [CssStyles.BUTTON, CssStyles.LINK],
+            classNames: [CssStyles.BUTTON, CssStyles.LINK, CssStyles.GENERATE_CARS],
             textContent: GENERATE_BUTTON_TEXT,
             callback: null,
         };
         const generateButtonCreator = new ElementCreater({ param: paramsGenerateButton });
-        generateButtonCreator.addAttribute('id', 'generate-cars');
         this.elementCreater.addInnerElement(generateButtonCreator);
     };
 }

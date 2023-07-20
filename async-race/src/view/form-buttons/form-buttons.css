@@ -1,10 +1,12 @@
 .race-controls {
     display: flex;
 }
+
 .link {
     color: #fff;
     border: none;
     position: relative;
+    border: none;
 }
 .link:hover::after {
     width: 100%;

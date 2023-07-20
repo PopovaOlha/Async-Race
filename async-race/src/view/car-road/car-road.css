@@ -28,6 +28,7 @@
     color: #ffa260;
     align-self: center;
     padding: 5px 5px;
+    border-radius: 50%;
     transition: 0.25ms;
 }
 .start:hover {
@@ -38,6 +39,7 @@
     transition: 0.25ms;
     align-self: center;
     padding: 5px 5px;
+    border-radius: 50%;
 }
 .stop:hover {
     color:#fff;

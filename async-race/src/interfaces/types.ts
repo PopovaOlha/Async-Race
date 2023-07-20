@@ -7,6 +7,8 @@ export default interface ElementParams {
     textContent: string;
     callback: unknown;
 }
+export const storeAnimation: { [key: number]: { [key: string]: number } } = {};
+
 export type CarName = `${(typeof carMake)[number]} ${(typeof carModel)[number]}`;
 
 export interface Car {
@@ -61,6 +63,18 @@ export interface Cars {
     items: Array<CarOBJ>;
     count: number;
 }
+export interface Start {
+    success: boolean;
+    id: number;
+    time: number;
+  }
+
+export interface Race {
+    color: string;
+    id: number;
+    name: string;
+    time: number;
+  }
 
 export interface Createwinner {
     id: number;

@@ -102,6 +102,8 @@ export default class FormView extends View {
             callback: null,
         };
         const secondInputCreator = new ElementCreater({ param: paramsSecondInput });
+        secondInputCreator.addAttribute('type', 'text');
+        secondInputCreator.addAttribute('disabled', 'disabled');
         updateCarCreator.addInnerElement(secondInputCreator);
 
         const paramsSecondInputColor = {
@@ -133,14 +135,12 @@ export default class FormView extends View {
 
         const paramsUpdateButton = {
             tag: 'button',
-            classNames: [CssStyles.BUTTON, CssStyles.SWIPE, CssStyles.DISABLED],
+            classNames: [CssStyles.BUTTON, CssStyles.SWIPE],
             textContent: UPDATE_BUTTON_TEXT,
             callback: null,
         };
         const updateButtonCreator = new ElementCreater({ param: paramsUpdateButton });
-        if (this.disabled) {
-            updateButtonCreator.getElement().classList.add('disabled');
-        }
+        updateButtonCreator.addAttribute('disabled', 'disabled');
         updateCarCreator.addInnerElement(updateButtonCreator);
 
         const formButtonsCreator = new FormButtonsView();

@@ -65,4 +65,5 @@ export default class CarRoad extends View {
         this.Car.getHtmlDocument().id = `car${id}`;
         document.getElementById(`${id}`)?.appendChild(this.Car.getHtmlDocument());
     }
+
 }

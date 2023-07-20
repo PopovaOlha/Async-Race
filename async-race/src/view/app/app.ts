@@ -3,8 +3,10 @@ import { CarsResponse, WinnersResponse } from '../../interfaces/types';
 import { turnOffLoadingAnimation, turnOnLoadingAnimation } from '../../utils/load';
 import HeaderView from '../header/header';
 import MainView from '../main/main';
+import SectionForm from '../section-form/section-form';
 
 const headerView = new HeaderView();
+const sectionForm = new SectionForm();
 
 export default class App {
     constructor() {
@@ -30,7 +32,7 @@ export default class App {
             carResponse = await getCarsAPI(startPage);
             const mainView = new MainView();
             body.append(
-            headerView.getHtmlDocument(), mainView.getHtmlDocument());
+            headerView.getHtmlDocument(), sectionForm.getHtmlDocument(), mainView.getHtmlDocument());
           } catch (error) {
           }
         
