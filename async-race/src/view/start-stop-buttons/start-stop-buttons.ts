@@ -1,4 +1,4 @@
-import drive from '../../api/drive';
+import { drive } from '../../api/drive';
 import { startEngine, stopEngine } from '../../api/engine';
 import { Start, storeAnimation } from '../../interfaces/types';
 import { animation, getDistanse } from '../../utils/animation';

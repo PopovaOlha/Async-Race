@@ -1,11 +1,11 @@
 import View from '../../utils/view';
 import names from '../../data/car-makers';
 import models from '../../data/car-models';
-import getCarsAPI from '../../api/get-cars';
+import { getCars } from '../../api/get-cars';
 import './car-list.css';
 import { CarOBJ } from '../../interfaces/types';
 import CarRoad from '../car-road/car-road';
-import createCarAPI from '../../api/create-car';
+import { createCar } from '../../api/create-car';
 
 const CssStyles = {
     CARS_LIST: 'cars_list',
@@ -38,8 +38,8 @@ export default class CarList extends View {
         this.getCarMet(this.page);
     }
     async getCarMet(page: number): Promise<void> {
-        this.count = (await getCarsAPI(this.page)).count;
-        ((await getCarsAPI(page)).items as Array<CarOBJ>).forEach((el) => {
+        this.count = (await getCars(this.page)).count;
+        ((await getCars(page)).items as Array<CarOBJ>).forEach((el) => {
           const carAndRoad = new CarRoad(el);
           this.elementCreater.addInnerElement(carAndRoad.getHtmlDocument());
           carAndRoad.addCarImg(el.id);
@@ -103,7 +103,7 @@ export default class CarList extends View {
           const cars = this.generateRandomCars();
           await Promise.all(
             cars.map(async (c) => {
-              await createCarAPI(c);
+              await createCar(c);
             }),
           );
           (document.querySelector('.cars_list') as HTMLDivElement).innerHTML = '';

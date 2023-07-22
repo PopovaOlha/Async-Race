@@ -1,8 +1,4 @@
-const getSortOrderAPI = (sort: any, order: any): string => {
-    if (sort && order) {
-        return `&_sort=${sort}&_order=${order}`;
-    }
+export const getSortOrder = (sort: string, order: string) => {
+    if (sort && order) return `&_sort=${sort}&_order=${order}`;
     return '';
-};
-
-export default getSortOrderAPI;
+  };

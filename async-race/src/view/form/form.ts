@@ -21,7 +21,7 @@ const UPDATE_BUTTON_TEXT = 'UPDATE';
 export default class FormView extends View {
     constructor() {
         const paramsForm = {
-            tag: 'form',
+            tag: 'div',
             classNames: [CssStyles.MENU],
             textContent: '',
             callback: null,
@@ -31,7 +31,7 @@ export default class FormView extends View {
     }
     configureView = () => {
         const paramsConteiner = {
-            tag: 'div',
+            tag: 'form',
             classNames: [CssStyles.CREATE_CAR],
             textContent: '',
             callback: null,
@@ -83,11 +83,11 @@ export default class FormView extends View {
             callback: null,
         };
         const createButtonCreator = new ElementCreater({ param: paramsCreateButton });
-        createButtonCreator.addAttribute('id', 'create-btn');
+        createButtonCreator.addAttribute('type', 'submit');
         containerCreator.addInnerElement(createButtonCreator);
 
         const paramsUpdateCar = {
-            tag: 'div',
+            tag: 'form',
             classNames: [CssStyles.UPDATE_CAR],
             textContent: '',
             callback: null,
@@ -140,6 +140,7 @@ export default class FormView extends View {
             callback: null,
         };
         const updateButtonCreator = new ElementCreater({ param: paramsUpdateButton });
+        updateButtonCreator.addAttribute('type', 'submit');
         updateButtonCreator.addAttribute('disabled', 'disabled');
         updateCarCreator.addInnerElement(updateButtonCreator);
 

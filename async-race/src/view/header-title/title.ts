@@ -1,5 +1,6 @@
 import View from '../../utils/view';
 import './title.css';
+
 const CssStyles = {
     TITLE: 'title',
 };

@@ -1,10 +1,10 @@
-import createCar from '../../api/create-car';
+import { createCar } from '../../api/create-car';
 import deleteCar from '../../api/delete-car';
-import deleteWinner from '../../api/delete-winner';
-import getCar from '../../api/get-car';
-import getCars from '../../api/get-cars';
-import saveWinner from '../../api/save-winner';
-import updateCar from '../../api/update-car';
+import { deleteWinner } from '../../api/delete-winner';
+import { getCar } from '../../api/get-car';
+import { getCars } from '../../api/get-cars';
+import { saveWinner } from '../../api/save-winner';
+import { updateCar } from '../../api/update-car';
 import { CarOBJ, Race, Start } from '../../interfaces/types';
 import ElementCreater from '../../utils/element-creator';
 import View from '../../utils/view';
@@ -33,6 +33,7 @@ export default class MainView extends View {
         this.configureView();
         this.count = 4;
         this.deleteSelectUpdate();
+        
     }
     configureView = () => {
         const paramsHeaderTitle = {
@@ -86,11 +87,11 @@ async deleteSelectUpdate(): Promise<void> {
     });
   }
   add(): void {
-    const form = document.querySelector('.form_add') as HTMLFormElement;
+    const form = document.querySelector('.create-car') as HTMLFormElement;
     form.addEventListener('submit', (event) => {
       event.preventDefault();
-      const name = (document.querySelector('.name') as HTMLInputElement).value;
-      const color = (document.querySelector('.color') as HTMLInputElement).value;
+      const name = (document.querySelector('.create-text') as HTMLInputElement).value;
+      const color = (document.querySelector('.create-color') as HTMLInputElement).value;
       createCar({
         name,
         color,
@@ -98,7 +99,7 @@ async deleteSelectUpdate(): Promise<void> {
       this.getcount();
       const count = document.querySelector('.garage_count') as HTMLElement;
       count.innerHTML = `
-            Grage(${this.count})
+            Garage(${this.count})
             `;
       form.reset();
       (document.querySelector('.cars_list') as HTMLDivElement).innerHTML = '';
@@ -130,7 +131,7 @@ async deleteSelectUpdate(): Promise<void> {
     let { color } = await car;
     inputname.value = name;
     inputcolor.value = color;
-    const form = document.querySelector('.update-text') as HTMLFormElement;
+    const form = document.querySelector('.update-car') as HTMLFormElement;
     form.onsubmit = (event) => {
       event.preventDefault();
       inputname.disabled = true;

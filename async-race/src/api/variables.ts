@@ -1,4 +1,4 @@
-export const BASE = 'https://async-race.adaptable.app/';
+export const BASE = 'https://fir-dawn-sweater.glitch.me';
 export const GARAGE = `${BASE}/garage`;
 export const WINNERS = `${BASE}/winners`;
 export const ENGINE = `${BASE}/engine`;

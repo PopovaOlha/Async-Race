@@ -3,6 +3,7 @@ import View from '../../utils/view';
 import NavigationView from '../header-navigation/navigation';
 import TitleView from '../header-title/title';
 import ElementCreater from '../../utils/element-creator';
+
 const CssStyles = {
     HEADER: 'header',
     LOGO: 'logo',

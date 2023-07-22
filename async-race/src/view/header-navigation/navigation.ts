@@ -1,6 +1,5 @@
 import ElementCreater from '../../utils/element-creator';
 import View from '../../utils/view';
-import CarList from '../car-list/car-list';
 import './navigation.css';
 
 const CssStyles = {

@@ -1,17 +1,11 @@
-import { GARAGE, GARAGE_LIMIT } from './variables';
+import { Cars } from '../interfaces/types';
+import { GARAGE } from './variables';
 
-const getCarsAPI: any = async (pageNumber: number) => {
-    const response: Response = await fetch(`${GARAGE}?_page=${pageNumber}&_limit=${GARAGE_LIMIT}`);
-    const count: string | null = response.headers.get('X-Total-Count');
-
-    if (!count) {
-        throw new Error('X-Total-Count is null');
-    }
-
+export const getCars = async (page: number, limit = 7): Promise<Cars> => {
+    const response = await fetch(`${GARAGE}?_page=${page}&_limit=${limit}}`);
     return {
-        items: await response.json(),
-        count,
+      items: await response.json(),
+      count: Number(response.headers.get('X-Total-Count')),
     };
-};
-
-export default getCarsAPI;
+  };
+ 
