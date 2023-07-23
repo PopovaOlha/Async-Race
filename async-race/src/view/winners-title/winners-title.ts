@@ -4,7 +4,7 @@ import './winners-title.css';
 const CssStyles = {
     WINNERS_TITLE: 'garage-winners_title',
     HIDDEN: 'hidden',
-}
+};
 
 export default class WinnersTitle extends View {
     constructor() {

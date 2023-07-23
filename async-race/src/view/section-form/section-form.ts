@@ -5,7 +5,7 @@ import './section-form.css';
 
 const CssStyles = {
     SECTION_FORM: 'section-form',
-}
+};
 
 export default class SectionForm extends View {
     constructor() {
@@ -24,5 +24,5 @@ export default class SectionForm extends View {
 
         const formView = new FormView();
         this.elementCreater.addInnerElement(formView.getHtmlDocument());
-    }
+    };
 }

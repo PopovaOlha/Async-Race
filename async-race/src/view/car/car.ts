@@ -3,7 +3,7 @@ import './car.css';
 
 const CssStyles = {
     CAR: 'car',
-}
+};
 
 export default class Car extends View {
     constructor(color: any) {

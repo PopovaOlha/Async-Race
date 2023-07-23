@@ -40,68 +40,60 @@ export default class CarList extends View {
     async getCarMet(page: number): Promise<void> {
         this.count = (await getCars(this.page)).count;
         ((await getCars(page)).items as Array<CarOBJ>).forEach((el) => {
-          const carAndRoad = new CarRoad(el);
-          this.elementCreater.addInnerElement(carAndRoad.getHtmlDocument());
-          carAndRoad.addCarImg(el.id);
+            const carAndRoad = new CarRoad(el);
+            this.elementCreater.addInnerElement(carAndRoad.getHtmlDocument());
+            carAndRoad.addCarImg(el.id);
         });
         await this.paginPrev();
         await this.paginNext();
-      }
-      paginPrev(): void {
+    }
+    paginPrev(): void {
         const btn = document.querySelector('.prev') as HTMLButtonElement;
         if (this.page > 1) {
-          btn.disabled = false;
-          btn.onclick = () => {
-            this.page -= 1;
-            this.elementCreater.getElement().innerHTML = '';
-            this.getCarMet(this.page);
-          };
+            btn.disabled = false;
+            btn.onclick = () => {
+                this.page -= 1;
+                this.elementCreater.getElement().innerHTML = '';
+                this.getCarMet(this.page);
+            };
         } else {
-          btn.disabled = true;
-        }
+            btn.disabled = true;
+          }
         this.updateStateGarage();
-      }
-      async paginNext(): Promise<void> {
+    }
+    async paginNext(): Promise<void> {
         const btn = document.querySelector('.next') as HTMLButtonElement;
         if (this.page * 7 < this.count) {
-          btn.disabled = false;
-          btn.onclick = () => {
-            this.page += 1;
-            this.elementCreater.getElement().innerHTML = '';
-            this.getCarMet(this.page);
-          };
+            btn.disabled = false;
+            btn.onclick = () => {
+                this.page += 1;
+                this.elementCreater.getElement().innerHTML = '';
+                this.getCarMet(this.page);
+            };
         } else {
-          btn.disabled = true;
+            btn.disabled = true;
         }
         this.updateStateGarage();
-      }
-      getRandomName(): string {
+    }
+    getRandomName(): string {
         const name = this.names[Math.floor(Math.random() * this.names.length)];
         const model = this.models[Math.floor(Math.random() * this.models.length)];
         return `${name} ${model}`;
-      }
-    
-      getRandomColor(): string {
+    }
+
+    getRandomColor(): string {
         let color = '#';
         for (let i = 0; i < 6; i += 1) {
-          color += this.leter[Math.floor(Math.random() * 16)];
+            color += this.leter[Math.floor(Math.random() * 16)];
         }
         return color;
-      }
-      generateRandomCars(): {
-        name: string;
-        color: string;
-      }[] {
-        const count = 100;
-        const arr = new Array(count).fill(1).map(() => ({ name: this.getRandomName(), color: this.getRandomColor() }));
-        return arr;
-      }
-      renderCars(): void {
+    }
+    renderCars(): void {
         const btn = document.querySelector('#generate-cars') as HTMLButtonElement;
-        btn.addEventListener('click', async () => {
+        btn.addEventListener('click', async() => {
           btn.disabled = true;
           const cars = this.generateRandomCars();
-          await Promise.all(
+           await Promise.all(
             cars.map(async (c) => {
               await createCar(c);
             }),
@@ -111,12 +103,20 @@ export default class CarList extends View {
           this.updateStateGarage();
           btn.disabled = false;
         });
-      }
-      updateStateGarage(): void {
+    }
+    generateRandomCars(): {
+        name: string;
+        color: string;
+    }[] {
+        const count = 100;
+        const arr = new Array(count).fill(1).map(() => ({ name: this.getRandomName(), color: this.getRandomColor() }));
+        return arr;
+    }
+    updateStateGarage(): void {
         const headers = document.querySelector('.header-title') as HTMLDivElement;
         headers.innerHTML = `
             <h1 class="garage_count">Garage (${this.count})</h1>
             <h2>Page #${this.page}</h2>
         `;
-      }
+    }
 }

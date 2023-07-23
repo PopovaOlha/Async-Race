@@ -16,15 +16,15 @@ export const start = async (id: number): Promise<Start> => {
     const { success } = await drive(id);
     if (!success) window.cancelAnimationFrame(storeAnimation[id].id);
     return { success, id, time };
-  };
-  
-  export const stop = async (id: number): Promise<void> => {
+};
+
+export const stop = async (id: number): Promise<void> => {
     (document.getElementById(`stop${id}`) as HTMLButtonElement).disabled = true;
     (document.getElementById(`start${id}`) as HTMLButtonElement).disabled = false;
     await stopEngine(id);
     const car = document.getElementById(`car${id}`) as HTMLElement;
     car.style.marginLeft = '0';
     if (storeAnimation[id]) {
-      window.cancelAnimationFrame(storeAnimation[id].id);
+        window.cancelAnimationFrame(storeAnimation[id].id);
     }
-  };
+};

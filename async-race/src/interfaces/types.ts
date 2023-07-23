@@ -67,14 +67,14 @@ export interface Start {
     success: boolean;
     id: number;
     time: number;
-  }
+}
 
 export interface Race {
     color: string;
     id: number;
     name: string;
     time: number;
-  }
+}
 
 export interface Createwinner {
     id: number;

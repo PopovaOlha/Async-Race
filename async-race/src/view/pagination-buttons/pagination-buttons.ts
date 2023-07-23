@@ -8,7 +8,7 @@ const CssStyles = {
     BUTTON: 'button',
     PREV: 'prev',
     NEXT: 'next',
-}
+};
 const PAGINATION_PREV_BUTTON_TEXT = 'PREV';
 const PAGINATION_NEXT_BUTTON_TEXT = 'NEXT';
 
@@ -43,5 +43,5 @@ export default class PaginationButtons extends View {
         };
         const paginationButtonNext = new ElementCreater({ param: paramsPaginationButtonNext });
         this.elementCreater.addInnerElement(paginationButtonNext);
-    }
+    };
 }

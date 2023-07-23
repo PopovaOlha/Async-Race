@@ -1,5 +1,5 @@
 import { getCars } from '../../api/get-cars';
-import { CarsResponse } from '../../interfaces/types';
+import { Cars } from '../../interfaces/types';
 import { turnOffLoadingAnimation, turnOnLoadingAnimation } from '../../utils/load';
 import HeaderView from '../header/header';
 import MainView from '../main/main';
@@ -14,7 +14,6 @@ export default class App {
         document.addEventListener('DOMContentLoaded', this.generateSPA);
     }
     createView() {
-      
         document.body.setAttribute('id', 'body');
     }
     generateSPA = async () => {
@@ -22,20 +21,19 @@ export default class App {
         turnOnLoadingAnimation();
         if (!body) {
             throw new Error("body doesn't exist");
-          }
-        
-          const startPage = 1;
-          const garagePage = 'Garage';
-          const winnersPage = 'Winners';
-          try {
-            const mainView = new MainView();
-            body.append(
-            headerView.getHtmlDocument(), sectionForm.getHtmlDocument(), mainView.getHtmlDocument());
-          } catch (error) {
-          }
-        
-          turnOffLoadingAnimation();
-          return body;
-        };
-} 
+        }
 
+        const startPage = 1;
+        const garagePage = 'Garage';
+        const winnersPage = 'Winners';
+        let carResponse: Cars;
+        try {
+           carResponse  = await getCars(startPage);
+            const mainView = new MainView();
+            body.append(headerView.getHtmlDocument(), sectionForm.getHtmlDocument(), mainView.getHtmlDocument());
+        } catch (error) {}
+
+        turnOffLoadingAnimation();
+        return body;
+    };
+}

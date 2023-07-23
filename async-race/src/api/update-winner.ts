@@ -1,12 +1,13 @@
-import { Createwinner } from "../interfaces/types";
-import { WINNERS } from "./variables";
+import { Createwinner } from '../interfaces/types';
+import { WINNERS } from './variables';
 
-export const updateWinner = async (id: number, body: Createwinner): Promise<void> => (
-    await fetch(`${WINNERS}/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify(body),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-  ).json();
+export const updateWinner = async (id: number, body: Createwinner): Promise<void> =>
+    (
+        await fetch(`${WINNERS}/${id}`, {
+            method: 'PUT',
+            body: JSON.stringify(body),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+    ).json();

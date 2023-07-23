@@ -10,14 +10,14 @@ const CssStyles = {
     CREATE_COLOR: 'create-color',
     BUTTON: 'button',
     SWIPE: 'swipe',
+    SUBMIT_UPDATE: 'submit_update',
+    SUBMIT_CREATE: 'submit_create',
     UPDATE_CAR: 'update-car',
     UPDATE_TEXT: 'update-text',
     UPDATE_COLOR: 'update-color',
-    DISABLED: 'disabled',
 };
 const CREATE_BUTTON_TEXT = 'CREATE';
 const UPDATE_BUTTON_TEXT = 'UPDATE';
-
 export default class FormView extends View {
     constructor() {
         const paramsForm = {
@@ -46,7 +46,7 @@ export default class FormView extends View {
             callback: null,
         };
         const inputTextCreator = new ElementCreater({ param: paramsInputText });
-        inputTextCreator.addAttribute('id', 'create-text');
+        inputTextCreator.addAttribute('required', '');
         inputTextCreator.addAttribute('type', 'text');
         containerCreator.addInnerElement(inputTextCreator);
 
@@ -78,7 +78,7 @@ export default class FormView extends View {
 
         const paramsCreateButton = {
             tag: 'button',
-            classNames: [CssStyles.BUTTON, CssStyles.SWIPE],
+            classNames: [CssStyles.BUTTON, CssStyles.SWIPE, CssStyles.SUBMIT_CREATE],
             textContent: CREATE_BUTTON_TEXT,
             callback: null,
         };
@@ -135,13 +135,13 @@ export default class FormView extends View {
 
         const paramsUpdateButton = {
             tag: 'button',
-            classNames: [CssStyles.BUTTON, CssStyles.SWIPE],
+            classNames: [CssStyles.BUTTON, CssStyles.SWIPE, CssStyles.SUBMIT_UPDATE],
             textContent: UPDATE_BUTTON_TEXT,
             callback: null,
         };
         const updateButtonCreator = new ElementCreater({ param: paramsUpdateButton });
         updateButtonCreator.addAttribute('type', 'submit');
-        updateButtonCreator.addAttribute('disabled', 'disabled');
+        updateButtonCreator.addAttribute('disabled', '');
         updateCarCreator.addInnerElement(updateButtonCreator);
 
         const formButtonsCreator = new FormButtonsView();
