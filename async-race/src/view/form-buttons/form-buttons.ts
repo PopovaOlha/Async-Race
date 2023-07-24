@@ -10,7 +10,7 @@ const CssStyles = {
     RESET: 'reset',
     RACE: 'race',
     GENERATE_CARS: 'generate-cars',
-}
+};
 
 const RACE_BUTTON_TEXT = 'RACE';
 const RESET_BUTTON_TEXT = 'RESET';
@@ -56,6 +56,6 @@ export default class FormButtonsView extends View {
         };
         this.generateButtonCreator = new ElementCreater({ param: paramsGenerateButton });
         this.generateButtonCreator.addAttribute('id', CssStyles.GENERATE_CARS);
-        this.elementCreater.addInnerElement(this.generateButtonCreator);  
+        this.elementCreater.addInnerElement(this.generateButtonCreator);
     };
 }

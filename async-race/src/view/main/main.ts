@@ -92,20 +92,20 @@ export default class MainView extends View {
             const name = (document.querySelector('.create-text') as HTMLInputElement).value;
             const color = (document.querySelector('.create-color') as HTMLInputElement).value;
             createCar({
-              name,
-              color,
+                name,
+                color,
             });
             this.getcount();
             const count = document.querySelector('.garage_count') as HTMLElement;
             count.innerHTML = `
                   Garage(${this.count})
                   `;
-                  form.reset();
-                  (document.querySelector('.cars_list') as HTMLDivElement).innerHTML = '';
+            form.reset();
+            (document.querySelector('.cars_list') as HTMLDivElement).innerHTML = '';
             this.carList.getCarMet(this.carList.page);
-        })
-    };
-   
+        });
+    }
+
     async getcount(): Promise<void> {
         this.count = (await getCars(1)).count;
     }
@@ -144,7 +144,7 @@ export default class MainView extends View {
             form.reset();
         };
     }
-   
+
     async raceCars(promises: Promise<Start>[], ids: number[]): Promise<Race> {
         const { success, id, time } = await Promise.race(promises);
 

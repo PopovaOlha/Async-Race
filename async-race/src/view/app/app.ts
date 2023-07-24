@@ -7,6 +7,7 @@ import SectionForm from '../section-form/section-form';
 
 const headerView = new HeaderView();
 const sectionForm = new SectionForm();
+const mainView = new MainView();
 
 export default class App {
     constructor() {
@@ -22,17 +23,14 @@ export default class App {
         if (!body) {
             throw new Error("body doesn't exist");
         }
-
         const startPage = 1;
-        const garagePage = 'Garage';
-        const winnersPage = 'Winners';
         let carResponse: Cars;
         try {
-           carResponse  = await getCars(startPage);
-            const mainView = new MainView();
+            carResponse = await getCars(startPage);
             body.append(headerView.getHtmlDocument(), sectionForm.getHtmlDocument(), mainView.getHtmlDocument());
-        } catch (error) {}
-
+        } catch (error) {
+            console.log('Error');
+        }
         turnOffLoadingAnimation();
         return body;
     };

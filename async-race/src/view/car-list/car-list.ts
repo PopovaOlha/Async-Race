@@ -58,7 +58,7 @@ export default class CarList extends View {
             };
         } else {
             btn.disabled = true;
-          }
+        }
         this.updateStateGarage();
     }
     async paginNext(): Promise<void> {
@@ -90,18 +90,18 @@ export default class CarList extends View {
     }
     renderCars(): void {
         const btn = document.querySelector('#generate-cars') as HTMLButtonElement;
-        btn.addEventListener('click', async() => {
-          btn.disabled = true;
-          const cars = this.generateRandomCars();
-           await Promise.all(
-            cars.map(async (c) => {
-              await createCar(c);
-            }),
-          );
-          (document.querySelector('.cars_list') as HTMLDivElement).innerHTML = '';
-          this.getCarMet(this.page);
-          this.updateStateGarage();
-          btn.disabled = false;
+        btn.addEventListener('click', async () => {
+            btn.disabled = true;
+            const cars = this.generateRandomCars();
+            await Promise.all(
+                cars.map(async (c) => {
+                    await createCar(c);
+                })
+            );
+            (document.querySelector('.cars_list') as HTMLDivElement).innerHTML = '';
+            this.getCarMet(this.page);
+            this.updateStateGarage();
+            btn.disabled = false;
         });
     }
     generateRandomCars(): {
