@@ -26,7 +26,7 @@ export default class CarRoad extends View {
             </div>
         </div>
         <div class="flag flag${id}">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="70" height="70"><g id="Layer_13" data-name="Layer 13">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><g id="Layer_13" data-name="Layer 13">
         <path d="M21,52.051c6.785.346,12,2.43,12,4.949,0,2.761-6.268,5-14,5S5,59.761,5,57c0-2.519,5.215-4.6,12-4.949" 
         style="fill:#313e44"/><path d="M32.9,57.573A1.855,1.855,0,0,0,33,57c0-2.519-5.215-4.6-12-4.949H17c-4.18.213-7.758,
         1.087-9.894,2.315A1.873,1.873,0,0,0,7,54.949c0,2.762,6.268,5,14,5C26.034,59.949,30.434,59,32.9,57.573Z" 

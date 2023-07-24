@@ -11,7 +11,7 @@ export default class TitleView extends View {
             tag: 'div',
             classNames: [CssStyles.TITLE],
             textContent: `<svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-            width="260px" height="30px" viewBox="0 0 600 100">
+            width="270px" height="30px" viewBox="0 0 600 100">
          <style type="text/css">
          
          <![CDATA[
@@ -104,7 +104,7 @@ export default class TitleView extends View {
            </defs>
          
          <g>
-           <text x="0" y="100">ASYNC RACE</text>
+           <text x="0" y="100">ASYNCRACE</text>
          </g>
          </svg>`,
             callback: null,
