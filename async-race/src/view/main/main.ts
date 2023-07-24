@@ -80,12 +80,22 @@ export default class MainView extends View {
             }
             if ((el.target as HTMLElement).classList.contains('reset')) {
                 this.reset(stop);
-                garageWinner.classList.add('hide');
+                garageWinner.classList.add('hidden');
                 (document.querySelector('.race') as HTMLButtonElement).disabled = false;
             }
         });
     }
-    addNewCarContent(): void {
+    async getcount(): Promise<void> {
+        this.count = (await getCars(1)).count;
+    }
+    Delete(el: HTMLButtonElement): void {
+        deleteCar(parseInt(el.value, 10));
+        deleteWinner(parseInt(el.value, 10));
+        (document.querySelector('.cars_list') as HTMLDivElement).innerHTML = '';
+        this.carList.getCarMet(this.carList.page);
+        (document.querySelector('.winners_table_body') as HTMLElement).innerHTML = '';
+    }
+    addCarContent(): void {
         const form = document.querySelector('.create-car') as HTMLFormElement;
         form.addEventListener('submit', (event) => {
             event.preventDefault();
@@ -98,25 +108,13 @@ export default class MainView extends View {
             this.getcount();
             const count = document.querySelector('.garage_count') as HTMLElement;
             count.innerHTML = `
-                  Garage(${this.count})
-                  `;
+                Grage(${this.count})
+                `;
             form.reset();
             (document.querySelector('.cars_list') as HTMLDivElement).innerHTML = '';
             this.carList.getCarMet(this.carList.page);
         });
     }
-
-    async getcount(): Promise<void> {
-        this.count = (await getCars(1)).count;
-    }
-    Delete(el: HTMLButtonElement): void {
-        deleteCar(parseInt(el.value, 10));
-        deleteWinner(parseInt(el.value, 10));
-        (document.querySelector('.cars_list') as HTMLDivElement).innerHTML = '';
-        this.carList.getCarMet(this.carList.page);
-        (document.querySelector('.winners_table_body') as HTMLElement).innerHTML = '';
-    }
-
     async Select(el: HTMLButtonElement): Promise<void> {
         const car = getCar(parseInt(el.value, 10));
         const inputname = document.querySelector('.update-text') as HTMLInputElement;

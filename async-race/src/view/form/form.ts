@@ -18,7 +18,9 @@ const CssStyles = {
 };
 const CREATE_BUTTON_TEXT = 'CREATE';
 const UPDATE_BUTTON_TEXT = 'UPDATE';
+
 export default class FormView extends View {
+    count: number;
     constructor() {
         const paramsForm = {
             tag: 'div',
@@ -27,6 +29,7 @@ export default class FormView extends View {
             callback: null,
         };
         super(paramsForm);
+        this.count = 4;
         this.configureView();
     }
     configureView = () => {

@@ -5,7 +5,6 @@ import { getCars } from '../../api/get-cars';
 import './car-list.css';
 import { CarOBJ } from '../../interfaces/types';
 import CarRoad from '../car-road/car-road';
-import { createCar } from '../../api/create-car';
 
 const CssStyles = {
     CARS_LIST: 'cars_list',
@@ -87,22 +86,6 @@ export default class CarList extends View {
             color += this.leter[Math.floor(Math.random() * 16)];
         }
         return color;
-    }
-    renderCars(): void {
-        const btn = document.querySelector('#generate-cars') as HTMLButtonElement;
-        btn.addEventListener('click', async () => {
-            btn.disabled = true;
-            const cars = this.generateRandomCars();
-            await Promise.all(
-                cars.map(async (c) => {
-                    await createCar(c);
-                })
-            );
-            (document.querySelector('.cars_list') as HTMLDivElement).innerHTML = '';
-            this.getCarMet(this.page);
-            this.updateStateGarage();
-            btn.disabled = false;
-        });
     }
     generateRandomCars(): {
         name: string;

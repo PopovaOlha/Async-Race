@@ -1,5 +1,7 @@
+import { createCar } from '../../api/create-car';
 import ElementCreater from '../../utils/element-creator';
 import View from '../../utils/view';
+import CarList from '../car-list/car-list';
 import './form-buttons.css';
 
 const CssStyles = {
@@ -15,9 +17,11 @@ const CssStyles = {
 const RACE_BUTTON_TEXT = 'RACE';
 const RESET_BUTTON_TEXT = 'RESET';
 const GENERATE_BUTTON_TEXT = 'GENERATE CARS';
+const carList = new CarList();
 
 export default class FormButtonsView extends View {
     generateButtonCreator!: ElementCreater;
+    page: number;
     constructor() {
         const paramsFormButtons = {
             tag: 'div',
@@ -27,6 +31,7 @@ export default class FormButtonsView extends View {
         };
         super(paramsFormButtons);
         this.configureView();
+        this.page = 1;
     }
     configureView = () => {
         const paramsRaceButton = {
@@ -55,6 +60,20 @@ export default class FormButtonsView extends View {
             callback: null,
         };
         this.generateButtonCreator = new ElementCreater({ param: paramsGenerateButton });
+        this.generateButtonCreator.getElement().addEventListener('click', async () => {
+            const btn = document.querySelector('#generate-cars') as HTMLButtonElement;
+            btn.disabled = true;
+            const cars = carList.generateRandomCars();
+            await Promise.all(
+                cars.map(async (c) => {
+                    await createCar(c);
+                })
+            );
+            (document.querySelector('.cars_list') as HTMLDivElement).innerHTML = '';
+            carList.getCarMet(this.page);
+            carList.updateStateGarage();
+            btn.disabled = false;
+        });
         this.generateButtonCreator.addAttribute('id', CssStyles.GENERATE_CARS);
         this.elementCreater.addInnerElement(this.generateButtonCreator);
     };
