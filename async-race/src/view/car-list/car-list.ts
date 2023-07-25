@@ -33,7 +33,7 @@ export default class CarList extends View {
         this.models = models;
         this.leter = '0123456789ABCDEF';
         this.page = 1;
-        this.count = 4;
+        this.count = 7;
         this.getCarMet(this.page);
     }
     async getCarMet(page: number): Promise<void> {
