@@ -1,5 +1,4 @@
-import { createCar } from '../../api/create-car';
-import deleteCar from '../../api/delete-car';
+import {deleteCar } from '../../api/delete-car'
 import { deleteWinner } from '../../api/delete-winner';
 import { getCar } from '../../api/get-car';
 import { getCars } from '../../api/get-cars';
@@ -95,26 +94,6 @@ export default class MainView extends View {
         this.carList.getCarMet(this.carList.page);
         (document.querySelector('.winners_table_body') as HTMLElement).innerHTML = '';
     }
-    addCarContent(): void {
-        const form = document.querySelector('.create-car') as HTMLFormElement;
-        form.addEventListener('submit', (event) => {
-            event.preventDefault();
-            const name = (document.querySelector('.create-text') as HTMLInputElement).value;
-            const color = (document.querySelector('.create-color') as HTMLInputElement).value;
-            createCar({
-                name,
-                color,
-            });
-            this.getcount();
-            const count = document.querySelector('.garage_count') as HTMLElement;
-            count.innerHTML = `
-                Grage(${this.count})
-                `;
-            form.reset();
-            (document.querySelector('.cars_list') as HTMLDivElement).innerHTML = '';
-            this.carList.getCarMet(this.carList.page);
-        });
-    }
     async Select(el: HTMLButtonElement): Promise<void> {
         const car = getCar(parseInt(el.value, 10));
         const inputname = document.querySelector('.update-text') as HTMLInputElement;
@@ -136,13 +115,13 @@ export default class MainView extends View {
             submit.disabled = true;
             name = inputname.value;
             color = inputcolor.value;
-            updateCar(id, { name, color });
+            updateCar(id,{ name, color });
             (document.querySelector('.cars_list') as HTMLDivElement).innerHTML = '';
             this.carList.getCarMet(this.carList.page);
             form.reset();
         };
     }
-
+    
     async raceCars(promises: Promise<Start>[], ids: number[]): Promise<Race> {
         const { success, id, time } = await Promise.race(promises);
 

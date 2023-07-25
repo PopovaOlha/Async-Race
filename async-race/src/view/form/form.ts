@@ -1,6 +1,10 @@
+import { createCar } from '../../api/create-car';
 import ElementCreater from '../../utils/element-creator';
 import View from '../../utils/view';
+import CarList from '../car-list/car-list';
+import CarRoad from '../car-road/car-road';
 import FormButtonsView from '../form-buttons/form-buttons';
+import MainView from '../main/main';
 import './form.css';
 
 const CssStyles = {
@@ -18,9 +22,11 @@ const CssStyles = {
 };
 const CREATE_BUTTON_TEXT = 'CREATE';
 const UPDATE_BUTTON_TEXT = 'UPDATE';
+const mainView = new MainView();
 
 export default class FormView extends View {
     count: number;
+    carList!: CarList;
     constructor() {
         const paramsForm = {
             tag: 'div',
@@ -31,6 +37,7 @@ export default class FormView extends View {
         super(paramsForm);
         this.count = 4;
         this.configureView();
+        this.carList = new CarList();
     }
     configureView = () => {
         const paramsConteiner = {

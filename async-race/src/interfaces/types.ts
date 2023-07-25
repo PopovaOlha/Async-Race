@@ -38,6 +38,12 @@ export interface Winner {
 export interface WinnerAndCar extends Winner {
     car: Car;
 }
+export type GetWinnersParams = {
+    page: number;
+    limit?: number;
+    sort: string | null;
+    order: string | null;
+  };
 
 export interface CarsResponse {
     items: Car[];

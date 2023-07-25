@@ -1,4 +1,2 @@
-export const getSortOrder = (sort: string, order: string) => {
-    if (sort && order) return `&_sort=${sort}&_order=${order}`;
-    return '';
-};
+export const getSortOrder = (sort: string | null, order: string | null) =>
+  sort && order ? `&_sort=${sort}&_order=${order}` : '';

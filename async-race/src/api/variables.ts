@@ -1,4 +1,4 @@
-export const BASE = 'https://fir-dawn-sweater.glitch.me';
+export const BASE =  'http://localhost:3000';
 export const GARAGE = `${BASE}/garage`;
 export const WINNERS = `${BASE}/winners`;
 export const ENGINE = `${BASE}/engine`;
