@@ -16,7 +16,7 @@ export default class WinnersContent extends View {
             textContent: `<div class="number">${index}</div>
             <div class="table_car" id="winner${id}"></div>
             <div class="name">${name}</div>
-            <div class="wins">${wins} place</div>
+            <div class="wins">${wins}</div>
             <div class="time">${time} sec</div>`,
             callback: null,
         };
