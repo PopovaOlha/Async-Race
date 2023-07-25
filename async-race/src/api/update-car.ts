@@ -1,4 +1,4 @@
-import { CarOBJ, Update } from '../interfaces/types';
+import { Update } from '../interfaces/types';
 import { GARAGE } from './variables';
 
 export const updateCar = async (id: number, body: Update) =>

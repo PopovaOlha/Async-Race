@@ -96,10 +96,12 @@ export interface Race {
 }
 
 export interface Createwinner {
+    car?: { name: any };
     id: number;
     wins: number;
     time: number;
 }
+
 export interface Save {
     id: number;
     time: number;

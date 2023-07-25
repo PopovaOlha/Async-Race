@@ -1,4 +1,4 @@
-import { Createwinner, GetWinnersParams, Winners } from '../interfaces/types';
+import { Createwinner, Winners } from '../interfaces/types';
 import { getCar } from './get-car';
 import { getSortOrder } from '../api/get-sort-order';
 import { WINNERS } from './variables';

@@ -30,7 +30,7 @@ export default class WinnersMain extends View {
             this.index += 1;
             const { id } = el;
             const { index } = this;
-            const { name } = el.car;
+            const { name } = el.car!;
             const { color }: any = el.car;
             const { wins } = el;
             const { time } = el;
