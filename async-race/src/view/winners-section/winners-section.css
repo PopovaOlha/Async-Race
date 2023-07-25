@@ -1,0 +1,10 @@
+.winners-section {
+    display: flex;
+    color: #fff;
+    flex-direction: column;
+    justify-content: center;
+    margin: 70px auto;
+}
+.hidden {
+    display: none;
+}

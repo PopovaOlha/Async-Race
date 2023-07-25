@@ -10,7 +10,7 @@ import View from '../../utils/view';
 import CarList from '../car-list/car-list';
 import PaginationButtons from '../pagination-buttons/pagination-buttons';
 import { start, stop } from '../start-stop-buttons/start-stop-buttons';
-
+import WinnersMain from '../winners-main/winners-main';
 import './main.css';
 
 const CssStyles = {
@@ -74,8 +74,9 @@ export default class MainView extends View {
         `;
                 garageWinner.classList.remove('hidden');
                 saveWinner(winner);
-                const table = document.querySelector('.winners_table_body') as HTMLElement;
+                const table = document.querySelector('.winners-main') as HTMLElement;
                 table.innerHTML = '';
+                new WinnersMain();
             }
             if ((el.target as HTMLElement).classList.contains('reset')) {
                 this.reset(stop);
@@ -92,7 +93,7 @@ export default class MainView extends View {
         deleteWinner(parseInt(el.value, 10));
         (document.querySelector('.cars_list') as HTMLDivElement).innerHTML = '';
         this.carList.getCarMet(this.carList.page);
-        (document.querySelector('.winners_table_body') as HTMLElement).innerHTML = '';
+        (document.querySelector('.winners-main') as HTMLElement).innerHTML = '';
     }
     async Select(el: HTMLButtonElement): Promise<void> {
         const car = getCar(parseInt(el.value, 10));

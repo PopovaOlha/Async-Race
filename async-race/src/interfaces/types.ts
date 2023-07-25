@@ -44,7 +44,20 @@ export type GetWinnersParams = {
     sort: string | null;
     order: string | null;
 };
-
+export interface GetWinnerParam {
+    index: number;
+    id: number;
+    name: string;
+    color: string;
+    wins: number;
+    time: number;
+}
+export interface Winn {
+    id: number;
+    wins: number;
+    time: number;
+    car: CarOBJ;
+}
 export interface CarsResponse {
     items: Car[];
     count: string;
@@ -83,6 +96,7 @@ export interface Race {
 }
 
 export interface Createwinner {
+    car: { name: any };
     id: number;
     wins: number;
     time: number;

@@ -1,0 +1,28 @@
+.winners-pagination {
+    text-align: center;
+  }
+  @media (max-width: 767.98px) {
+    .winners-pagination {
+      text-align: left;
+    }
+  }
+  .winners_prev {
+      color: #e4cb58;
+      transition: 0.25s;
+  }
+  .winners_next {
+      color: #8fc866;
+      transition: 0.25s;
+  }
+  .winners_prev:hover,
+  .winners_prev:focus {
+    box-shadow: inset 0 -3.25em 0 0 #e4cb58;
+    color: #fff;
+  }
+  
+  
+  .winners_next:hover,
+  .winners_next:focus {
+    box-shadow: inset 6.7em 0 0 0 #8fc866;
+    color: #fff;
+  }

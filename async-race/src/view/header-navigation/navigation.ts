@@ -28,7 +28,7 @@ export default class NavigationView extends View {
             tag: 'button',
             classNames: [CssStyles.BUTTON, CssStyles.FILL],
             textContent: BUTTON_GARAGE_TEXT,
-            callback: null,
+            callback: this.showGarage,
         };
         const garageButtonCreator = new ElementCreater({ param: paramsGarageButton });
         garageButtonCreator.addAttribute('id', 'to-garage');
@@ -38,7 +38,7 @@ export default class NavigationView extends View {
             tag: 'button',
             classNames: [CssStyles.BUTTON, CssStyles.PULSE],
             textContent: BUTTON_WINNERS_TEXT,
-            callback: null,
+            callback: this.showWinner,
         };
         const winnersButtonCreator = new ElementCreater({ param: paramsWinnersButton });
         garageButtonCreator.addAttribute('id', 'to-winners');
@@ -52,5 +52,23 @@ export default class NavigationView extends View {
         };
         const countCreator = new ElementCreater({ param: paramsCount });
         this.elementCreater.addInnerElement(countCreator);
+    };
+    showGarage = () => {
+        const GARAGE = document.querySelector('.garage') as HTMLElement;
+        const WINNER = document.querySelector('.winners-section') as HTMLElement;
+        if (GARAGE.classList.contains('hidden')) {
+            GARAGE.classList.remove('hidden');
+            WINNER.classList.add('hidden');
+            document.querySelector('.section-form')?.classList.remove('hidden');
+        }
+    };
+    showWinner = () => {
+        const WINNER = document.querySelector('.winners-section') as HTMLElement;
+        const GARAGE = document.querySelector('.garage') as HTMLElement;
+        if (WINNER.classList.contains('hidden')) {
+            WINNER.classList.remove('hidden');
+            GARAGE.classList.add('hidden');
+            document.querySelector('.section-form')?.classList.add('hidden');
+        }
     };
 }

@@ -1,0 +1,35 @@
+.winners-content {
+    padding: 20px;
+}
+.number {
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    border: 1px solid white;
+    border-radius: 50%;
+    padding: 10px;
+}
+.table_car {
+    width: 150px;
+    height: 70px;
+    margin-bottom: 10px;
+}
+.name {
+    font-size: 30px;
+    font-weight: 800;
+    color: rgb(172, 105, 24);
+    margin-bottom: 10px;
+}
+.wins {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    text-decoration: underline;
+}
+.time {
+    font-size: 15px;
+    font-weight: 800;
+    padding-bottom: 20px;
+    border-bottom: 2px solid  rgb(172, 105, 24);
+}

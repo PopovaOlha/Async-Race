@@ -4,10 +4,12 @@ import { turnOffLoadingAnimation, turnOnLoadingAnimation } from '../../utils/loa
 import HeaderView from '../header/header';
 import MainView from '../main/main';
 import SectionForm from '../section-form/section-form';
+import WinnersSection from '../winners-section/winners-section';
 
 const headerView = new HeaderView();
 const sectionForm = new SectionForm();
 const mainView = new MainView();
+const winnersSection = new WinnersSection();
 
 export default class App {
     constructor() {
@@ -27,7 +29,12 @@ export default class App {
         let carResponse: Cars;
         try {
             carResponse = await getCars(startPage);
-            body.append(headerView.getHtmlDocument(), sectionForm.getHtmlDocument(), mainView.getHtmlDocument());
+            body.append(
+                headerView.getHtmlDocument(),
+                sectionForm.getHtmlDocument(),
+                winnersSection.getHtmlDocument(),
+                mainView.getHtmlDocument()
+            );
         } catch (error) {
             console.log('Error');
         }
