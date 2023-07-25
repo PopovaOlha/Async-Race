@@ -43,7 +43,7 @@ export type GetWinnersParams = {
     limit?: number;
     sort: string | null;
     order: string | null;
-  };
+};
 
 export interface CarsResponse {
     items: Car[];

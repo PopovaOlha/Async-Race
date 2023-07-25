@@ -73,7 +73,7 @@ export default class FormButtonsView extends View {
             carList.getCarMet(this.page);
             carList.updateStateGarage();
             btn.disabled = false;
-            setTimeout(()=> location.reload(), 1000);
+            setTimeout(() => location.reload(), 1000);
         });
         this.generateButtonCreator.addAttribute('id', CssStyles.GENERATE_CARS);
         this.elementCreater.addInnerElement(this.generateButtonCreator);

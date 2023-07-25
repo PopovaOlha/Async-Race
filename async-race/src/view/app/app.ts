@@ -13,7 +13,6 @@ export default class App {
     constructor() {
         this.createView();
         document.addEventListener('DOMContentLoaded', this.generateSPA);
-        
     }
     createView() {
         document.body.setAttribute('id', 'body');
