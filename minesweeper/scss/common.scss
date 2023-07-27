@@ -145,25 +145,6 @@ body {
         border: 5px solid grey;
     }
 }
-@media (max-width: 999.98px){
-    .grid {
-        width: 90%;
-        height: 98.5%;
-        margin-left: 0;
-        border: 5px solid beige;
-        font-size: 10px;
-    
-        div {
-            justify-content: center;
-            width: 45px;
-            height: 49px;
-            border: 3px solid beige;
-        }
-        .checked {
-            border: 3px solid grey;
-        }
-    }
-}
 
 @media (max-width: 770px){
     .wrapper {
