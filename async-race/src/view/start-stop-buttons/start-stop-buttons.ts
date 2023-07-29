@@ -2,7 +2,6 @@ import { drive } from '../../api/drive';
 import { startEngine, stopEngine } from '../../api/engine';
 import { Start, storeAnimation } from '../../interfaces/types';
 import { animation, getDistanse } from '../../utils/animation';
-import './start-stop-buttons.css';
 
 export const start = async (id: number): Promise<Start> => {
     (document.getElementById(`start${id}`) as HTMLButtonElement).disabled = true;

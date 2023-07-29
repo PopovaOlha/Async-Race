@@ -1,7 +1,6 @@
 import View from '../../utils/view';
 import FormView from '../form/form';
 import WinnersTitle from '../winners-title/winners-title';
-import './section-form.css';
 
 const CssStyles = {
     SECTION_FORM: 'section-form',

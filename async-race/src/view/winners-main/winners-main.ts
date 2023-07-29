@@ -1,7 +1,6 @@
 import { getWinners } from '../../api/get-winners';
 import View from '../../utils/view';
 import WinnersContent from '../winners-content/winners-content';
-import './winners-main.css';
 
 const CssStyles = {
     WINNERS_MAIN: 'winners-main',
