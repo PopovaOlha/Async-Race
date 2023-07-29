@@ -8,3 +8,9 @@
     text-align: center;
     padding: 5px 10px;
 }
+@media (max-width: 770px){
+    .order {
+        margin-top: 20px;
+        font-size: 30px;
+    }
+}

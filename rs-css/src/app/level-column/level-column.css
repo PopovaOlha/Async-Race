@@ -274,3 +274,14 @@
     margin-inline-end: 0px;
     font-weight: bold;
 }
+@media (max-width: 770px){
+  .level-column {
+    overflow-x: scroll;
+  }
+  .mdc-top-app-bar__title {
+    display: none;
+  }
+  .mdc-list-item__ripple {
+    display: none;
+  }
+}

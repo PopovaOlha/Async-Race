@@ -91,3 +91,23 @@
     background-size: 100%;
     background-repeat: no-repeat; 
 }
+@media (max-width: 770px){
+    .header {
+        font-size: 0.8rem;
+        padding: 12px 15px 11px 15px;
+    }
+    .css-logo{
+        width: 10%;
+    }
+    .level__header_button-prev {
+        position:absolute;
+        left:0;
+        top: 30px;
+    }
+    .level__header_button-next {
+        position:absolute;
+        left:50px;
+        top: 30px;
+    }
+   
+}

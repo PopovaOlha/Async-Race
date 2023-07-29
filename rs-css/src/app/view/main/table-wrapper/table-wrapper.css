@@ -467,3 +467,8 @@ eggplant {
               transform: translate3d(-10px, -300%, 0) scale(0.2, 0.2);
     }
   }
+  @media (max-width: 770px){
+    .game-wrapper {
+      margin-top: 9em;
+    }
+  }
