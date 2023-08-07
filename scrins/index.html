@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="list/reset.css">
+		<link rel="stylesheet" href="list/reveal.css">
+		<link rel="stylesheet" href="list/theme/night.css">
+		<link rel="stylesheet" href="style.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+				<img data-src="images/scrin-1.png">
+			</section>
+				<section>
+					<img data-src="images/scrin-2.png">
+				</section>
+				<section>
+						<img data-src="images/scrin-3.png">
+					</section>
+					<section>
+					    <img data-src="images/scrin-4.png">
+				</section>
+				<section>
+					<img data-src="images/scrin-5.jpg">
+				</section>
+				<section>
+					<video data-autoplay src="images/video.mp4"></video>
+				</section>
+			</div>
+		</div>
+
+		<script src="list/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+				autoPlayMedia: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
