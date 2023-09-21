@@ -8,7 +8,7 @@
 
 		<link rel="stylesheet" href="list/reset.css">
 		<link rel="stylesheet" href="list/reveal.css">
-		<link rel="stylesheet" href="list/theme/night.css">
+		<link rel="stylesheet" href="list/theme/black.css">
 		<link rel="stylesheet" href="style.css">
 
 		<!-- Theme used for syntax highlighted code -->
@@ -17,120 +17,185 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section data-transition="zoom">
-				<img class="aws-logo" data-src="images/aws-logo.png">
-				<div>
-				<span class="fragment" data-fragment-index="1">Storage</span>
-				<span class="fragment" data-fragment-index="2">Compute</span>
-				<span class="fragment" data-fragment-index="3">Messaging</span>
-				</div>
-			</section>
+				<section >
+					<h2> eCommerce-Application team</h2>
+					 <img class="team-img" data-src="images/pngwing.com (1).png">
+					</section>
 				<section>
-				<section>
-					<img class="aws-logo" data-src="images/AWS-PNG.png">
+					<p class="fragment team">Analysis of all project aspects.</p>
+					<p class="fragment team">Listening to each other.</p>
+					<p class="fragment team">Active collaboration.</p>
+					<p class="fragment team">Feedback.</p>
+					<p class="fragment team">🏆</p>
 				</section>
-				<section data-transition="convex">
-					<img class="fragment" data-fragment-index="1" data-src="images/Arch-Category_Application-Integration_64.png">
-					<img class="fragment" data-fragment-index="2" data-src="images/Arch-Category_Cloud-Financial-Management_64.png">
-					<img class="fragment" data-fragment-index="3" data-src="images/Arch-Category_Blockchain_64.png">
-					<img class="fragment" data-fragment-index="4" data-src="images/Arch-Category_Business-Applications_64.png">
-					<img class="fragment" data-fragment-index="5" data-src="images/Arch-Category_Database_64.png">
-					<img class="fragment" data-fragment-index="6" data-src="images/Arch-Category_Machine-Learning_64.png">
-					<img class="fragment" data-fragment-index="7" data-src="images/Arch-Category_Compute_64.png">
-					<img class="fragment" data-fragment-index="8" data-src="images/Arch-Category_Internet-of-Things_64.png">
-				</section>
+				<section  data-markdown>
+					<textarea data-template>
+						Presentation of our project [link](https://develop--splendorous-cranachan-922a01.netlify.app/).
+					</textarea>
+				  </section>
+				  <section>
 				</section>
 				<section>
-					<section>
-						<img class="fragment" data-fragment-index="1" data-src="images/robotics.png">
-					    <img class="fragment" data-fragment-index="2" width="100" height="100" data-src="images/Arch-Category_Robotics_64.png">
-						<div class="robomaker"><h2>ROBOMAKER</h2>
-						</div>
+					<pre><code data-trim data-noescape class="code">			
+const api = axios.create({
+  baseURL: API_URL,
+})
+
+api.interceptors.request.use(async (config) => {
+  const authData = JSON.parse(localStorage.getItem('authData')!)
+  if (authData === null) {
+    const response = await axios.post(
+      `${commercetoolsConfig.host}/oauth/${commercetoolsConfig.projectKey}/anonymous/token`,
+      'grant_type=client_credentials&scope=manage_project:ecommerceapl',
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        auth: {
+          username: `${commercetoolsConfig.clientId}`,
+          password: `${commercetoolsConfig.clientSecret}`,
+        },
+      }
+    )
+    const expDate = new Date(response.data.expires_in)
+    localStorage.setItem(
+      'authData',
+      JSON.stringify({
+        accessToken: response.data.access_token,
+        expDate: expDate,
+        tokenType: response.data.token_type,
+        refreshToken: response.data.refresh_token,
+      })
+    )
+    config.headers['Authorization'] = `Bearer ${response.data.access_token}`
+    return config
+  } else {
+    config.headers['Authorization'] = `Bearer ${authData.accessToken}`
+    return config
+  }
+})
+
+api.interceptors.response.use(
+  (config) => {
+    return config
+  },
+  async (error) => {
+
+    const originalRequest = error.config
+    if (error.response.status == 401) {
+      try {
+        const authData = JSON.parse(localStorage.getItem('authData')!)
+        const response = await axios.post(
+          `${commercetoolsConfig.host}/oauth/token`,
+          `grant_type=refresh_token&refresh_token=${authData.refreshToken}`,
+          {
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            auth: {
+              username: `${clientId}`,
+              password: `${commercetoolsConfig.clientSecret}`,
+            },
+          }
+        )
+        const expDate = new Date(response.data.expires_in)
+        localStorage.setItem(
+          'authData',
+          JSON.stringify({
+            accessToken: response.data.access_token,
+            expDate: expDate,
+            tokenType: response.data.token_type,
+            // refreshToken: response.data.refresh_token,
+          })
+        )
+        return api.request(originalRequest)
+      } catch (e) {
+        localStorage.clear()
+        return api.request(originalRequest)
+      }
+    }
+  }
+)
+export default api
+					</code></pre>
 					</section>
-					</section>
-					<section data-transition="zoom">
-						<iframe src="https://giphy.com/embed/Zjnu8vhLnbqzC" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-				</section>
-				<section>
-					    <img class="fragment" data-fragment-index="2" width="500" data-src="images/iot-core.png">
-						<img class="fragment" data-fragment-index="1" width="100" height="100" data-src="images/Arch-Category_Internet-of-Things_64.png">
-						<h2>IOT CORE</h2>
-				</section>
-				<section data-transition="zoom">
-					<iframe src="https://giphy.com/embed/8Am0UlfiwZcgEDOy4h" width="480" height="266" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-				</section>
-				<section data-background-image="https://dev-systemtechnik.com/wp-content/uploads/2020/11/Diversity-1080x675.jpg">
-					<img class="fragment" data-fragment-index="1" width="300" height="300" data-src="images/AWS-Ground-Station.png">
-					<h2>GROUND STATION</h2>
-				</section>
-				<section>
-					<section>
-						<img class="fragment" data-fragment-index="1" width="800" data-src="https://cdn.mos.cms.futurecdn.net/Qn87yWq2nVmwuXotPPqbeR.jpg">
-						<img class="fragment" data-fragment-index="2" width="100" height="100" data-src="images/Arch-Category_Compute_64.png">
-					<h2>BRACKET</h2>
-					</section>
-				</section>
-					<section>
-						<img class="fragment" data-fragment-index="1" data-src="https://devopsdatacenter.files.wordpress.com/2024/04/amazon_ec2.png">
-						<img class="fragment" data-fragment-index="2" data-src="https://coderlessons.com/wp-content/uploads/images/gur/faf7ae2e6d1c19962b826f7a15afb471.png">
-					</section>
-					<section>
-						<div class="instance">
-						<div class=" block first-instance">instance 1</div>
-						<div class="block second-instance">instance 2</div>
-						<div class="block third-instance">instance 3</div>
-						</div>
-						<h2 class="hipervisor">HIPERVISOR</h2>
-						<h2 class="hardware">HARDWARE</h2>
-					</section>
-					<section data-transition="zoom">
-						<img data-src="images/page-1.jpg">
-					</section>
-					<section>
-						<img class="fragment" data-fragment-index="1" width="150" height="150" data-src="images/EC2.jpg">
-					<img class="fragment" data-fragment-index="2" width="200" data-src="images/arrow.png">
-					<img class="fragment" data-fragment-index="3" width="500" data-src="images/php.png">
-					</section>
-					<section data-transition="zoom">
-						<img width="150%" data-src="https://miro.medium.com/v2/resize:fit:1126/0*Is9Ulbjp8zdvzPd4.png">
-					</section>
-					<section data-background-image="https://digitalcloud.training/wp-content/uploads/2022/01/Amazon-EC2-Auto-Scaling.jpg" >
-					</section>
-					<section>
-						<iframe src="https://giphy.com/embed/H4nUqdNomOWzJfoIa6" width="480" height="269" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-					</section>
-					<section>
-						<img class="fragment" data-fragment-index="1" width="150" height="150" data-src="https://tech.cloud.nongshim.co.kr/wp-content/uploads/2021/10/eb-icon.png">
-					<img class="fragment" data-fragment-index="2" width="500" data-src="https://pbs.twimg.com/media/CZGHPChUAAA3jqE?format=png&name=large">
-                        <h2>ELASTIC BEANSTALK</h2>
-					</section>
-					<section>
-						<h2>DO YOU EVEN<br />
-							 NEED A SERVER?</h2>
-					</section>
-					<section>
-						<img class="fragment" data-fragment-index="1" width="300" data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Amazon_Lambda_architecture_logo.svg/1200px-Amazon_Lambda_architecture_logo.svg.png">
-						<img class="fragment" data-fragment-index="2" width="300" data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/1200px-Unofficial_JavaScript_logo_2.svg.png">
-						<div class="fragment faas" data-fragment-out>FaaS</div>
-						<div class="fragment faas" data-fragment-out>aka SERVERLESS</div>
-                        <h2>LAMBDA</h2>
-					</section>
-					<section>
-							<img data-src="images/page-2.jpg">
-					</section>
-					<section data-background-image="https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/penguin-in-the-snow-jie-fischer.jpg">
-						<img class="img-border" data-src="https://www.gliffy.com/sites/default/files/image/2020-06/AWS-Snowball_dark-bg.png">
-						<h2 class="snow">SNOW</h2>
-					</section>
-					<section>
-						<img width="100%" data-src="images/page-3.jpg">
-					</section>
-					<section data-transition="zoom">
-						<h2>
-							END OF THE PRESENTATION
-						</h2>
-					</section>
-					</section>
+				  <section>
+					<img data-src="images/8c3b702c-440d-45ad-907c-a824dd4d0eb3.jpg">
+				  </section>
+				  <section>
+					<h2>Таблица RACI</h2>
+   <style>
+	   table {
+		   border-collapse: collapse;
+		   text-align: center;
+		   margin-bottom: 20px;
+	   }
+
+	   th, td {
+		   border: 1px solid #ccc;
+		   text-align: center;
+		   padding: 4px;
+		   font-size: 35px;
+	   }
+
+	   th {
+		   background-color: #f2f2f2;
+		   color:black;
+	   }
+
+	   tr:nth-child(even) {
+		   background-color: #f2f2f2;
+		   color: black;
+	   }
+   </style>
+</head>
+<body>
+   <table>
+	   <tr>
+		   <th>Tasks</th>
+		   <th>Sergey</th>
+		   <th>Olha</th>
+		   <th>Anastasya</th>
+	   </tr>
+	   <tr>
+		   <td>Implementation authorization</td>
+		   <td>R</td>
+		   <td>A</td>
+		   <td>I</td>
+	   </tr>
+	   <tr>
+		   <td>Implementation product page with categories</td>
+		   <td>A</td>
+		   <td>R</td>
+		   <td>I</td>
+	   </tr>
+	   <tr>
+		   <td>Implementation product cart</td>
+		   <td>R</td>
+		   <td>A</td>
+		   <td>I</td>
+	   </tr>
+	   <tr>
+		   <td>ImplementationCatagories page</td>
+		   <td>A</td>
+		   <td>R</td>
+		   <td>C</td>
+	   </tr>
+	   <tr>
+		   <td>UI implementation</td>
+		   <td>A</td>
+		   <td>R</td>
+		   <td>C</td>
+	   </tr>
+   </table>
+</section>
+				  <section>
+					<img data-src="images/photo_5215532328774913435_y.jpg">
+				  </section>
+				  <section  data-markdown>
+					<textarea data-template>
+						Git Hub [link](https://github.com/AnastasiiaDedela/eCommerce-Application).
+					</textarea>
 			</div>
 		</div>
 
@@ -144,7 +209,6 @@
 			// - https://revealjs.com/config/
 			Reveal.initialize({
 				hash: true,
-				autoPlayMedia: true,
 
 				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
